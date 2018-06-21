@@ -1,0 +1,34 @@
+From: juanma1980 <juanma1980@gmail.com>
+Date: Thu, 21 Jun 2018 12:55:24 +0200
+Subject: add patches
+
+---
+ .../usr/share/lliurexstore/plugins/snapManager.py                 | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/python3-lliurex-store.install/usr/share/lliurexstore/plugins/snapManager.py b/python3-lliurex-store.install/usr/share/lliurexstore/plugins/snapManager.py
+index 9a3d749..ab42f20 100644
+--- a/python3-lliurex-store.install/usr/share/lliurexstore/plugins/snapManager.py
++++ b/python3-lliurex-store.install/usr/share/lliurexstore/plugins/snapManager.py
+@@ -247,8 +247,8 @@ class snapmanager:
+ 							self._search_cb,(None,),None)
+ 		while 'Snapd' not in str(type(wrap)):
+ 			time.sleep(0.1)
+-#		snaps,curr=self.snap_client.find_finish(wrap)
+-		snaps=self.snap_client.find_finish(wrap)
++		snaps,curr=self.snap_client.find_finish(wrap)
++#		snaps=self.snap_client.find_finish(wrap)
+ 		if type(snaps)!=type([]):
+ 			pkgs=[snaps]
+ 		else:
+@@ -264,8 +264,8 @@ class snapmanager:
+ 		pkg=None
+ 		pkgs=None
+ 		try:
+-				#			pkgs,curr=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
+-			pkgs=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
++			pkgs,curr=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
++#			pkgs=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
+ 		except Exception as e:
+ 			print("ERR: %s"%e)
+ 			self._set_status(1)

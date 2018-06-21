@@ -1,0 +1,20 @@
+{
+	"-1":"Unknown error. Please use the --debug option",
+	"0":"succesful",
+	"1":"package not found",
+	"2":"no info available",
+	"3":"package not installed",
+	"4":"package already installed",
+	"5":"install failed",
+	"6":"remove failed",
+	"7":"unable to open zmd package list",
+	"8":"zomando not found",
+	"9":"plugin disabled",
+	"10":"unable to initialize n4d client",
+	"11":"no space left on device",
+	"12":"url not found",
+	"262":"version mismatch",
+	"264":"already installed",
+	"265":"unreachable network",
+	"303":"permission denied"
+}

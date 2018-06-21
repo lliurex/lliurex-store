@@ -1,0 +1,506 @@
+		#MAIN_BOX {
+			background-image:-gtk-gradient (linear,	right top, left bottom, from (#001031),  to (#0060dc));
+		
+		}
+		
+		#HEADER_MENU {
+			background-image:-gtk-gradient (linear,	left top, right top, from (rgba(0,0,0,1)), to (rgba(0,0,0,0.3)));
+		}
+		
+		#DETAILS_BOX {
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (rgba(0,0,0,0.3)), to (rgba(0,0,0,0.7)));
+			
+		}
+		
+		#FADE_BOX {
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (rgba(0,0,0,0.4)), to (rgba(0,0,0,0.4)));
+			
+		}
+		
+		#POPUP_SHADOW_LEFTRIGHT
+		{
+			background-image:-gtk-gradient (linear,	0 0, 1 0, 
+			
+				color-stop(0, rgba(0,0,0,0.3)),
+				color-stop(0.15, rgba(0,0,0,0)),
+				color-stop(1, rgba(0,0,0,0))
+			);
+			
+		}
+		
+		#POPUP_SHADOW_TOPBOTTOM
+		{
+		
+			background-color: rgba(0,0,0,0.7);
+			
+		}
+		
+		#DECORATOR_BAR{
+			
+			background-image:-gtk-gradient (linear,	0 0, 0 1, 
+			
+				color-stop(0, rgba(0,32,157,1)),
+				color-stop(0.35, rgba(255,255,255,1)),
+				color-stop(0.6, rgba(90,140,220,1)),
+				color-stop(1, rgba(109,172,247,1))
+			);
+			
+		}
+
+		#LIGHT_BLUE_BOX{
+			
+			/*background-color: rgba(0,95,219,1);*/
+			background-color: #000000;
+		}
+
+
+
+		#TRANSPARENT
+		{
+			background-color:transparent;
+			color: transparent;
+		}
+		
+		
+		#SECTION_BOX {
+			
+
+			border:0;
+			border-radius: 0;
+			color:white;
+			background-color: transparent;
+			transition: none;
+			animation-delay: 0ms;
+		}
+		
+		#SECTION_BOX .label
+		{
+			color:rgba(0,0,0,0.8);
+			font: Roboto 11;
+			text-shadow: 0px 0px 1px white;
+			
+			
+		}
+		
+		#SECTION_BOX:hover {
+			background-image: -gtk-gradient (linear,	left top, right top, from ( rgba(79,142,217,1) ), to (rgba(79,142,217,1)));
+			
+		}
+		
+		#SECTION_BOX:hover .label {
+			
+			color:white;
+			text-shadow: none;
+			
+		}
+		
+		#SECTION_DIVIDER {
+			color:black;
+		}
+
+
+		#MENU_BUTTON{
+			
+			background-image: url("icons/llx-store.svg");
+			background-color:red;
+			border-color: black;
+			border: 0px;
+			outline-color: black; 
+			border-radius: 0%;
+			box-shadow: none;
+			
+		}
+		
+		#MENU_BUTTON:hover  {
+			/*background-image: url("file:///tmp/llx-store_over.svg");*/
+			/*animation: testing infinite linear 2s;*/
+			animation: spin2 1 linear 1s;
+			
+			
+		
+		}
+		
+	
+		#MENU_IMAGE {
+			
+			 -gtk-icon-source:  url("icons/llx-store.svg");
+			animation: spin 1 linear 1s;
+			
+		}
+		
+		#MENU_IMAGE:hover {
+			animation: spin2 1 linear 1s;
+		}
+
+		@keyframes spin {
+			0% {-gtk-icon-transform: rotate(-90deg); }
+			100% { }
+		
+		}
+
+		@keyframes spin2 {
+			0% {-gtk-icon-transform: rotate(90deg); }
+			100% { }
+		
+		}
+
+
+		#DROPMENU {
+				
+			background-image: -gtk-gradient (linear,	left top, right top, from (rgba(255,255,255,1)), to (rgba(255,255,255,1)));
+			
+		}
+		
+
+		#DIVIDER {
+					
+			background-image:-gtk-gradient (linear,	0 0, 1 0, 
+			
+				color-stop(0, rgba(255,255,255,0)),
+				color-stop(0.05, rgba(255,255,255,0.2)),
+				color-stop(0.5, rgba(255,255,255,0.5)),
+				color-stop(0.95, rgba(255,255,255,0.2)),
+				color-stop(1, rgba(255,255,255,0))
+			);
+			
+		}
+		
+		#HEADER {
+		
+			color:white;
+			font: Roboto 25;
+		}
+		
+		#TITLE {
+		
+			color:white;
+			font: Roboto 22;
+		}
+		
+		#FULL_DESCRIPTION {
+		
+			color: #A0A0A0;
+			font: Roboto 10;
+		}
+		
+		#ROBOTO_MEDIUM_GRAY{
+			color: #A0A0A0;
+			font: Roboto 12;
+		}
+		
+		#SHORT_DESCRIPTION{
+			color: white;
+			font: Roboto Light 12;
+		}
+		
+		#DETAILS_LABEL{
+			color:white;
+			font: Roboto 13;
+		}
+		
+		#DETAILS_OPTIONS{
+			color: #A0A0A0;
+			font: Roboto 10;
+		}
+		
+		#DETAILS_VALUES{
+			color: white;
+			font: Roboto 10;
+		}
+
+		#SECTION_BUTTON {
+			border-width: 0;
+			border-radius: 0px;
+			padding: 0px 0px;
+			box-shadow: none;
+			border-color: transparent;
+			border: none;
+			color: white;
+			font: Roboto 14;
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (#5294e2),  to (#5294e2));
+			text-shadow: none;
+			
+		}
+
+		#SECTION_BUTTON:hover {
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (#6699ff),  to (#6699ff));
+			box-shadow: 0px 0px 5px #66c6ff;
+		}
+
+		#INSTALL_BUTTON {
+			border-width: 0;
+			border-radius: 0px;
+			box-shadow: none;
+			border-color: transparent;
+			border: none;
+			color: white;
+			font: Roboto 16;
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (#5294e2),  to (#5294e2));
+			text-shadow: none;
+			
+		}
+		
+		#INSTALL_BUTTON:hover {
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (#52ade2),  to (#52ade2));;
+		}
+		
+		
+		#UNINSTALL_BUTTON {
+			border-width: 0;
+			border-radius: 0px;
+			box-shadow: none;
+			border-color: transparent;
+			border: none;
+			color: white;
+			font: Roboto 16;
+			background-color: #F44336;
+			text-shadow: none;
+			
+		}
+		
+		#UNINSTALL_BUTTON:hover {
+			background-color: #f45936;
+		}
+		
+		#OPEN_BUTTON {
+			border-width: 0;
+			border-radius: 0px;
+			box-shadow: none;
+			border-color: transparent;
+			border: none;
+			color: white;
+			font: Roboto 16;
+			background-color: #4CAF50;
+			text-shadow: none;
+			
+		}
+		
+		#OPEN_BUTTON:hover {
+			background-color: #81C784;
+		}
+		
+		
+		#PKG_BOX {
+
+				background-image: -gtk-gradient (linear,	left top, left bottom, from (rgba(0,95,219,1)),  to (rgba(0,56,134,1)));
+        }
+
+
+
+		
+		@keyframes rotate-colors {
+			0% {background-image: -gtk-gradient (linear,	left top, left bottom, from (rgba(255,255,255,1)),  to (rgba(255,255,255,1)));}
+			25% {background-image: -gtk-gradient (linear,	left bottom, right bottom, from (rgba(255,255,255,0.6)),  to (rgba(255,255,255,0.6)));}
+			50% {background-image: -gtk-gradient (linear,	right bottom, right top, from (rgba(255,255,255,0.3)),  to (rgba(255,255,255,0.3)));}
+			75% {background-image: -gtk-gradient (linear,	right top, left top, from (rgba(255,255,255,0.6)),  to (rgba(255,255,255,0.6)));}
+			100% {background-image: -gtk-gradient (linear,	left top, left bottom, from (rgba(255,255,255,1)),  to (rgba(255,255,255,1)));}
+		
+		}
+		
+		
+		#RELATED_BUTTON {
+			padding: 2px 2px;
+			border:none;
+			border-radius: 0px;
+			background-image: none;
+			box-shadow: none;
+			border-color: transparent;
+			background-color: transparent;
+			transition-property: background-image, box-shadow;
+			transition-duration: 250ms;
+			
+			
+		}
+		
+		
+		#RELATED_BUTTON:backdrop {
+			
+			background-color: transparent;
+		}
+		
+		#RELATED_BUTTON:hover {
+			background-image: -gtk-gradient (linear,	left top, left bottom, from (rgba(255,255,255,1)),  to (rgba(255,255,255,1)));
+			box-shadow: 0px 0px 5px rgba(102,198,255,1);
+			animation-delay: 250ms;
+			animation: rotate-colors infinite linear 2s;
+		}
+
+		
+		
+		#RELATED_LABEL {
+			color:white;
+			font: Roboto 16;
+		}
+		
+
+		#MEDIA_BUTTON {
+			border-radius: 0px;
+			background-color: white;
+		}
+		
+		#BACK_BUTTON {
+			border-radius: 0%;
+			box-shadow: none;
+			
+			
+			background-color: transparent;
+			
+		}
+
+		#BACK_BUTTON:hover {
+			border-radius: 0%;
+			background-color: rgba(34,69,128,1);
+		}
+		
+		#BACK_BUTTON:active {
+			border-radius: 100%;
+			background-color: rgb(50,101,187);
+			transition: 200ms ease-out;
+		}
+
+		
+
+		#BANNER_BACK_TRANSPARENT{
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (rgba(0,0,0,0)), to (rgba(0,0,0,0)));
+		}
+		
+		#BANNER_BACK_OVER{
+			background-image:-gtk-gradient (linear,	left top, left bottom, from (#448AFF),  to (#448AFF));
+		}
+		
+		
+		
+		
+				
+		
+		.scrollbar .trough {
+			background-color: transparent;
+			border: 0px; 
+
+		}
+		
+		.scrollbar .slider {
+			background-color: rgba(90,140,220,0.7); 
+			
+		}
+		
+		GtkScrolledWindow {
+			
+			background-image: none;
+			background-color: transparent;
+			border: 0px;
+		}
+
+	
+
+		GtkFlowBoxChild {
+			border: 5px;
+		}
+		
+		GtkButton {
+			
+			box-shadow: none;
+			background-color: transparent;
+			background-image: none;
+			border: 0px;
+		}
+		
+		
+		@keyframes bounce-image {
+
+		0% { background-position: 50% 50%;}
+		20% { background-position: 50% 24%;}
+		40% { background-position: 50% 50%;}
+		60% { background-position: 50% 26%;}
+		80% { background-position: 50% 50%;}
+		81% { background-position: 50% 50%;}
+		85% { background-position: 50% 50%;}
+		90% { background-position: 50% 50%;}
+		100% { background-position: 50% 50%;}
+
+		}
+
+		#L1_BOX {
+
+			background-image: url("icons/letters/l.svg");
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			animation: bounce-image infinite ease-out 2s;
+			animation-delay: 0ms;
+
+		}
+		
+		#L2_BOX {
+
+			background-image: url("icons/letters/l.svg");
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			animation: bounce-image infinite ease-out 2s;
+			animation-delay: 100ms;
+
+		}
+		
+		#I_BOX {
+
+			background-image: url("icons/letters/i.svg");
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			animation: bounce-image infinite ease-out 2s;
+			animation-delay: 200ms;
+
+		}
+		
+		#U_BOX {
+
+			background-image: url("icons/letters/u.svg");
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			animation: bounce-image infinite ease-out 2s;
+			animation-delay: 300ms;
+
+		}
+		
+		#R_BOX {
+
+			background-image: url("icons/letters/r.svg");
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			animation: bounce-image infinite ease-out 2s;
+			animation-delay: 400ms;
+
+		}
+		
+		#E_BOX {
+
+			background-image: url("icons/letters/e.svg");
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			animation: bounce-image infinite ease-out 2s;
+			animation-delay: 500ms;
+
+		}
+		
+		#X_BOX {
+
+			background-image: url("icons/letters/x.svg");
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			animation: bounce-image infinite ease-out 2s;
+			animation-delay: 600ms;
+
+		}
+		
+		#TEST{
+			background-color: red;
+			box-shadow: none;
+			background-image: none;
+			border: 0px;
+		}
+		

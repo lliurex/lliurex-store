@@ -1,0 +1,19 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=LliureX Store
+Name[es]=LliureX Store
+Name[ca]=LliureX Store 
+Name[ca_ES@valencia]=LliureX Store 
+Name[ca_ES.UTF-8@valencia]=LliureX Store
+Comment=LliureX software store
+Comment[es]=LliureX software store
+Comment[ca_ES@valencia]=LliureX software store
+Comment[ca]=LliureX software store
+Comment[ca_ES.UTF-8@valencia]=LliureX software store
+Exec=lliurex-store
+Terminal=false
+Icon=lliurex-store
+Type=Application
+GenericName=lliurex-store
+Categories=LliureX-Administration;GTK

@@ -1,0 +1,52 @@
+{
+    "large": [
+        {
+            "banner_small": null, 
+            "name": "darktable", 
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/darktable.png", 
+            "package": "darktable"
+        }, 
+        {
+            "name": "Krita", 
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/krita.png", 
+            "package": "krita"
+        }
+    ], 
+    "small": [
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/kdenlive_small.png", 
+            "component": "universe", 
+            "name": "KdenLive", 
+            "package": "kdenlive",
+	    "icon": ""
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/rosegarden_small.png", 
+            "component": "universe", 
+            "name": "Rosegarden", 
+            "package": "rosegarden",
+	    "icon": ""
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/chromium-browser_small.png", 
+            "package": "chromium-browser", 
+            "component": "universe", 
+            "name": "Chromium", 
+            "icon": ""
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/rawtherapee_small.png", 
+            "component": "universe", 
+            "name": "RawTherapee", 
+            "package": "rawtherapee",
+	    "icon": ""
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/pitivi_small.png", 
+	    "icon": null,
+            "component": "universe", 
+            "name": "Pitivi", 
+            "package": "pitivi"
+        }
+    ]
+}

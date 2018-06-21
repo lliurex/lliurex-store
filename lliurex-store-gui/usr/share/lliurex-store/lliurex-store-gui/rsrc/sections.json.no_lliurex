@@ -1,0 +1,237 @@
+{
+    "Development": {
+        "sections": [
+            "Building", 
+            "Database", 
+            "Debugger", 
+            "GUIDesigner", 
+            "IDE", 
+            "Profiling", 
+            "ProjectManagement", 
+            "RevisionControl", 
+            "Translation", 
+            "WebDevelopment"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/development.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/development_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/development.svg"
+    }, 
+    "Education": {
+        "sections": [
+            "Art", 
+            "ArtificialIntelligence", 
+            "Astronomy", 
+            "Biology", 
+            "Chemistry", 
+            "ComputerScience", 
+            "Construction", 
+            "DataVisualization", 
+            "Economy", 
+            "Electricity", 
+            "Electronics", 
+            "Engineering", 
+            "Geography", 
+            "Geology", 
+            "Geoscience", 
+            "History", 
+            "Humanities", 
+            "ImageProcessing", 
+            "Languages", 
+            "Literature", 
+            "Maps", 
+            "Math", 
+            "MedicalSoftware", 
+            "Music", 
+            "NumericalAnalysis", 
+            "ParallelComputing", 
+            "Physics", 
+            "Robotics", 
+            "Spirituality", 
+            "Sports"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/education.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/education_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/education.svg"
+    }, 
+    "Network": {
+        "sections": [
+            "Chat", 
+            "Dialup", 
+            "Email", 
+            "Feed", 
+            "FileTransfer", 
+            "HamRadio", 
+            "InstantMessaging", 
+            "IRCClient", 
+            "Monitor", 
+            "News", 
+            "P2P", 
+            "RemoteAccess", 
+            "Telephony", 
+            "VideoConference", 
+            "WebBrowser", 
+            "WebDevelopment"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/internet.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/internet_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/internet.svg"
+    }, 
+    "Office": {
+        "sections": [
+            "Calendar", 
+            "Chart", 
+            "ContactManagement", 
+            "Database", 
+            "Dictionary", 
+            "Email", 
+            "Finance", 
+            "FlowChart", 
+            "PDA", 
+            "Photography", 
+            "Presentation", 
+            "ProjectManagement", 
+            "Publishing", 
+            "Spreadsheet", 
+            "Viewer", 
+            "WordProcessor"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/office.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/office_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/office.svg"
+    }, 
+    "Science": {
+        "sections": [
+            "Art", 
+            "ArtificialIntelligence", 
+            "Astronomy", 
+            "Biology", 
+            "Chemistry", 
+            "ComputerScience", 
+            "Construction", 
+            "DataVisualization", 
+            "Economy", 
+            "Electricity", 
+            "Electronics", 
+            "Engineering", 
+            "Geography", 
+            "Geology", 
+            "Geoscience", 
+            "History", 
+            "Humanities", 
+            "ImageProcessing", 
+            "Languages", 
+            "Literature", 
+            "Maps", 
+            "Math", 
+            "MedicalSoftware", 
+            "NumericalAnalysis", 
+            "ParallelComputing", 
+            "Physics", 
+            "Robotics", 
+            "Spirituality", 
+            "Sports"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/science.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/science_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/science.svg"
+    }, 
+     "System": {
+        "sections": [
+            "Emulator", 
+            "FileManager", 
+            "Filesystem", 
+            "FileTools", 
+            "Monitor", 
+            "Security", 
+            "TerminalEmulator"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/system.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/system_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/system.svg"
+    }, 
+    "Game": {
+        "sections": [
+            "ActionGame", 
+            "AdventureGame", 
+            "ArcadeGame", 
+            "BlocksGame", 
+            "BoardGame", 
+            "CardGame", 
+            "Emulator", 
+            "KidsGame", 
+            "LogicGame", 
+            "RolePlaying", 
+            "Shooter", 
+            "Simulation", 
+            "SportsGame", 
+            "StrategyGame"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/games.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/games_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/games.svg"
+    }, 
+    "Video": {
+        "sections": [
+            "AudioVideoEditing", 
+            "Database", 
+            "DiscBurning", 
+            "Player", 
+            "Recorder", 
+            "TV"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/video.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/video_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/video.svg"
+    }, 
+    "Graphics": {
+        "sections": [
+            "2DGraphics", 
+            "3DGraphics", 
+            "OCR", 
+            "Photography", 
+            "Publishing", 
+            "RasterGraphics", 
+            "Scanning", 
+            "VectorGraphics", 
+            "Viewer"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/graphics.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/graphics_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/graphics.svg"
+    }, 
+    "Audio": {
+        "sections": [
+            "AudioVideoEditing", 
+            "Database", 
+            "DiscBurning", 
+            "HamRadio", 
+            "Midi", 
+            "Mixer", 
+            "Music", 
+            "Player", 
+            "Recorder", 
+            "Sequencer", 
+            "Tuner"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/audio.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/audio_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/audio.svg"
+    }, 
+    "Utility": {
+        "sections": [
+            "Accessibility", 
+            "Archiving", 
+            "Calculator", 
+            "Clock", 
+            "Compression", 
+            "FileTools", 
+            "Maps", 
+            "Spirituality", 
+            "TelephonyTools", 
+            "TextEditor"
+        ],
+	"small_icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/utilities.svg",
+	"small_icon_over": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/small_icons/utilities_white.svg",
+	"icon": "/usr/share/lliurex-store/lliurex-store-gui/rsrc/icons/clean_icons/utilities.svg"
+    }
+}

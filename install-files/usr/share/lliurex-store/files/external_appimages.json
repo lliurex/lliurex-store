@@ -1,0 +1,12 @@
+{
+	"synfig64":
+	{
+		"url":"https://kent.dl.sourceforge.net/project/synfig/releases/1.2.1/linux/SynfigStudio-1.2.1-64bit.appimage",
+		"url_info":""
+	},
+	"synfig32":
+	{
+		"url":"https://kent.dl.sourceforge.net/project/synfig/releases/1.2.1/linux/SynfigStudio-1.2.1-32bit.appimage",
+		"url_info":""
+	}
+}

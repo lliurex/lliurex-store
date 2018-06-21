@@ -1,0 +1,63 @@
+{
+    "large": [
+        {
+            "banner_small": null, 
+            "name": "bellscheduler", 
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/bell-scheduler.png", 
+            "package": "bellscheduler"
+        }, 
+        {
+            "name": "NoteShrink GUI", 
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/noteshrink-gui.png", 
+            "package": "noteshrink-gui"
+        },
+	{
+            "name": "Lliurex GDrive",
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/lliurex-gdrive-gui.png",
+            "package": "lliurex-gdrive-gui"
+        },
+        {
+            "name": "TaskScheduler",
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/taskscheduler.png",
+            "package": "taskscheduler"
+        }
+
+    ], 
+    "small": [
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/bluefish_small.png", 
+            "component": "universe", 
+            "name": "BlueFish", 
+            "package": "bluefish",
+	    "icon": null
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/mkchromecast_small.png", 
+            "component": "main", 
+            "name": "Mkchromecast", 
+            "package": "mkchromecast",
+	    "icon": ""
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/flameshot_small.png", 
+            "package": "flameshot", 
+            "component": "main", 
+            "name": "Flameshot", 
+            "icon": ""
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/openscad_small.png", 
+            "component": "universe", 
+            "name": "OpenSCAD", 
+            "package": "openscad",
+	    "icon": ""
+        }, 
+        {
+            "banner_small": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/catfish_small.png", 
+	    "icon": null,
+            "component": "universe", 
+            "name": "CatFish", 
+            "package": "catfish"
+        }
+    ]
+}

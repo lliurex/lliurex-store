@@ -1,0 +1,55 @@
+
+msgid "no space left on device"
+msgstr ""
+
+msgid "unable to initialize n4d client"
+msgstr ""
+
+msgid "url not found"
+msgstr ""
+
+msgid "unreachable network"
+msgstr ""
+
+msgid "permission denied"
+msgstr ""
+
+msgid "version mismatch"
+msgstr ""
+
+msgid "already installed"
+msgstr ""
+
+msgid "package not found"
+msgstr ""
+
+msgid "succesful"
+msgstr ""
+
+msgid "package not installed"
+msgstr ""
+
+msgid "no info available"
+msgstr ""
+
+msgid "Unknown error. Please use the --debug option"
+msgstr ""
+
+msgid "package already installed"
+msgstr ""
+
+msgid "unable to open zmd package list"
+msgstr ""
+
+msgid "remove failed"
+msgstr ""
+
+msgid "plugin disabled"
+msgstr ""
+
+msgid "install failed"
+msgstr ""
+
+msgid "zomando not found"
+msgstr ""
+

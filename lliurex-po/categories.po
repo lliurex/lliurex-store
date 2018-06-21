@@ -1,0 +1,360 @@
+msgid "Development"
+msgstr ""
+
+msgid "Building"
+msgstr ""
+
+msgid "Database"
+msgstr ""
+
+msgid "Debugger"
+msgstr ""
+
+msgid "GUIDesigner"
+msgstr ""
+
+msgid "IDE"
+msgstr ""
+
+msgid "Profiling"
+msgstr ""
+
+msgid "ProjectManagement"
+msgstr ""
+
+msgid "RevisionControl"
+msgstr ""
+
+msgid "Translation"
+msgstr ""
+
+msgid "WebDevelopment"
+msgstr ""
+
+msgid "Audio"
+msgstr ""
+
+msgid "AudioVideoEditing"
+msgstr ""
+
+msgid "DiscBurning"
+msgstr ""
+
+msgid "HamRadio"
+msgstr ""
+
+msgid "Midi"
+msgstr ""
+
+msgid "Mixer"
+msgstr ""
+
+msgid "Music"
+msgstr ""
+
+msgid "Player"
+msgstr ""
+
+msgid "Recorder"
+msgstr ""
+
+msgid "Sequencer"
+msgstr ""
+
+msgid "Tuner"
+msgstr ""
+
+msgid "Network"
+msgstr ""
+
+msgid "Chat"
+msgstr ""
+
+msgid "Dialup"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Feed"
+msgstr ""
+
+msgid "FileTransfer"
+msgstr ""
+
+msgid "InstantMessaging"
+msgstr ""
+
+msgid "IRCClient"
+msgstr ""
+
+msgid "Monitor"
+msgstr ""
+
+msgid "News"
+msgstr ""
+
+msgid "P2P"
+msgstr ""
+
+msgid "RemoteAccess"
+msgstr ""
+
+msgid "Telephony"
+msgstr ""
+
+msgid "VideoConference"
+msgstr ""
+
+msgid "WebBrowser"
+msgstr ""
+
+msgid "Office"
+msgstr ""
+
+msgid "Calendar"
+msgstr ""
+
+msgid "Chart"
+msgstr ""
+
+msgid "ContactManagement"
+msgstr ""
+
+msgid "Dictionary"
+msgstr ""
+
+msgid "Finance"
+msgstr ""
+
+msgid "FlowChart"
+msgstr ""
+
+msgid "PDA"
+msgstr ""
+
+msgid "Photography"
+msgstr ""
+
+msgid "Presentation"
+msgstr ""
+
+msgid "Publishing"
+msgstr ""
+
+msgid "Spreadsheet"
+msgstr ""
+
+msgid "Viewer"
+msgstr ""
+
+msgid "WordProcessor"
+msgstr ""
+
+msgid "Science"
+msgstr ""
+
+msgid "Art"
+msgstr ""
+
+msgid "ArtificialIntelligence"
+msgstr ""
+
+msgid "Astronomy"
+msgstr ""
+
+msgid "Biology"
+msgstr ""
+
+msgid "Chemistry"
+msgstr ""
+
+msgid "ComputerScience"
+msgstr ""
+
+msgid "Construction"
+msgstr ""
+
+msgid "DataVisualization"
+msgstr ""
+
+msgid "Economy"
+msgstr ""
+
+msgid "Electricity"
+msgstr ""
+
+msgid "Electronics"
+msgstr ""
+
+msgid "Engineering"
+msgstr ""
+
+msgid "Geography"
+msgstr ""
+
+msgid "Geology"
+msgstr ""
+
+msgid "Geoscience"
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "Humanities"
+msgstr ""
+
+msgid "ImageProcessing"
+msgstr ""
+
+msgid "Languages"
+msgstr ""
+
+msgid "Literature"
+msgstr ""
+
+msgid "Maps"
+msgstr ""
+
+msgid "Math"
+msgstr ""
+
+msgid "MedicalSoftware"
+msgstr ""
+
+msgid "NumericalAnalysis"
+msgstr ""
+
+msgid "ParallelComputing"
+msgstr ""
+
+msgid "Physics"
+msgstr ""
+
+msgid "Robotics"
+msgstr ""
+
+msgid "Spirituality"
+msgstr ""
+
+msgid "Sports"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+msgid "Emulator"
+msgstr ""
+
+msgid "FileManager"
+msgstr ""
+
+msgid "Filesystem"
+msgstr ""
+
+msgid "FileTools"
+msgstr ""
+
+msgid "Security"
+msgstr ""
+
+msgid "TerminalEmulator"
+msgstr ""
+
+msgid "Game"
+msgstr ""
+
+msgid "ActionGame"
+msgstr ""
+
+msgid "AdventureGame"
+msgstr ""
+
+msgid "ArcadeGame"
+msgstr ""
+
+msgid "BlocksGame"
+msgstr ""
+
+msgid "BoardGame"
+msgstr ""
+
+msgid "CardGame"
+msgstr ""
+
+msgid "KidsGame"
+msgstr ""
+
+msgid "LogicGame"
+msgstr ""
+
+msgid "RolePlaying"
+msgstr ""
+
+msgid "Shooter"
+msgstr ""
+
+msgid "Simulation"
+msgstr ""
+
+msgid "SportsGame"
+msgstr ""
+
+msgid "StrategyGame"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "TV"
+msgstr ""
+
+msgid "Graphics"
+msgstr ""
+
+msgid "2DGraphics"
+msgstr ""
+
+msgid "3DGraphics"
+msgstr ""
+
+msgid "OCR"
+msgstr ""
+
+msgid "RasterGraphics"
+msgstr ""
+
+msgid "Scanning"
+msgstr ""
+
+msgid "VectorGraphics"
+msgstr ""
+
+msgid "Education"
+msgstr ""
+
+msgid "Utility"
+msgstr ""
+
+msgid "Accessibility"
+msgstr ""
+
+msgid "Archiving"
+msgstr ""
+
+msgid "Calculator"
+msgstr ""
+
+msgid "Clock"
+msgstr ""
+
+msgid "Compression"
+msgstr ""
+
+msgid "TelephonyTools"
+msgstr ""
+
+msgid "TextEditor"
+msgstr ""
+

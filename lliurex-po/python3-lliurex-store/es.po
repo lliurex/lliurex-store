@@ -1,0 +1,599 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-16 13:31+0200\n"
+"PO-Revision-Date: 2017-06-16 13:33+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:272
+#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:274
+#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:277
+#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:345
+#, python-format
+msgid "Fetching %s catalogue: "
+msgstr "Descargando catalogo %s:"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:35
+msgid "Results for "
+msgstr "Resultados de "
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:39
+msgid "Package"
+msgstr "Paquete"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:40
+msgid "Name"
+msgstr "Nombre"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:41
+msgid "ID"
+msgstr "ID"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:42
+msgid "Version"
+msgstr "Versión"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:43
+msgid "Size"
+msgstr "Tamaño"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:44
+msgid "License"
+msgstr "Licencia"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:49
+msgid "Categories"
+msgstr "Categorías"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:52
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:85
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:93
+msgid "installed"
+msgstr "instalado"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:54
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:87
+msgid "available"
+msgstr "disponible"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:55
+msgid "Status"
+msgstr "Estado"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:56
+msgid "Summary"
+msgstr "Resumen"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:59
+msgid "Description"
+msgstr "Descripción"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:64
+msgid "Depends"
+msgstr "Dependencias"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:90
+msgid "Error listing"
+msgstr "Error listando"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:93
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:95
+msgid "succesfully"
+msgstr "satisfactoriamente"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:95
+msgid "removed"
+msgstr "desinstalado"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:99
+msgid "Unable to"
+msgstr "No se pudo"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:102
+msgid "Unable to show"
+msgstr "no se puede mostrar"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:107
+msgid "Error"
+msgstr "Error"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:188
+msgid "Search a package"
+msgstr "Busca un paquete"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:189
+msgid "Show all info from a package"
+msgstr "Muestra toda la información disponible de un paquete"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:190
+msgid "Install a package"
+msgstr "Instala un paquete"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:191
+msgid "Remove a package"
+msgstr "Desinstala un paquete"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:193
+msgid "Load app bundles catalog"
+msgstr "Carga los catálogos de aplicaciones portables"
+
+msgid "Development"
+msgstr "Desarrollo"
+
+msgid "Building"
+msgstr "Compilación"
+
+msgid "Database"
+msgstr "Bases de datos"
+
+msgid "Debugger"
+msgstr "Depuradores"
+
+msgid "GUIDesigner"
+msgstr "Diseñadores de IGU"
+
+msgid "IDE"
+msgstr "EID"
+
+msgid "Profiling"
+msgstr "Perfilado"
+
+msgid "ProjectManagement"
+msgstr "Gestion de proyectos"
+
+msgid "RevisionControl"
+msgstr "Control de versiones"
+
+msgid "Translation"
+msgstr "Traducciones"
+
+msgid "WebDevelopment"
+msgstr "Desarrollo web"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid "AudioVideoEditing"
+msgstr "Edición de audio y video"
+
+msgid "DiscBurning"
+msgstr "Grabación de discos"
+
+msgid "HamRadio"
+msgstr "Radioaficionado"
+
+msgid "Midi"
+msgstr "Midi"
+
+msgid "Mixer"
+msgstr "Mezcladores"
+
+msgid "Music"
+msgstr "Música"
+
+msgid "Player"
+msgstr "Reproductores"
+
+msgid "Recorder"
+msgstr "Grabadores"
+
+msgid "Sequencer"
+msgstr "Secuenciadores"
+
+msgid "Tuner"
+msgstr "Sintonizadores"
+
+msgid "Network"
+msgstr "Internet"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "Dialup"
+msgstr "Marcado"
+
+msgid "Email"
+msgstr "Correo electónico"
+
+msgid "Feed"
+msgstr "Proveedor"
+
+msgid "FileTransfer"
+msgstr "Transferencia de archivos"
+
+msgid "InstantMessaging"
+msgstr "Mensajería instantánea"
+
+msgid "IRCClient"
+msgstr "Cliente IRC"
+
+msgid "Monitor"
+msgstr "Monitorización"
+
+msgid "News"
+msgstr "Noticias"
+
+msgid "P2P"
+msgstr "P2P"
+
+msgid "RemoteAccess"
+msgstr "Acceso remoto"
+
+msgid "Telephony"
+msgstr "Telefonía"
+
+msgid "VideoConference"
+msgstr "Videoconferencia"
+
+msgid "WebBrowser"
+msgstr "Navegadores"
+
+msgid "Office"
+msgstr "Oficina"
+
+msgid "Calendar"
+msgstr "Calendario"
+
+msgid "Chart"
+msgstr "Diagrama"
+
+msgid "ContactManagement"
+msgstr "Gestión de contactos"
+
+msgid "Dictionary"
+msgstr "Diccionarios"
+
+msgid "Finance"
+msgstr "Finanzas"
+
+msgid "FlowChart"
+msgstr "Diagrama de flujo"
+
+msgid "PDA"
+msgstr "PDA"
+
+msgid "Photography"
+msgstr "Fotografía"
+
+msgid "Presentation"
+msgstr "Presentación"
+
+msgid "Publishing"
+msgstr "Publicación"
+
+msgid "Spreadsheet"
+msgstr "Hoja de cálculo"
+
+msgid "Viewer"
+msgstr "Visor"
+
+msgid "WordProcessor"
+msgstr "Procesador de texto"
+
+msgid "Science"
+msgstr "Ciencia"
+
+msgid "Art"
+msgstr "Arte"
+
+msgid "ArtificialIntelligence"
+msgstr "Inteligencia artificial"
+
+msgid "Astronomy"
+msgstr "Astronomía"
+
+msgid "Biology"
+msgstr "Biología"
+
+msgid "Chemistry"
+msgstr "Química"
+
+msgid "ComputerScience"
+msgstr "Informática"
+
+msgid "Construction"
+msgstr "Construcción"
+
+msgid "DataVisualization"
+msgstr "Visualización de datos"
+
+msgid "Economy"
+msgstr "Economía"
+
+msgid "Electricity"
+msgstr "Electricidad"
+
+msgid "Electronics"
+msgstr "Electrónica"
+
+msgid "Engineering"
+msgstr "Ingeniería"
+
+msgid "Geography"
+msgstr "Geografía"
+
+msgid "Geology"
+msgstr "Geología"
+
+msgid "Geoscience"
+msgstr "Ciencias de la tierra"
+
+msgid "History"
+msgstr "Historia"
+
+msgid "Humanities"
+msgstr "Humanidades"
+
+msgid "ImageProcessing"
+msgstr "Procesamiento de imagen"
+
+msgid "Languages"
+msgstr "Idiomas"
+
+msgid "Literature"
+msgstr "Literatura"
+
+msgid "Maps"
+msgstr "Mapas"
+
+msgid "Math"
+msgstr "Matemáticas"
+
+msgid "MedicalSoftware"
+msgstr "Medicina"
+
+msgid "NumericalAnalysis"
+msgstr "Análisis numérico"
+
+msgid "ParallelComputing"
+msgstr "Computación paralela"
+
+msgid "Physics"
+msgstr "Física"
+
+msgid "Robotics"
+msgstr "Robótica"
+
+msgid "Spirituality"
+msgstr "Espiritualidad"
+
+msgid "Sports"
+msgstr "Deportes"
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "Emulator"
+msgstr "Emulador"
+
+msgid "FileManager"
+msgstr "Gestor de archivos"
+
+msgid "Filesystem"
+msgstr "Sistema de archivos"
+
+msgid "FileTools"
+msgstr "Herramientas para archivos"
+
+msgid "Security"
+msgstr "Seguridad"
+
+msgid "TerminalEmulator"
+msgstr "Terminal"
+
+msgid "Game"
+msgstr "Juegos"
+
+msgid "ActionGame"
+msgstr "Acción"
+
+msgid "AdventureGame"
+msgstr "Aventura"
+
+msgid "ArcadeGame"
+msgstr "Arcade"
+
+msgid "BlocksGame"
+msgstr "Bloques"
+
+msgid "BoardGame"
+msgstr "De mesa"
+
+msgid "CardGame"
+msgstr "Naipes"
+
+msgid "KidsGame"
+msgstr "Niños"
+
+msgid "LogicGame"
+msgstr "Lógica"
+
+msgid "RolePlaying"
+msgstr "Juegos de rol"
+
+msgid "Shooter"
+msgstr "Disparos"
+
+msgid "Simulation"
+msgstr "Simulación"
+
+msgid "SportsGame"
+msgstr "Deportes"
+
+msgid "StrategyGame"
+msgstr "Estrategia"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "TV"
+msgstr "Televisión"
+
+msgid "Graphics"
+msgstr "Gráficos"
+
+msgid "2DGraphics"
+msgstr "Gráficos 2D"
+
+msgid "3DGraphics"
+msgstr "Gráficso 3D"
+
+msgid "OCR"
+msgstr "OCR"
+
+msgid "RasterGraphics"
+msgstr "Gráficos raster"
+
+msgid "Scanning"
+msgstr "Escaneado"
+
+msgid "VectorGraphics"
+msgstr "Gráficos vectorizados"
+
+msgid "Education"
+msgstr "Educación"
+
+msgid "Utility"
+msgstr "Utilidades"
+
+msgid "Accessibility"
+msgstr "Accesibilidad"
+
+msgid "Archiving"
+msgstr "Archivado"
+
+msgid "Calculator"
+msgstr "Calculadora"
+
+msgid "Clock"
+msgstr "Reloj"
+
+msgid "Compression"
+msgstr "Compresión"
+
+msgid "TelephonyTools"
+msgstr "Herramientas de telefonía"
+
+msgid "TextEditor"
+msgstr "Editor de texto"
+
+msgid "no space left on device"
+msgstr "no queda espacio en disco"
+
+msgid "unable to initialize n4d client"
+msgstr "no se pudo incializar el cliente n4d"
+
+msgid "url not found"
+msgstr "url no encontrada"
+
+msgid "unreachable network"
+msgstr "no se puede acceder a la red"
+
+msgid "permission denied"
+msgstr "permiso denegado"
+
+msgid "version mismatch"
+msgstr "diferencias entre las versiones"
+
+msgid "already installed"
+msgstr "ya instalado"
+
+msgid "package not found"
+msgstr "paquete no encontrado"
+
+msgid "succesful"
+msgstr "satisfactoriamente"
+
+msgid "package not installed"
+msgstr "paquete no instalado"
+
+msgid "no info available"
+msgstr "no hay información disponible"
+
+msgid "Unknown error. Please use the --debug option"
+msgstr "Error desconocido. "
+
+msgid "package already installed"
+msgstr "paquete ya instalado"
+
+msgid "unable to open zmd package list"
+msgstr "no es posible leer la lista de paquetes del zmd"
+
+msgid "remove failed"
+msgstr "deinstalación fallida"
+
+msgid "plugin disabled"
+msgstr "plugin desactivado"
+
+msgid "install failed"
+msgstr "instalación fallida"
+
+msgid "zomando not found"
+msgstr "no se encontró el zomando"
+
+msgid "Unknown error."
+msgstr "Error desconocido."
+
+msgid "show this help message and exit"
+msgstr "Muestra el mensaje de ayuda"
+
+msgid "install"
+msgstr "instalar"
+
+msgid "remove"
+msgstr "desinstalar"
+
+msgid "search"
+msgstr "buscar"
+
+msgid "info"
+msgstr "info"
+
+msgid "usage"
+msgstr "Modo de empleo"
+
+msgid "optional arguments"
+msgstr "Parámetros"
+
+msgid "usage:"
+msgstr "Modo de empleo:"
+
+msgid "optional arguments:"
+msgstr "Parámetros:"
+
+msgid "Category"
+msgstr "Categoría"
+
+msgid "List all packages, optionally list packages from a given category"
+msgstr "Muestra todos los paquetes, opcionalmente muestra los paquetes de una categoría dada"
+
+msgid "List all sections from the store"
+msgstr "Lista todas las categorías de la tienda"
+
+msgid "Prints debug information"
+msgstr "Imprime la información de debug\t"
+
+msgid "Lliurex"
+msgstr "Lliurex"
+
+msgid "Administration"
+msgstr "Administración"
+
+msgid "Educational"
+msgstr "Educación"
+
+msgid "Miscellaneous"
+msgstr "Varios"

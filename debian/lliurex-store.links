@@ -1,0 +1,3 @@
+/usr/share/lliurex-store/lliurex-store-cli.py /usr/bin/lliurex-store-cli
+/usr/share/lliurex-store/lliurex-store-gui/lliurex-store.py /usr/bin/lliurex-store
+/usr/share/lliurex-store/lliurex-store-gui/rsrc/sections.json.lliurex /usr/share/lliurex-store/lliurex-store-gui/rsrc/sections.json

@@ -1,0 +1,286 @@
+lliurex-store (0.5.6.1) xenial; urgency=medium
+
+  * Re-enable method "list" as it was deactivated for testing.
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 20 Jun 2018 13:44:05 +0200
+
+lliurex-store (0.5.6) xenial; urgency=medium
+
+  * Fixes in various scrolled windows when navigating back and forth
+  * Labels in pkg results when searching now have a character limit width
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 13 Jun 2018 17:34:09 +0200
+
+lliurex-store (0.5.5.1) xenial; urgency=medium
+
+  * Fix typo on storeManage
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 13 Jun 2018 14:13:59 +0200
+
+lliurex-store (0.5.5) xenial; urgency=medium
+
+  * disable debug
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 13 Jun 2018 14:06:36 +0200
+
+lliurex-store (0.5.4.6) xenial; urgency=medium
+
+  * Fix wrong update
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 13 Jun 2018 13:41:28 +0200
+
+lliurex-store (0.5.4.5) xenial; urgency=high
+
+  * Breaks instead of Provides
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 06 Jun 2018 17:36:45 +0200
+
+lliurex-store (0.5.4.4) xenial; urgency=high
+
+  * Fixing control file
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 06 Jun 2018 17:11:08 +0200
+
+lliurex-store (0.5.4.3) xenial; urgency=medium
+
+  * Add plugin automanage state status
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 25 Apr 2018 10:01:53 +0200
+
+lliurex-store (0.5.4.2) xenial; urgency=medium
+
+  * Gui now opens snaps
+  * Appimages now install in ~/.local/bin
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 18 Apr 2018 14:27:19 +0200
+
+lliurex-store (0.5.4.1) xenial; urgency=medium
+
+  * Add file for external appimages
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 20 Mar 2018 13:38:30 +0100
+
+lliurex-store (0.5.4) xenial; urgency=medium
+
+  * Fix remove method for snaps
+  * Add icon cache for snaps
+  * Snap plugin enabled by default in lliurex-store-gui
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 20 Mar 2018 12:17:56 +0100
+
+lliurex-store (0.5.3) xenial; urgency=medium
+
+  * Fix debug mode in appimagemanager
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 15 Mar 2018 12:21:16 +0100
+
+lliurex-store (0.5.2) xenial; urgency=medium
+
+  * Add depends on gir1.2-snapd-1>=1.23 and libsnapd-glib>=1.23
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 15 Mar 2018 12:03:10 +0100
+
+lliurex-store (0.5.1) xenial; urgency=medium
+
+  * appImages are now installed on $HOME
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 15 Mar 2018 11:48:01 +0100
+
+lliurex-store (0.5) xenial; urgency=medium
+
+  * Improved argument pass to plugins
+  * Add snap support
+  * Standarize plugins
+  * Reworked storeManager load, search and install methods
+  * Added updatable and bundle to infoManager
+  * Split bundle support into snap and appimage
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 25 Jan 2018 16:50:33 +0100
+
+lliurex-store (0.4.2) xenial; urgency=medium
+
+  * Removed text messages from loadstore class
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 22 Dec 2017 14:06:54 +0100
+
+lliurex-store (0.4.1) xenial; urgency=medium
+
+  * Add python3-bs4 dependency
+  * Fix race condition in action "info" when package don't exists
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 13 Dec 2017 10:08:41 +0100
+
+lliurex-store (0.4-lliurex3) xenial; urgency=medium
+
+  * Fix validation of duplicated desktops in loadStore
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 07 Nov 2017 11:57:57 +0100
+
+lliurex-store (0.4-lliurex2) xenial; urgency=medium
+
+  * removed text domain from loadStore plugin.
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 06 Nov 2017 10:45:26 +0100
+
+lliurex-store (0.4-lliurex1) xenial; urgency=medium
+
+  * Removed some debug messages
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 20 Oct 2017 09:13:48 +0200
+
+lliurex-store (0.4) xenial; urgency=high
+
+  * Fixed gettext domain when initializing LliuresStoreManager in lliurex-store-gui
+  * Lliurex section has been enabled in lliurex-store-gui
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 11 Aug 2017 09:31:50 +0200
+
+lliurex-store (0.3-lliurex3) xenial; urgency=medium
+
+  * zmdManager checks service=true for zomandos that aren't configured but may be installed on the system 
+  * infoManager forces ".desktop" sufix in the id field of the apps.
+  * Removed debug info from cli
+  * Disabled appManager plugin
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 08 Aug 2017 13:23:09 +0200
+
+lliurex-store (0.3-lliurex2) xenial; urgency=medium
+
+  * Added configuration file for apt
+  * Moved errors.json from lliurex-store-cli to install-files 
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 27 Jul 2017 12:42:24 +0200
+
+lliurex-store (0.3-lliurex1) xenial; urgency=medium
+
+  * Added lliurex-store-blacklist as dependency
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 26 Jul 2017 14:42:13 +0200
+
+lliurex-store (0.3) xenial; urgency=medium
+
+  * Moved blacklist file from lliurex-store package to its own package
+  * Fixed ocasional race condition between search and info methods
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 26 Jul 2017 14:36:58 +0200
+
+lliurex-store (0.2.10.lliurex7) xenial; urgency=medium
+
+  * Removed deprecated locale
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 22 Jun 2017 09:18:56 +0200
+
+lliurex-store (0.2.10.lliurex6) xenial; urgency=medium
+
+  * Added ca to cli
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 02 Jun 2017 10:01:52 +0200
+
+lliurex-store (0.2.10.lliurex5) xenial; urgency=medium
+
+  * Added valencian to cli
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 01 Jun 2017 14:08:36 +0200
+
+lliurex-store (0.2.10.lliurex4) xenial; urgency=medium
+
+  * Purged all zmd-deb duplicated apps (I hope...)
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 30 May 2017 10:23:13 +0200
+
+lliurex-store (0.2.10.lliurex3) xenial; urgency=medium
+
+  * Minor changes
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 29 May 2017 10:16:32 +0200
+
+lliurex-store (0.2.10.lliurex2) xenial; urgency=medium
+
+  * Deactivated appstream package state query. Now we only rely on packagekit and zero-center.
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 26 May 2017 12:10:41 +0200
+
+lliurex-store (0.2.10.lliurex1) xenial; urgency=medium
+
+  * Deactivated errors on packagekit queries
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 26 May 2017 11:41:15 +0200
+
+lliurex-store (0.2.10) xenial; urgency=medium
+
+  * Moved result initialization from init to execute_action in all plugins
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 17 May 2017 12:49:30 +0200
+
+lliurex-store (0.2.9) xenial; urgency=medium
+
+  * ZmdManager is now working again 
+  * Zomandos added to the store with max priority
+  * Deleted debs when the packages are managed by zomandos
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 16 May 2017 14:14:32 +0200
+
+lliurex-store (0.2.8) xenial; urgency=medium
+
+  * Added metainfo
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 10 May 2017 17:49:12 +0200
+
+lliurex-store (0.2.7) xenial; urgency=medium
+
+  * Updated valencian translations
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 08 May 2017 11:51:27 +0200
+
+lliurex-store (0.2.6) xenial; urgency=medium
+
+  * Updated search method. Now infoManager also works with dicts
+  * Fixed some minor bugs on zmdManager
+  * Added gettext support to CLI
+  * Fixed packagekit 262 error (version mismatch) when updating or removing debs
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 21 Apr 2017 09:13:09 +0200
+
+lliurex-store (0.2.5) xenial; urgency=high
+
+  * GUI css changes
+  * Supports variable number of banners
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 12 Apr 2017 14:33:05 +0200
+
+lliurex-store (0.2.4) xenial; urgency=high
+
+  * Large banner number is now variable
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 11 Apr 2017 14:55:42 +0200
+
+lliurex-store (0.2.3) xenial; urgency=high
+
+  * Hiding lliurex section fro now
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 11 Apr 2017 12:08:38 +0200
+
+lliurex-store (0.2.2) xenial; urgency=high
+
+  * Adding desktop file
+  * GUI window title
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 07 Apr 2017 13:48:16 +0200
+
+lliurex-store (0.2.1) xenial; urgency=high
+
+  * Using XDG_CACHE_HOME to calculate cache dir
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 07 Apr 2017 11:57:25 +0200
+
+lliurex-store (0.2) xenial; urgency=high
+
+  * First GUI release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 07 Apr 2017 11:28:56 +0200
+
+lliurex-store (0.1) xenial; urgency=medium
+
+  * Initial release. 
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 22 Dec 2016 12:21:12 +0100

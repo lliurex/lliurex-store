@@ -2,9 +2,9 @@
     "large": [
         {
             "banner_small": null, 
-            "name": "bellscheduler", 
+            "name": "bell-scheduler", 
             "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/bell-scheduler.png", 
-            "package": "bellscheduler"
+            "package": "bell-scheduler"
         }, 
         {
             "name": "NoteShrink GUI", 
@@ -14,7 +14,7 @@
 	{
             "name": "Lliurex GDrive",
             "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/lliurex-gdrive-gui.png",
-            "package": "lliurex-gdrive-gui"
+            "package": "lliurex-gdrive-core"
         },
         {
             "name": "TaskScheduler",

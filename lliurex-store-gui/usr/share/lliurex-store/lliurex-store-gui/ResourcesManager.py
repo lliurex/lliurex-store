@@ -65,8 +65,11 @@ class ResourcesManager:
 	
 		
 		component=pkg_info["component"]
-		
 		ret_icon=self.icon_db.lookup_icon(debian_name,256,Gtk.IconLookupFlags.FORCE_SVG)
+		if ret_icon!=None:
+			return ret_icon.get_filename()
+		
+		ret_icon=self.icon_db.lookup_icon(icon,256,Gtk.IconLookupFlags.FORCE_SVG)
 		if ret_icon!=None:
 			return ret_icon.get_filename()
 			
@@ -98,18 +101,36 @@ class ResourcesManager:
 					return ret_icon
 				else:
 				#Last attempt
-					pkg_id=pkg_info['id'].split('.')[-2]
-					icon="64x64/%s_%s.png"%(debian_name,pkg_id)
+					if len(pkg_info['id'].split('.'))>2:
+						pkg_id=pkg_info['id'].split('.')[-2]
+						icon="64x64/%s_%s.png"%(debian_name,pkg_id)
 				ret_icon=self.icons_path+"%s/%s"%(component,icon)
 				if os.path.exists(ret_icon):
 					return ret_icon
 				else:
 				#Unaccurate icon search... 
-					for icon_file in os.listdir(self.icons_path+"/"+component+"/64x64/"):
-						if re.search("^.*"+pkg_info['icon']+".*\.png",icon_file):
-							ret_icon=self.icons_path+"%s/64x64/%s"%(component,icon_file)
-							return ret_icon
-								
+					if os.path.isdir(self.icons_path+"/"+component+"/64x64"):
+						for icon_file in os.listdir(self.icons_path+"/"+component+"/64x64/"):
+							if re.search("^.*"+pkg_info['icon']+".*\.png",icon_file):
+								ret_icon=self.icons_path+"%s/64x64/%s"%(component,icon_file)
+				if os.path.exists(ret_icon):
+					return ret_icon
+				else:
+				#The very last attempt. We'll look for the icon in the desktop (if any)
+					desktop_file=pkg_info['id']
+					if not desktop_file.endswith(".desktop"):
+						desktop_file=desktop_file+".desktop"
+					if os.path.isfile("/usr/share/applications/%s"%desktop_file):
+						f=open("/usr/share/applications/%s"%desktop_file,'r')
+						for l in f.readlines():
+							if l.startswith("Icon"):
+								icon_name=l.split('=')[-1].strip('\n')
+								if os.path.isfile(icon_name):
+									return(icon_name)
+								else:
+									ret_icon=self.icon_db.lookup_icon(icon_name,256,Gtk.IconLookupFlags.FORCE_SVG)
+									if ret_icon:
+										return(ret_icon.get_filename())
 
 		ret_icon=self.package_icon
 		return ret_icon

@@ -86,7 +86,7 @@ class LliurexStoreManager:
 				random_id=int(random.random()*len(categories))
 				
 				random_category=categories[random_id]
-				pkgs,categories=self.get_package_list_from_category(random_category)
+				pkgs,categories=self.get_package_list_from_category(random_category,10)
 				
 				if len(pkgs) >=10:
 					samples=10
@@ -104,10 +104,10 @@ class LliurexStoreManager:
 	#def get_info
 	
 	
-	def get_package_list_from_category(self,category_tag=None):
+	def get_package_list_from_category(self,category_tag=None,results=0):
 		
 		action="list"
-		self.store.execute_action(action,[category_tag],max_results=10)
+		self.store.execute_action(action,[category_tag],max_results=results)
 		
 		while self.store.is_action_running(action):
 			time.sleep(0.2)

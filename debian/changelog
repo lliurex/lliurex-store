@@ -1,3 +1,15 @@
+lliurex-store (0.5.6.3) bionic; urgency=medium
+
+  * Bug: Store was listing max 10 apps per section
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 03 Jul 2018 12:50:53 +0200
+
+lliurex-store (0.5.6.2) bionic; urgency=medium
+
+  * Minor bugfix. Don't crash when /var/lib/app-info/icons doesn't exists (it must exists but...)
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 03 Jul 2018 10:12:10 +0200
+
 lliurex-store (0.5.6.1) bionic; urgency=medium
 
   * Re-enable method "list" as it was deactivated for testing.

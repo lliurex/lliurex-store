@@ -520,8 +520,8 @@ class DetailsBox(Gtk.VBox):
 			snap=self.core.main_window.current_pkg["name"].replace('.snap','')
 			if os.path.exists("/snap/bin/%s"%snap):
 				Popen(["/snap/bin/%s"%snap])
-		elif self.core.main_window.current_pkg["name"].endswith('.appimage'):
-			appimg=self.core.main_window.current_pkg["name"].lower()
+		elif self.core.main_window.current_pkg["package"].endswith('.appimage'):
+			appimg=self.core.main_window.current_pkg["package"].lower()
 			if os.path.exists(os.getenv("HOME")+"/.local/bin/%s"%appimg):
 				Popen([os.getenv("HOME")+"/.local/bin/%s"%appimg])
 #				os.system(os.getenv("HOME")+"/.local/bin/%s"%appimg)

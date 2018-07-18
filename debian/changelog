@@ -1,16 +1,40 @@
+lliurex-store (0.5.7.1) bionic; urgency=medium
+
+  * Fix description not loading in appimage plugin
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 16 Jul 2018 12:52:52 +0200
+
+lliurex-store (0.5.7) bionic; urgency=medium
+
+  * Availabe snaps are loaded from available sections and not from wilcard
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 16 Jul 2018 12:21:53 +0200
+
+lliurex-store (0.5.6.5) bionic; urgency=high
+
+  * Reverting to the old new home content
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 04 Jul 2018 09:20:09 +0200
+
+lliurex-store (0.5.6.4) bionic; urgency=high
+
+  * Changed some home page applications
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 03 Jul 2018 14:31:44 +0200
+
 lliurex-store (0.5.6.3) bionic; urgency=medium
 
   * Bug: Store was listing max 10 apps per section
 
  -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 03 Jul 2018 12:50:53 +0200
 
-lliurex-store (0.5.6.2) bionic; urgency=medium
+lliurex-store (0.5.6.2) xenial; urgency=medium
 
   * Minor bugfix. Don't crash when /var/lib/app-info/icons doesn't exists (it must exists but...)
 
  -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 03 Jul 2018 10:12:10 +0200
 
-lliurex-store (0.5.6.1) bionic; urgency=medium
+lliurex-store (0.5.6.1) xenial; urgency=medium
 
   * Re-enable method "list" as it was deactivated for testing.
 

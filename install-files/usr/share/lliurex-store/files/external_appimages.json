@@ -1,12 +1,27 @@
 {
-	"synfig64":
+	"Krita":
 	{
-		"url":"https://kent.dl.sourceforge.net/project/synfig/releases/1.2.1/linux/SynfigStudio-1.2.1-64bit.appimage",
-		"url_info":""
+		"url":"http://download.kde.org/stable/krita/4.1.0/krita-4.1.0-x86_64.appimage",
+		"version":"4.1.0",
+		"description":{"es":"Krita es un programa profesional de pintura digital, gratuito y hecho con código libre, ha sido creado por artistas mismos que desean hacer éstas herramientas accesibles para todos",
+			"C":"Krita is a professional FREE and open source painting program. It is made by artists that want to see affordable art tools for everyone",
+			"ca":"Krita és un programa professional de pintura digital, gratuït i fet amb codi lliure, ha estat creat per artistes mateixos que volen fer aquestes eines accessibles a tothom"
+		},
+		"name":"Krita",
+		"url_info":"",
+		"keywords":["krita","digital","paint","pintura","dibujo","dibuix","graphics"],
+		"homepage":"https://krita.org",
+		"categories":["appimage","QT","KDE","Graphics"]
 	},
-	"synfig32":
+	"gmic-krita":
 	{
-		"url":"https://kent.dl.sourceforge.net/project/synfig/releases/1.2.1/linux/SynfigStudio-1.2.1-32bit.appimage",
-		"url_info":""
+		"url":"http://download.kde.org/stable/krita/4.1/gmic_krita_qt-x86_64.appimage",
+		"name":"Gmic-Krita",
+		"version":"2.3.3",
+		"url_info":"",
+		"description":{"C":"G'MIC is a full-featured open-source framework for image processing, distributed under the CeCILL free software licenses (LGPL-like and/or GPL-compatible). It provides several different user interfaces to convert / manipulate / filter / visualize generic image datasets, ranging from 1d scalar signals to 3d+t sequences of multi-spectral volumetric images, hence including 2d color images."},
+		"keywords":["krita","gimp","paint","painting","dibujo","dibuix","graphics","gmic"],
+		"homepage":"https://gmic.eu/",
+		"categories":["appimage","Graphics"]
 	}
 }

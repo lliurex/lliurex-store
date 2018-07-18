@@ -133,9 +133,11 @@ class snapmanager:
 		fcache=open(self.cache_last_update,'w')
 		fcache.write(str(int(time.time())))
 		if self.cli_mode:
-			pkgs=self._search_snap("*")
+#			pkgs=self._search_snap("*")
+			pkgs=self._load_sections()
 		else:
-			pkgs=self._search_snap_async("*")
+			pkgs=self._load_sections()
+#			pkgs=self._search_snap_async("*")
 		self._set_status(1)
 		for pkg in pkgs:
 			app=self.store.get_app_by_pkgname(pkg.get_name())
@@ -237,6 +239,15 @@ class snapmanager:
 		global wrap
 		wrap=request
 
+	def _load_sections(self):
+		sections=self.snap_client.get_sections_sync()
+		stable_pkgs=[]
+		for section in sections:
+			apps=self.snap_client.find_section_sync(Snapd.FindFlags.MATCH_NAME,section,None)
+			for pkg in apps:
+				stable_pkgs.append(pkg)
+		return(stable_pkgs)
+
 	def _search_snap_async(self,tokens):
 		self._debug("Async Searching %s"%tokens)
 		pkgs=None
@@ -264,7 +275,7 @@ class snapmanager:
 		pkg=None
 		pkgs=None
 		try:
-				#			pkgs,curr=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
+#			pkgs,curr=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
 			pkgs=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
 		except Exception as e:
 			print("ERR: %s"%e)

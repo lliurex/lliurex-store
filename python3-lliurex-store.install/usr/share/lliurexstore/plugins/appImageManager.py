@@ -31,7 +31,6 @@ class appimagemanager:
 		self.icons_dir=self.cache_dir+"/icons"
 		self.bundles_dir=self.cache_dir+"/xmls/appimage"
 		self.bundle_types=['appimg']
-#		self.appimage_dir=os.getenv("HOME")+"/.lliurex-store/appimg"
 		self.appimage_dir=os.getenv("HOME")+"/.local/bin"
 		#To get the description of an app we must go to a specific url defined in url_info.
 		#$(appname) we'll be replaced with the appname so the url matches the right one.
@@ -80,10 +79,8 @@ class appimagemanager:
 			self._chk_installDir()
 			if action=='load':
 				self._load_appimage_store()
-#				self.result['data']=self._load_appimage_store()
 				#wait till threads end (if any)
 				self._debug("Ending threads...")
-#				for app in self.apps_for_store:
 				for th in threading.enumerate():
 					if th.is_alive():
 						try:
@@ -140,8 +137,8 @@ class appimagemanager:
 		if app_info['state']=='installed':
 			self._set_status(4)
 		else:
-#			appimage_url=app_info['installerUrl']+'/'+app_info['package']
-			appimage_url=app_info['channel_releases']['appimage'][0]
+			if 'appimage' in app_info['channel_releases'].keys():
+				appimage_url=app_info['channel_releases']['appimage'][0]
 			self._debug("Downloading "+appimage_url)
 			dest_path=self.appimage_dir+'/'+app_info['package']
 			if appimage_url:
@@ -150,9 +147,7 @@ class appimagemanager:
 					with urllib.request.urlopen(req) as response, open(dest_path, 'wb') as out_file:
 						bf=16*1024
 						acumbf=0
-#						print("Response: %s"%response.info())
 						app_size=int(response.info()['Content-Length'])
-#						print("APP SIZE: %s"%app_size)
 						while True:
 							if acumbf>=app_size:
 							    break
@@ -187,6 +182,7 @@ class appimagemanager:
 
 	def _load_appimage_store(self,store=None):
 		self._get_bundles_catalogue()
+		self._get_external_catalogue()
 		if os.path.exists(self.bundles_dir):
 			for bundle_type in self.bundle_types:
 				self._debug("Loading %s catalog"%bundle_type)
@@ -230,21 +226,47 @@ class appimagemanager:
 			self._debug("Fetched repo "+repo_info['url'])
 			self._th_generate_xml_catalog(applist,outdir,repo_info['url_info'],repo_info['url'],repo_name)
 			all_apps.extend(applist)
+		return True
+
+	def _get_external_catalogue(self):
+		applist=[]
+		all_apps=[]
+		outdir=self.bundles_dir+'/appimg/'
 		#Load external apps
 		for app_name,app_info in self._get_external_appimages().items():
 			if os.path.isdir(self.bundles_dir):
 				appinfo=self._init_appinfo()
-				appinfo['name']=app_info['url'].split('/')[-1]
+				if 'name' in app_info.keys():
+					appinfo['name']=app_info['name']
+				else:
+					appinfo['name']=app_info['url'].split('/')[-1]
 				appinfo['package']=app_info['url'].split('/')[-1]
-				appinfo['homepage']='/'.join(app_info['url'].split('/')[0:-1])
+				if 'homepage' in app_info.keys():
+					appinfo['homepage']=app_info['homepage']
+				else:
+					appinfo['homepage']='/'.join(app_info['url'].split('/')[0:-1])
+				appinfo['installerUrl']=app_info['url']
+				if 'description' in app_info.keys():
+					if type(app_info['description'])==type({}):
+						for lang in app_info['description']:
+							appinfo['description'].update({lang:app_info['description'][lang]})
+					else:
+						appinfo['description'].update({"C":appimage['description']})
+				if 'categories' in app_info.keys():
+					appinfo['categories']=app_info['categories']
+				if 'keywords' in app_info.keys():
+					appinfo['keywords']=app_info['keywords']
+				if 'version' in app_info.keys():
+					appinfo['reywords']=app_info['keywords']
 				self._debug("Fetching external appimage %s"%app_info['url'])
 				appinfo['bundle']='appimage'
-				applist=[appinfo]
-				self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
-				self._debug("Fetched appimage "+app_info['url'])
-				all_apps.extend(applist)
+				self._debug("External:\n%s\n-------"%appinfo)
+				applist.append(appinfo)
 			else:
 				self._debug("External appImage could not be fetched: Permission denied")
+		self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
+		self._debug("Fetched appimage "+app_info['url'])
+		all_apps.extend(applist)
 		self._debug("Removing old entries...")
 #		self._clean_bundle_catalogue(all_apps,outdir)
 		return(True)
@@ -266,7 +288,6 @@ class appimagemanager:
 					external_appimages=json.load(appimages)
 			except:
 				self._debug("Can't load %s"%self.external_appimages)
-		self._debug(external_appimages)
 		return external_appimages
 	#def _get_external_appimages
 	
@@ -287,25 +308,11 @@ class appimagemanager:
 		if 'links' in appimage.keys():
 			if appimage['links']:
 				appinfo=self.load_json_appinfo(appimage)
-#Deprecated. appImage releases will be load on the info stage
-#			releases=self._get_releases_from_json(appimage)
-#			if releases:
-#				appinfo['releases']=releases
-#				for release in releases:
-#					#Release has the direct download url
-#					tmp_release=release.split('/')
-#					tmp_appinfo=appinfo.copy()
-#					rel_number=tmp_release[-2]
-#					rel_name=tmp_release[-1].lower().replace('.appimage','')
-#					self._debug("Release: %s"%release)
-#					tmp_appinfo['name']=rel_name
-#					tmp_appinfo['package']=tmp_release[-1]
-#					tmp_appinfo['homepage']='/'.join(tmp_release[0:-1])
-#					self.queue.put(tmp_appinfo)
 		return(appinfo)
         #def _th_process_appimage
 
 	def load_json_appinfo(self,appimage):
+		self._debug(appimage)
 		appinfo=self._init_appinfo()
 		appinfo['name']=appimage['name']
 		appinfo['package']=appimage['name']
@@ -313,7 +320,11 @@ class appimagemanager:
 			appinfo['license']=appimage['license']
 		appinfo['summary']=''
 		if 'description' in appimage.keys():
-			appinfo['description']=appimage['description']
+			if type(appimage['description'])==type({}):
+				for lang in appinfo['description'].keys():
+					appinfo['description'].update({lang:appimage['description'][lang]})
+			else:
+				appinfo['description']={"C":appimage['description']}
 		if 'categories' in appimage.keys():
 			appinfo['categories']=appimage['categories']
 		if 'icon' in appimage.keys():
@@ -360,50 +371,74 @@ class appimagemanager:
 		semaphore.release()
 	#def _th_write_xml
 
-#	def _add_appimage(self,appinfo,repo_info):
 	def _add_appimage(self,appinfo):
 		#Search in local store for the app
 		sw_new=False
 		app=appstream.App()
-		app_orig=self.store.get_app_by_pkgname(appinfo['package'].lower())
+		app_orig=self.store.get_app_by_pkgname(appinfo['name'].lower())
 		if not app_orig:
-			app_orig=self.store.get_app_by_id(appinfo['package'].lower()+".desktop")
+			app_orig=self.store.get_app_by_id(appinfo['name'].lower()+".desktop")
 		if app_orig:
 			self._debug("Extending app %s"%appinfo['package'])
 			app=self._copy_app_from_appstream(app_orig,app)
 		else:
 			self._debug("Generating new %s"%appinfo['package'])
-		app.set_id("appimagehub.%s"%appinfo['name'].lower()+'.appimage')
+		if appinfo['name'].endswith('.appimage'):
+			app.set_id("appimagehub.%s"%appinfo['name'].lower())
+			app.set_name("C",appinfo['name'])
+		else:
+			app.set_id("appimagehub.%s"%appinfo['name'].lower()+'.appimage')
+			app.set_name("C",appinfo['name']+".appimage")
+		if appinfo['package'].endswith('.appimage'):
+			app.add_pkgname(appinfo['package'].lower())
+		else:
+			app.add_pkgname(appinfo['package'].lower()+".appimage")
 		app.set_id_kind=appstream.IdKind.DESKTOP
 		sw_new=True
 
 		icon=appstream.Icon()
 		screenshot=appstream.Screenshot()
-		app.set_name("C",appinfo['name']+".appimage")
-		app.add_pkgname(appinfo['package'].lower()+".appimage")
 		if appinfo['license']:
 			app.set_project_license(appinfo['license'])
 		bundle=appstream.Bundle()
 		bundle.set_kind(bundle.kind_from_string('APPIMAGE'))
-		bundle.set_id(appinfo['package']+'.appimage')
-#		if app_orig:
-#			app_orig.add_bundle(bundle)
+		if appinfo['package'].endswith('.appimage'):
+			bundle.set_id(appinfo['package'])
+		else:
+			bundle.set_id(appinfo['package']+'.appimage')
 		app.add_bundle(bundle)
-		app.add_keyword("C","appimage")
-		app.add_category("appimage")
+		if 'keywords' in appinfo.keys():
+			for keyword in appinfo['keywords']:
+				app.add_keyword("C",keyword)
+			if 'appimage' not in appinfo['keywords']:
+				app.add_keyword("C","appimage")
+		else:
+			app.add_keyword("C","appimage")
 		app.add_url(appstream.UrlKind.UNKNOWN,appinfo['installerUrl'])
 		app.add_url(appstream.UrlKind.HOMEPAGE,appinfo['homepage'])
 		if sw_new:
 			app.add_keyword("C",appinfo['package'])
-			app.set_name("C",appinfo['name']+".appimage")
-			description="This is an AppImage bundle of app %s. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully.\n%s"%(appinfo['name'],appinfo['description'])
-			summary=' '.join(list(description.split(' ')[:8]))
-			if len(description.split(' '))>8:
-				summary+="... "
-			app.set_description("C",description)
-			app.set_comment("C",summary)
-			for category in appinfo['categories']:
-				app.add_category(category)
+			if not appinfo['name'].endswith('.appimage'):
+				app.set_name("C",appinfo['name']+".appimage")
+			if appinfo['description']:
+				for lang,desc in appinfo['description'].items():
+					description="This is an AppImage bundle of app %s. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully.\n%s"%(appinfo['name'],desc)
+					summary=' '.join(list(description.split(' ')[:8]))
+					app.set_description(lang,description)
+					app.set_comment(lang,summary)
+			else:
+				description="This is an AppImage bundle of app %s. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully"%(appinfo['name'])
+				summary=' '.join(list(description.split(' ')[:8]))
+				app.set_description("C",description)
+				app.set_comment("C",summary)
+
+			if 'categories' in appinfo.keys():
+				for category in appinfo['categories']:
+					app.add_category(category)
+				if 'appimage' not in appinfo['categories']:
+					app.add_category("appimage")
+			else:
+				app.add_category("appimage")
 		if appinfo['icon']:
 			if self.icon_cache_enabled:
 				icon.set_kind(appstream.IconKind.LOCAL)
@@ -423,7 +458,6 @@ class appimagemanager:
 			screenshot.add_image(img)
 			app.add_screenshot(screenshot)
 		#Adds the app to the store
-#		self._debug("Adding %s"%appinfo['package'])
 		self.apps_for_store.put(app)
 		if not os.path.isfile(self.bundles_dir+'/'+app.get_id_filename()):
 			gioFile=Gio.File.new_for_path('%s/%s.xml'%(self.bundles_dir,app.get_id_filename()))
@@ -462,13 +496,10 @@ class appimagemanager:
 	#def _clean_bunlde_catalogue
 
 	def _download_file(self,url,app_name,dest_dir):
-#		target_file=self.icons_folder+'/'+app_name+".png"
 		target_file=dest_dir+'/'+app_name+".png"
 		if not url.startswith('http'):
 			url="https://appimage.github.io/database/%s"%url
 		if not os.path.isfile(target_file):
-#			shutil.copy("/usr/share/icons/hicolor/128x128/apps/lliurex-store.png",target_file)
-#			if not os.fork():
 			if not os.path.isfile(target_file):
 				self._debug("Downloading %s to %s"%(url,target_file))
 				try:
@@ -486,7 +517,6 @@ class appimagemanager:
 					self._debug("Unable to download %s"%url)
 					self._debug("Reason: %s"%e)
 					target_file=''
-#				os._exit(0)
 		return(target_file)
 	#def _download_file
 	
@@ -511,7 +541,7 @@ class appimagemanager:
 		'package':'',\
 		'license':'',\
 		'summary':'',\
-		'description':'',\
+		'description':{},\
 		'categories':[],\
 		'icon':'',\
 		'screenshot':'',\
@@ -533,6 +563,7 @@ class appimagemanager:
 	
 	def _get_info(self,app_info):
 		if app_info['installerUrl']:
+			self._debug("installer: %s"%app_info['installerUrl'])
 			app_info['channel_releases']={'appimage':[]}
 			app_info['channel_releases']['appimage']=self._get_releases(app_info)
 		app_info['state']='available'
@@ -553,10 +584,6 @@ class appimagemanager:
 				app_info['size']=0
 			#Version (unaccurate aprox)
 			app_info['version']=app_info['channel_releases']['appimage'][0].split('/')[-2]
-#			try:
-#				app_info['version']="%s.%s"%(version.split('.')[1],version.split('.')[2])
-#			except:
-#				app_info['version']="%s"%version.split('_')[-1]
 
 		self._set_status(0)
 		self.partial_progress=100
@@ -578,23 +605,27 @@ class appimagemanager:
 				url_source="opensuse"
 #				app_info['installerUrl']=app_info['installerUrl']+"/download"
 
-			with urllib.request.urlopen(app_info['installerUrl']) as f:
-				content=(f.read().decode('utf-8'))
-				soup=BeautifulSoup(content,"html.parser")
-				package_a=soup.findAll('a', attrs={ "href" : re.compile(r'.*\.[aA]pp[iI]mage$')})
+			if url_source or releases_page:
+				with urllib.request.urlopen(app_info['installerUrl']) as f:
+					content=(f.read().decode('utf-8'))
+					soup=BeautifulSoup(content,"html.parser")
+					package_a=soup.findAll('a', attrs={ "href" : re.compile(r'.*\.[aA]pp[iI]mage$')})
 
-				for package_data in package_a:
-					if url_source=="opensuse":
-						package_name=package_data.findAll('a', attrs={"class" : "mirrorbrain-btn"})
-					else:
-						package_name=package_data.findAll('strong', attrs={ "class" : "pl-1"})
-					package_link=package_data['href']
-					if releases_page or url_source:
-						package_link=releases_page+package_link
-						releases.append(package_link)
-						self._debug("Link: %s"%package_link)
+					for package_data in package_a:
+						if url_source=="opensuse":
+							package_name=package_data.findAll('a', attrs={"class" : "mirrorbrain-btn"})
+						else:
+							package_name=package_data.findAll('strong', attrs={ "class" : "pl-1"})
+						package_link=package_data['href']
+						if releases_page or url_source:
+							package_link=releases_page+package_link
+							releases.append(package_link)
+							self._debug("Link: %s"%package_link)
+			else:
+				releases=[app_info['installerUrl']]
 		except Exception as e:
 			print(e)
+		self._debug(releases)
 		return releases
 	#def _get_releases
 	

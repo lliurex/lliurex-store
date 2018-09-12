@@ -34,8 +34,10 @@ class debmanager:
 	def register(self):
                 return(self.plugin_actions)
 	#def register
-
-	def execute_action(self,action,applist):
+	
+	#filter=1 -> app available
+	#filter=2 -> only installed app installed
+	def execute_action(self,action,applist,filters=1):
 		self.progress=0
 		self.installer=packagekit.Client()
 		self.count=len(applist)
@@ -46,7 +48,6 @@ class debmanager:
 		for app_info in applist:
 			if app_info['package'] not in processedPkg:
 				processedPkg.append(app_info['package'])
-				filters=1
 				if action=='remove':
 					filters=2
 				app=self._resolve_App(app_info['package'],filters)
@@ -60,8 +61,10 @@ class debmanager:
 						self._remove_App(app)
 						self.result['data'].append({'package':app_info['package']})
 					if action=='pkginfo':
-						self._log("Looking "+app_info['package'])
 						self.result['data'].append(self._get_App_Extended_Info(app_info,app))
+					if action=='policy':
+						self._set_status(0)
+						self.result['data'].append({'id':app.get_id()})
 				self.progress=self.progress+(self.partial_progress/self.count)
 		self.progress=100
 		return(self.result)

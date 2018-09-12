@@ -278,7 +278,6 @@ class StoreManager():
 	def _join_action(self,action):
 		self._debug("Joining action: %s"%action)
 		try:
-			print("T: %s"%self.running_threads[action])
 			self.running_threads[action].join()
 		except Exception as e:
 			self._debug("Unable to join thread for: %s"%action)
@@ -404,7 +403,7 @@ class StoreManager():
 			except:
 					result['msg']=u"Unknown error"
 		self.lock.release()
-		print("RESULT %s: %s"%(action,result))
+#		print("RESULT %s: %s"%(action,result))
 		return(result)
 	#def get_status
 

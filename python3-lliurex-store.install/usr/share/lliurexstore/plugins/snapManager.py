@@ -10,6 +10,7 @@ gi.require_version('AppStreamGlib', '1.0')
 from gi.repository import AppStreamGlib as appstream
 import time
 import html
+import threading
 #Needed for async find method, perhaps only on xenial
 wrap=Gio.SimpleAsyncResult()
 class snapmanager:
@@ -140,10 +141,20 @@ class snapmanager:
 #			pkgs=self._search_snap_async("*")
 		self._set_status(1)
 		for pkg in pkgs:
-			app=self.store.get_app_by_pkgname(pkg.get_name())
-			if not app:
-				self._debug("Searching for %s"%pkg.get_name())
-				app=self.store.get_app_by_id(pkg.get_name().lower()+".desktop")
+			maxconnections = 10
+			threads=[]
+			semaphore = threading.BoundedSemaphore(value=maxconnections)
+			th=threading.Thread(target=self._th_load_store, args = (store,pkg,semaphore))
+			threads.append(th)
+			th.start()
+		return(store)
+
+	def _th_load_store(self,store,pkg,semaphore):
+		semaphore.acquire()
+		app=self.store.get_app_by_pkgname(pkg.get_name())
+		if not app:
+			self._debug("Searching for %s"%pkg.get_name())
+			app=self.store.get_app_by_id(pkg.get_name().lower()+".desktop")
 			if app:
 				bundle=appstream.Bundle()
 				bundle.set_kind(bundle.kind_from_string('SNAP'))
@@ -153,7 +164,7 @@ class snapmanager:
 				store.add_app(self._generate_appstream_app_from_snap(pkg))
 			else:
 				store.add_app(self._generate_appstream_app_from_snap(pkg))
-		return(store)
+		semaphore.release()
 
 	def _load_from_cache(self,store):
 		for target_file in os.listdir(self.cache_xmls):
@@ -200,6 +211,7 @@ class snapmanager:
 		if pkg.get_icon():
 			if self.icon_cache_enabled:
 				icon.set_kind(appstream.IconKind.LOCAL)
+					
 				icon.set_name(self._download_file(pkg.get_icon(),pkg.get_name(),self.icons_folder))
 			else:
 				icon.set_kind(appstream.IconKind.REMOTE)

@@ -129,6 +129,8 @@ class searchmanager:
 			self._debug("Searching category "+str(tokens))
 			categories_set=set(tokens)
 			apps_in_store=self.store.get_apps()
+			if max_results:
+				apps_in_store=apps_in_store[0:max_results]
 			count_apps=len(apps_in_store)
 			self.progress=0
 			inc=100/count_apps
@@ -162,8 +164,8 @@ class searchmanager:
 			applist=applist_2
 #			for app in applist:
 #				self._debug("Added "+app.get_id())
-		if max_results:
-			applist=applist[0:max_results]
+#		if max_results:
+#			applist=applist[0:max_results]
 		#List only valid categories
 
 		self.result['data']=applist

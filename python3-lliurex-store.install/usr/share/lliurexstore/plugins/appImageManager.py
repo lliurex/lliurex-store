@@ -264,8 +264,8 @@ class appimagemanager:
 				applist.append(appinfo)
 			else:
 				self._debug("External appImage could not be fetched: Permission denied")
-		self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
-		self._debug("Fetched appimage "+app_info['url'])
+			self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
+			self._debug("Fetched appimage "+app_info['url'])
 		all_apps.extend(applist)
 		self._debug("Removing old entries...")
 #		self._clean_bundle_catalogue(all_apps,outdir)

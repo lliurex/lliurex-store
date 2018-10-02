@@ -76,7 +76,7 @@
 		#SECTION_BOX .label
 		{
 			color:rgba(0,0,0,0.8);
-			font: Roboto 11;
+			font: 11px Roboto;
 			text-shadow: 0px 0px 1px white;
 			
 			
@@ -168,44 +168,44 @@
 		#HEADER {
 		
 			color:white;
-			font: Roboto 25;
+			font: 25px Roboto;
 		}
 		
 		#TITLE {
 		
 			color:white;
-			font: Roboto 22;
+			font: 22px Roboto;
 		}
 		
 		#FULL_DESCRIPTION {
 		
 			color: #A0A0A0;
-			font: Roboto 10;
+			font: 10px Roboto;
 		}
 		
 		#ROBOTO_MEDIUM_GRAY{
 			color: #A0A0A0;
-			font: Roboto 12;
+			font: 12px Roboto;
 		}
 		
 		#SHORT_DESCRIPTION{
 			color: white;
-			font: Roboto Light 12;
+			font: 12px Roboto Light;
 		}
 		
 		#DETAILS_LABEL{
 			color:white;
-			font: Roboto 13;
+			font: 13px Roboto;
 		}
 		
 		#DETAILS_OPTIONS{
 			color: #A0A0A0;
-			font: Roboto 10;
+			font: 10px Roboto;
 		}
 		
 		#DETAILS_VALUES{
 			color: white;
-			font: Roboto 10;
+			font: 10px Roboto;
 		}
 
 		#SECTION_BUTTON {
@@ -216,7 +216,7 @@
 			border-color: transparent;
 			border: none;
 			color: white;
-			font: Roboto 14;
+			font: 14px Roboto;
 			background-image:-gtk-gradient (linear,	left top, left bottom, from (#5294e2),  to (#5294e2));
 			text-shadow: none;
 			
@@ -234,7 +234,7 @@
 			border-color: transparent;
 			border: none;
 			color: white;
-			font: Roboto 16;
+			font: 16px Roboto;
 			background-image:-gtk-gradient (linear,	left top, left bottom, from (#5294e2),  to (#5294e2));
 			text-shadow: none;
 			
@@ -252,7 +252,7 @@
 			border-color: transparent;
 			border: none;
 			color: white;
-			font: Roboto 16;
+			font: 16px Roboto;
 			background-color: #F44336;
 			text-shadow: none;
 			
@@ -269,7 +269,7 @@
 			border-color: transparent;
 			border: none;
 			color: white;
-			font: Roboto 16;
+			font: 16px Roboto;
 			background-color: #4CAF50;
 			text-shadow: none;
 			
@@ -329,7 +329,7 @@
 		
 		#RELATED_LABEL {
 			color:white;
-			font: Roboto 16;
+			font: 16px Roboto;
 		}
 		
 

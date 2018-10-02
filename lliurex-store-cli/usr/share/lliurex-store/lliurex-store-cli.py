@@ -27,7 +27,6 @@ def main():
 		printed=False
 		results=store.get_result(action)
 		status=store.get_status(action)
-		print("ST: %s"%status)
 		if not 'status' in status.keys():
 			status['status']=1
 			status['msg']='package not found'

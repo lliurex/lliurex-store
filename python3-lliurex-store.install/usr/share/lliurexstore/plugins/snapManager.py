@@ -250,7 +250,7 @@ class snapmanager:
 				xml_data[0]=xml_data[0]+"<components>\n"
 				xml_data[-1]=xml_data[-1]+"\n"+"</components>"
 			except:
-				continue
+				pass
 			xml_file=open(xml_path,'w')
 			xml_file.writelines(xml_data)
 			xml_file.close()

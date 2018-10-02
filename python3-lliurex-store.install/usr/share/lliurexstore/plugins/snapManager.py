@@ -149,7 +149,6 @@ class snapmanager:
 				thread.join()
 			except:
 				pass
-		store_pool.join()
 		while store_pool.qsize():
 			store.add_app(store_pool.get())
 		return(store)
@@ -169,7 +168,6 @@ class snapmanager:
 				store.put(self._generate_appstream_app_from_snap(pkg))
 			else:
 				store.put(self._generate_appstream_app_from_snap(pkg))
-		store.task_done()
 		semaphore.release()
 
 	def _load_from_cache(self,store):

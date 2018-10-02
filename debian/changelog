@@ -1,3 +1,15 @@
+lliurex-store (0.6.1) bionic; urgency=medium
+
+  * Fixes for bionic
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 02 Oct 2018 16:29:04 +0200
+
+lliurex-store (0.6) bionic; urgency=medium
+
+  * SnapManager: add threads
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 02 Oct 2018 16:29:04 +0200
+
 lliurex-store (0.5.9) bionic; urgency=medium
 
   * Add method "policy" to debManager

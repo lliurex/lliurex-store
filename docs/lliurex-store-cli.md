@@ -26,7 +26,9 @@
 	--snap
 		Enables snap plugin
 
-## Examples
+	In order to work with appimages or snaps is mandatory to enable their respective plugins. Install, view and remove options needed the full package name as returned by the search. Search can search by name or metainformation of a package thus you can search for "photo" to retrieve all the available applications related to photography (image processing, image cataloguing...etc..)
+
+## EXAMPLES
 	* Search for a multimedia player:
 	lliurex-store-cli -s player
 
@@ -44,6 +46,9 @@
 
 	* Remove epiphany-browser:
 	lliurex-store-cli -r epiphany-browser
+
+	* Remove subsurface appimage:
+	lliurex-store-cli -r subsurface.appimage --appimage
 
 ## REPORTING BUGS
 	Lliurex Github: https://github.com/lliurex/lliurex-store/issues

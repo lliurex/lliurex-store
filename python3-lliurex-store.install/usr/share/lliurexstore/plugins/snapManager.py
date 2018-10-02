@@ -148,7 +148,7 @@ class snapmanager:
 			try:
 				thread.join()
 			except:
-				continue
+				pass
 		store_pool.join()
 		while store_pool.qsize():
 			store.add_app(store_pool.get())

@@ -11,6 +11,7 @@ from gi.repository import AppStreamGlib as appstream
 import time
 import html
 import threading
+from queue import Queue as pool
 #Needed for async find method, perhaps only on xenial
 wrap=Gio.SimpleAsyncResult()
 class snapmanager:
@@ -133,20 +134,24 @@ class snapmanager:
 
 		fcache=open(self.cache_last_update,'w')
 		fcache.write(str(int(time.time())))
-		if self.cli_mode:
-#			pkgs=self._search_snap("*")
-			pkgs=self._load_sections()
-		else:
-			pkgs=self._load_sections()
-#			pkgs=self._search_snap_async("*")
+		pkgs=self._load_sections()
 		self._set_status(1)
+		store_pool=pool()
 		for pkg in pkgs:
 			maxconnections = 10
 			threads=[]
 			semaphore = threading.BoundedSemaphore(value=maxconnections)
-			th=threading.Thread(target=self._th_load_store, args = (store,pkg,semaphore))
+			th=threading.Thread(target=self._th_load_store, args = (store_pool,pkg,semaphore))
 			threads.append(th)
 			th.start()
+		for thread in threads:
+			try:
+				thread.join()
+			except:
+				continue
+		store_pool.join()
+		while store_pool.qsize():
+			store.add_app(store_pool.get())
 		return(store)
 
 	def _th_load_store(self,store,pkg,semaphore):
@@ -161,9 +166,10 @@ class snapmanager:
 				bundle.set_id(pkg.get_name()+'.snap')
 				app.add_bundle(bundle)
 				app.add_category("Snap")
-				store.add_app(self._generate_appstream_app_from_snap(pkg))
+				store.put(self._generate_appstream_app_from_snap(pkg))
 			else:
-				store.add_app(self._generate_appstream_app_from_snap(pkg))
+				store.put(self._generate_appstream_app_from_snap(pkg))
+		store.task_done()
 		semaphore.release()
 
 	def _load_from_cache(self,store):
@@ -236,12 +242,15 @@ class snapmanager:
 			gioFile=Gio.File.new_for_path(xml_path)
 			app.to_file(gioFile)
 			#Fix some things in app_file...
-			xml_file=open(xml_path,'r')
+			xml_file=open(xml_path,'r',encoding='utf-8')
 			xml_data=xml_file.readlines()
 			xml_file.close()
-			count=0
-			xml_data[0]=xml_data[0]+"<components>\n"
-			xml_data[-1]=xml_data[-1]+"\n"+"</components>"
+			self._debug("fixing %s"%xml_path)
+			try:
+				xml_data[0]=xml_data[0]+"<components>\n"
+				xml_data[-1]=xml_data[-1]+"\n"+"</components>"
+			except:
+				continue
 			xml_file=open(xml_path,'w')
 			xml_file.writelines(xml_data)
 			xml_file.close()
@@ -255,12 +264,12 @@ class snapmanager:
 		sections=self.snap_client.get_sections_sync()
 		stable_pkgs=[]
 		for section in sections:
-			apps=self.snap_client.find_section_sync(Snapd.FindFlags.MATCH_NAME,section,None)
+			apps,curr=self.snap_client.find_section_sync(Snapd.FindFlags.MATCH_NAME,section,None)
 			for pkg in apps:
 				stable_pkgs.append(pkg)
 		return(stable_pkgs)
 
-	def _search_snap_async(self,tokens):
+	def _search_snap_async(self,tokens,force_stable=True):
 		self._debug("Async Searching %s"%tokens)
 		pkgs=None
 		global wrap
@@ -271,43 +280,46 @@ class snapmanager:
 		while 'Snapd' not in str(type(wrap)):
 			time.sleep(0.1)
 		snaps,curr=self.snap_client.find_finish(wrap)
-#		snaps=self.snap_client.find_finish(wrap)
 		if type(snaps)!=type([]):
 			pkgs=[snaps]
 		else:
 			pkgs=snaps
 		stable_pkgs=[]
 		for pkg in pkgs:
-			if pkg.get_channel()=='stable':
+			if force_stable:
+				if pkg.get_channel()=='stable':
+					stable_pkgs.append(pkg)
+				else:
+					self._debug(pkg.get_channel())
+			else:
 				stable_pkgs.append(pkg)
 		return(stable_pkgs)
 
-	def _search_snap(self,tokens):
+	def _search_snap(self,tokens,force_stable=True):
 		self._debug("Searching %s"%tokens)
 		pkg=None
 		pkgs=None
 		try:
 			pkgs,curr=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
-#			pkgs=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
 		except Exception as e:
 			print("ERR: %s"%e)
 			self._set_status(1)
 		stable_pkgs=[]
 		for pkg in pkgs:
-			if pkg.get_channel()=='stable':
-				stable_pkgs.append(pkg)
+			if force_stable:
+				if pkg.get_channel()=='stable':
+					stable_pkgs.append(pkg)
+				else:
+					self._debug(pkg.get_channel())
 			else:
-				self._debug(pkg.get_channel())
+				stable_pkgs.append(pkg)
 		self._debug("Done")
 		return(stable_pkgs)
 	#def _search_snap
 
 	def _download_file(self,url,app_name,dest_dir):
-#		target_file=self.icons_folder+'/'+app_name+".png"
 		target_file=dest_dir+'/'+app_name+".png"
 		if not os.path.isfile(target_file):
-#			shutil.copy("/usr/share/icons/hicolor/128x128/apps/lliurex-store.png",target_file)
-#			if not os.fork():
 			if not os.path.isfile(target_file):
 				self._debug("Downloading %s to %s"%(url,target_file))
 				try:
@@ -325,7 +337,6 @@ class snapmanager:
 					self._debug("Unable to download %s"%url)
 					self._debug("Reason: %s"%e)
 					target_file=''
-#				os._exit(0)
 		return(target_file)
 	#def _download_file
 
@@ -342,17 +353,19 @@ class snapmanager:
 		except:
 			app_info['state']='available'
 			if self.cli_mode:
-				pkgs=self._search_snap(app_info['package'].replace('.snap',''))
+				pkgs=self._search_snap(app_info['package'].replace('.snap',''),force_stable=False)
 			else:
-				pkgs=self._search_snap_async(app_info['package'].replace('.snap',''))
-			self._debug("Getting extended info for %s %s"%(app_info['name'],pkgs))
+				pkgs=self._search_snap_async(app_info['package'].replace('.snap',''),force_stable=False)
+			self._debug("Getting extended info for %s %s"%(app_info['package'],pkgs))
 		if type(pkgs)==type([]):
 			for pkg in pkgs:
 				self._debug("Getting extended info for %s"%app_info['name'])
 				if pkg.get_download_size():
 					app_info['size']=str(pkg.get_download_size())
-				else:
+				elif pkg.get_installed_size():
 					app_info['size']=str(pkg.get_installed_size())
+				else:
+					app_info['size']="-1"
 				break
 		else:
 			app_info['size']='0'

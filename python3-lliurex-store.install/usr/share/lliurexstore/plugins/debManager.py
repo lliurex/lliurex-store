@@ -118,7 +118,7 @@ class debmanager:
 		dependsList=[]
 		self._set_status(0)
 		try:
-			results=pkTask.get_depends(1,[app.get_id(),],True,None,self._fake_callback,None)
+			results=pkTask.depends_on(1,[app.get_id(),],True,None,self._fake_callback,None)
 		except Exception as e:
 #			self._set_status(1)
 			print (str(e))

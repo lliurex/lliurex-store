@@ -21,33 +21,33 @@
 		Removes package *package*. *Package* must be a full package name.
 
 	--appimage
-		Enables appimage repository
+		Enables appimage plugin
 
 	--snap
-		Enables snap store
+		Enables snap plugin
 
 ## Examples
 	* Search for a multimedia player:
-	`lliurex-store-cli -s player`
+	lliurex-store-cli -s player
 
 	* Search for a CAD application in all sources:
-	`lliurex-store-cli -s CAD --appimage --snap`
+	lliurex-store-cli -s CAD --appimage --snap
 
-	* View information for package *firefox-esr*:
-	`lliurex-store-cli -v firefox-esr`
+	* View information for package firefox-esr:
+	lliurex-store-cli -v firefox-esr
 
-	* View information for appimage package *subsurface.appimage*:
+	* View information for appimage package subsurface.appimage:
 	`lliurex-store-cli -v subsurface.appimage --appimage`
 
 	* Install firefox from snap:
-	`lliurex-store-cli -i firefox.snap --snap`
+	lliurex-store-cli -i firefox.snap --snap
 
 	* Remove epiphany-browser:
-	`lliurex-store-cli -r epiphany-browser
+	lliurex-store-cli -r epiphany-browser
 
 ## REPORTING BUGS
-	Lliurex Github: <https://github.com/lliurex/lliurex-store/issues>
+	Lliurex Github: https://github.com/lliurex/lliurex-store/issues
 
 ##SEE ALSO
-	Snapcraft: <https://snapcraft.io>
-	Appimage: <https://appimage.org>
+	Snapcraft: https://snapcraft.io
+	Appimage: https://appimage.org

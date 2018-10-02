@@ -1,2 +1,3 @@
 lliurex-store-cli/* /
 lliurex-store-gui/usr/* /usr
+docs/* /usr/share/doc/lliurex-store

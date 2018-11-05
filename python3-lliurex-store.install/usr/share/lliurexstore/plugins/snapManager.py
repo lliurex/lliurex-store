@@ -275,7 +275,7 @@ class snapmanager:
 		sections=self.snap_client.get_sections_sync()
 		stable_pkgs=[]
 		for section in sections:
-			apps=self.snap_client.find_section_sync(Snapd.FindFlags.MATCH_NAME,section,None)
+			apps,curr=self.snap_client.find_section_sync(Snapd.FindFlags.MATCH_NAME,section,None)
 			for pkg in apps:
 				stable_pkgs.append(pkg)
 		return(stable_pkgs)
@@ -291,7 +291,7 @@ class snapmanager:
 							self._search_cb,(None,),None)
 		while 'Snapd' not in str(type(wrap)):
 			time.sleep(0.1)
-		snaps=self.snap_client.find_finish(wrap)
+		snaps,curr=self.snap_client.find_finish(wrap)
 		if type(snaps)!=type([]):
 			pkgs=[snaps]
 		else:
@@ -314,7 +314,7 @@ class snapmanager:
 		pkg=None
 		pkgs=None
 		try:
-			pkgs=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
+			pkgs,curr=self.snap_client.find_sync(Snapd.FindFlags.MATCH_NAME,tokens,None)
 		except Exception as e:
 			print("ERR: %s"%e)
 			self._set_status(1)

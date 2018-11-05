@@ -4,6 +4,12 @@
 Offers support for Lliurex's zomandos, snaps, appimage and software repositories.<br>
 It can be also be installed on a non-Lliurex system and it shall enable or disable plugins if any of them isn't supported on the base system</p>
 
+More info:
+
+[Valencian](http://wiki.lliurex.net/tiki-index.php?page=LliureX+Store_va)
+
+[Spanish](http://wiki.lliurex.net/tiki-index.php?page=LliureX+Store)
+
 ## Lliurex Store plugin system
 <p>
 Plugins must provide one register method and return a dictionary with "data" and "status" keys.<br>

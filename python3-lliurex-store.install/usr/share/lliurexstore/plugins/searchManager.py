@@ -19,10 +19,11 @@ class searchmanager:
 
 	def __call__(self):
 		return (self.applist)
+	#def __call__
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		self._debug ("Debug enabled")
+		#self._debug ("Debug enabled")
 	#def set__debug
 
 	def _debug(self,msg=''):
@@ -32,10 +33,11 @@ class searchmanager:
 
 	def register(self):
 		return(self.plugin_actions)
+	#def register
 
 	def execute_action(self,appstreamStore,action,tokens,exact_match_for_search=False,max_results=0):
-		self._debug("Executing action %s"%action)
-		self._debug("Tokens: %s"%tokens)
+		#self._debug("Executing action %s"%action)
+		#self._debug("Tokens: %s"%tokens)
 		self.progress=0
 		if type(tokens)==type([]):
 			tokens=' '.join(tokens)
@@ -45,7 +47,7 @@ class searchmanager:
 			tokens=''
 		if len(tokens.split(' '))>1:
 			if action=='search':
-				self._debug("Tokenizing search items")
+				#self._debug("Tokenizing search items")
 				tokens=appstream.utils_search_tokenize(tokens)
 			else:
 				tokens=tokens.split(' ')
@@ -66,21 +68,24 @@ class searchmanager:
 			if (action=='search' or action=='info'):
 				self._search_app(tokens,exact_match_for_search)
 		else:
-			self._debug("Search needs a store")
+			#self._debug("Search needs a store")
+			pass
 		self.progress=100
 		return(self.result)
+	#def execute_action
 
 	def _set_status(self,status,msg=''):
 		self.result['status']={'status':status,'msg':msg}
+	#def _set_status
 
 	def set_precision(self,precision):
 		self.precision=precision
+	#def set_precision
 
 	def _search_app(self,tokens,exact_match):
-		self._debug("Searching app "+str(tokens)+ " with exact_match="+str(exact_match))
+		#self._debug("Searching app "+str(tokens)+ " with exact_match="+str(exact_match))
 		applist=[]
 		app=None
-#		if len(tokens)==1:
 		if exact_match:
 			app=self._app_exists(tokens[0])
 		if app:
@@ -88,12 +93,9 @@ class searchmanager:
 				applist.extend(app)
 			else:
 				applist.append(app)
-#			self._debug("App direct match found: "+app.get_id())
+#			#self._debug("App direct match found: "+app.get_id())
 		if not exact_match:
 			applist.extend(self._get_apps_by_match(tokens,applist))
-#		if len(applist):
-#			self._set_status(0)
-#		else:
 			applist.extend(self._get_app_by_pkgname(tokens,applist))
 		applist=set(applist)
 		if len(applist):
@@ -102,6 +104,7 @@ class searchmanager:
 			self._set_status(1)
 		self.result['data']=applist
 		return(applist)
+	#def _search_app
 
 	def _list_sections(self):
 		applist=[]
@@ -120,17 +123,16 @@ class searchmanager:
 		else:
 			self._set_status(1)
 		return(applist)
+	#def _list_sections
 
 	def _list_category(self,tokens=[],max_results=0):
 		applist=[]
-		self._debug("tokens: "+str(tokens))
-		self._debug("Max results: %s"%max_results)
+		#self._debug("tokens: "+str(tokens))
+		#self._debug("Max results: %s"%max_results)
 		if len(tokens)>=1:
-			self._debug("Searching category "+str(tokens))
+			#self._debug("Searching category "+str(tokens))
 			categories_set=set(tokens)
 			apps_in_store=self.store.get_apps()
-			if max_results:
-				apps_in_store=apps_in_store[0:max_results]
 			count_apps=len(apps_in_store)
 			self.progress=0
 			inc=100/count_apps
@@ -143,10 +145,12 @@ class searchmanager:
 						pass
 					app_categories_set=set(app_categories)
 					if categories_set.issubset(app_categories_set):
-						self._debug("Found "+app.get_id())
+						#self._debug("Found "+app.get_id())
 						applist.append(app)
+						if max_results and len(applist)==max_results:
+							break
 		else:
-			self._debug("Loading all apps in store")
+			#self._debug("Loading all apps in store")
 			applist=self.store.get_apps()
 			categories_set=set(['snap','appimage'])
 			applist_2=[]
@@ -162,10 +166,8 @@ class searchmanager:
 					else:
 						print("Removing %s"%app.get_pkgname())
 			applist=applist_2
-#			for app in applist:
-#				self._debug("Added "+app.get_id())
-#		if max_results:
-#			applist=applist[0:max_results]
+			if max_results:
+				applist=applist[0:max_results]
 		#List only valid categories
 
 		self.result['data']=applist
@@ -174,9 +176,10 @@ class searchmanager:
 		else:
 			self._set_status(1)
 		return(applist)
+	#def _list_category
 
 	def _app_exists(self,app_name):
-		self._debug("Trying direct match for "+app_name)
+		#self._debug("Trying direct match for "+app_name)
 		#id_matches defines how to search for an app
 		# %s -> app_name; zero-lliurex-%s -> app_name with zero-lliurex- prefix and so on...
 		id_matches=['%s','zero-lliurex-%s','%s.desktop']
@@ -186,27 +189,16 @@ class searchmanager:
 			app=self.store.get_apps_by_id(id_string%app_name)
 			if app:
 				break
-
-
-		#1.- Try exact match
-#		app=self.store.get_apps_by_id(app_name)
-#		if not app:
-#		#2.- Try exact match with zero-lliurex- for the zomandos
-#			app=self.store.get_app_by_id("zero-lliurex-"+app_name)
-#		if not app:
-#		#3.- Try exact match with .desktop
-#			app=self.store.get_apps_by_id(app_name+".desktop")
 		if not app:
-		#4.- Try exact match by pkgname
+		#2.- Try exact match by pkgname
 			app=self.store.get_app_by_pkgname(app_name)
-#		if not app:
-#			app=self.store.get_app_by_id_ignore_prefix(app_name)
-		self._debug("App found %s"%app)
+		#self._debug("App found %s"%app)
 		return(app)
+	#def _app_exists
 
 	def _get_apps_by_match(self,tokens,applist=[]):
 		#Add items with match >= self.precision
-		self._debug("Searching app by fuzzy match")
+		#self._debug("Searching app by fuzzy match")
 		if not applist:
 			position=1
 		else:
@@ -223,8 +215,6 @@ class searchmanager:
 					for token in tokens:
 						score=app.search_matches(token)
 						if score>=self.precision:
-#							if "appimage" in app.get_id().lower():
-#								score=1
 							if score in tmp_app_dict:
 								tmp_app_dict[score].append(app)
 							else:
@@ -233,9 +223,10 @@ class searchmanager:
 			for match in sorted(tmp_app_dict.keys()):
 				for app in tmp_app_dict[match]:
 					if app not in applist:
-						self._debug("Adding app "+app.get_id() + " with score: "+str(match))
+						#self._debug("Adding app "+app.get_id() + " with score: "+str(match))
 						applist.insert(0,app)
 		return(applist)
+	#def _get_apps_by_match
 
 	def _get_app_by_pkgname(self,tokens,applist=[]):
 		if not applist:
@@ -255,3 +246,4 @@ class searchmanager:
 							applist.insert(1,app)
 
 		return(applist)
+	#def _get_app_by_pkgname

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import sys
+import sys,os,signal
 import argparse
 #sys.path.append('/usr/share/lliurex-store')
 #sys.path.append('/home/lliurex/lliurex-store/trunk/fuentes/lliurex-appstore.install/usr/share/lliurex-store')
@@ -7,6 +7,7 @@ import lliurexstore.storeManager as storeManager
 import time
 import html2text
 import gettext
+import threading
 gettext.textdomain('python3-lliurex-store')
 _=gettext.gettext
 
@@ -21,6 +22,13 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
+
+def signal_handler(*args):
+	if args[0]==17:
+		return
+	os.system('setterm -cursor on')
+	sys.exit(0)
+	
 
 def main():
 	def print_results(action=None):
@@ -70,9 +78,9 @@ def main():
 								print("CLI: Error printing key %s"%e)
 						elif action=='search':
 							#Only print name and summary
-							printcolor=color.DARKCYAN
 							data_id=''
-							if data['bundle']!='':
+							printcolor=color.DARKCYAN
+							if data['bundle']:
 								printcolor=color.PURPLE
 							elif (data['package'] not in data['id'] or data['package'] in processed):
 								data_id=" (%s)"%data['id']
@@ -96,9 +104,9 @@ def main():
 								print(_(u'Error listing')+ ':'+str(e))
 								pass
 						elif action=='install':
-								print(data['package']+" "+ _(u"installed")+" "+color.BOLD+ _(u"succesfully")+color.END)
+								print(color.DARKCYAN+data['package']+color.END+" "+ _(u"installed")+" "+color.BOLD+ _(u"succesfully")+color.END)
 						elif action=='remove':
-								print(data['package']+" "+ _(u"removed")+" "+color.BOLD+ _(u"succesfully")+color.END)
+								print(color.DARKCYAN+data['package']+color.END+" "+ _(u"removed")+" "+color.BOLD+ _(u"succesfully")+color.END)
 						else:
 							print("RESULT:\n%s"%data)
 				else:
@@ -121,6 +129,7 @@ def main():
 	dbg=False
 	appimage=False
 	snap=False
+	autostart=True
 	args=process_Args(sys.argv)
 #	if args.debug:
 #		dbg=True
@@ -128,6 +137,10 @@ def main():
 		appimage=True
 	if args.snap:
 		snap=True
+	if args.update:
+		actions.append('cache')
+		parms['cache']=None
+		autostart=False
 	if args.view:
 		actions.append('info')
 		parms['info']=args.view
@@ -147,34 +160,39 @@ def main():
 #		actions.append('list')
 #		parms['list']=args.list
 
-	actionList={'search':False,'info':False,'pkgInfo':False,'install':False,'remove':False,'list':False,'list-sections':False,'random':False}
+	actionList={'search':False,'info':False,'pkgInfo':False,'install':False,'remove':False,'list':False,'list-sections':False,'random':False,'cache':False}
 	start_time=time.time()
-	store=storeManager.StoreManager(appimage=appimage,snap=snap,dbg=dbg,cli=True)
+	store=storeManager.StoreManager(appimage=appimage,snap=snap,dbg=dbg,autostart=autostart,cli=True)
 	for action in actions:
-		store.execute_action(action,parms[action])
+		th=threading.Thread(target=store.execute_action, args = (action,parms[action]))
+		th.start()
 		actionList[action]=False
 		
+	inc=0
+	banner=' '.join(actions)
+	banner='LliureX Store'
+	numchar=len(banner)
+	os.system('setterm -cursor off')
 	while store.is_action_running():
-		progressDic=store.get_progress()
-		progressArray=[]
-		for progress in progressDic:
-			if progress!='load':
-				progressArray.append(_(progress)+': '+str(int(progressDic[progress]))+'%')
-		print(','.join(progressArray),end="\r")
-		time.sleep(0.1)
-		for key in actionList:
-			progressDic=store.get_progress(key)
-			if key in progressDic:
+		ini=banner[0:numchar]
+		end=banner[numchar:inc]
+		text=ini+' '+end
+		print(text+'                 ',end='\r')
+		numchar-=1
+		inc+=1
+		time.sleep(0.2)
+		if numchar<0:
+			numchar=len(banner)
+			inc=0
+	print("")
+	print (CURSOR_UP + ERASE_LINE)
+	for key in actionList:
+		progressDic=store.get_progress(key)
+		if key in progressDic:
 				if progressDic[key]==100 and not actionList[key]:
-					progressDic=store.get_progress(key)
-					progressArray=[]
-					for progress in progressDic:
-						if progress!='load':
-							progressArray.append(_(progress)+': '+str(progressDic[progress])+'%')
-					print(','.join(progressArray))
-					print (CURSOR_UP + ERASE_LINE)
 					actionList[key]=print_results(key)
-#	print_results('random')
+	print_results()
+	os.system('setterm -cursor on')
 
 def process_Args(args):
 	parser=argparse.ArgumentParser(description=(u'Lliurex Store.'))
@@ -186,9 +204,14 @@ def process_Args(args):
 #	parser.add_argument('--debug',action='store_true',help=(_(u"Prints debug information")))
 	parser.add_argument('--appimage',action='store_true',help=(_(u"Load appimage catalog")))
 	parser.add_argument('--snap',action='store_true',help=(_(u"Load snap catalog")))
+	parser.add_argument('--update',action='store_true',help=(_(u"Update cache")))
 #	parser.add_argument('--list',metavar='list',nargs='?',help=(_(u"List category")))
 
 	args=parser.parse_args()
 	return args
 
+#Cause the cli hides the cursor we must assure that the cursor is showing when the program ends
+sigs=set(signal.Signals) - {signal.SIGKILL, signal.SIGSTOP}
+for sig in sigs:
+	signal.signal(sig,signal_handler)
 main()

@@ -14,7 +14,7 @@ class infomanager:
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		self._debug ("Debug enabled")
+		#self._debug ("Debug enabled")
 	#def set__debug
 
 	def _debug(self,msg=''):
@@ -26,9 +26,8 @@ class infomanager:
 		return(self.plugin_actions)
 	#def register
 
-	def execute_action(self,appstream,action,applist,match=False):
+	def execute_action(self,action,applist,match=False):
 		self.progress=0
-		self.appstream=appstream
 		count=len(applist)
 		if (action=='get_info' or action=='info') and count>0:
 			inc=100.0/count
@@ -39,6 +38,7 @@ class infomanager:
 	
 	def _set_status(self,status,msg=''):
 		self.result['status']={'status':status,'msg':msg}
+	#def _set_status
 
 	def _callback_progress(self):
 		self.progress=self.progress+self.inc
@@ -58,7 +58,7 @@ class infomanager:
 		applistInfo=[]
 		for app in applist:
 			appInfo=self._init_appInfo()
-#			self._debug("Gathering package info for "+app.get_id())
+			#self._debug("Gathering package info for "+app.get_id())
 #Earlier versions stored the appstream_id as the memory dir of the metadata
 #Changes in python3.6 and pickle module forces us to disable this feature... 
 #			appInfo['appstream_id']=app
@@ -89,6 +89,8 @@ class infomanager:
 			for localeItem in self.locale:
 				if app.get_comment(localeItem):
 					appInfo['summary']=app.get_comment(localeItem)
+					appInfo['summary']=appInfo['summary'].replace('&amp;','&')
+					appInfo['summary']=appInfo['summary'].replace('<p>','')
 					break
 			for localeItem in self.locale:
 				if app.get_description(localeItem):
@@ -136,12 +138,11 @@ class infomanager:
 						elif img.get_basename():
 								screenshots_list.append("/home/lliurex/.cache/lliurex-store/images/"+img.get_basename())
 
-
 					appInfo['thumbnails']=thumbnails_list
 				appInfo['screenshot']=default_screenshot
 				appInfo["screenshots"]=screenshots_list
 			#The values are the values of appstream.UrlKind. 1=HOMEPAGE, 0=UNKNOWN
-#			self._debug(app.get_url_item(0))
+#			#self._debug(app.get_url_item(0))
 			if app.get_url_item(1):
 				appInfo['homepage']=app.get_url_item(1).strip()
 			if app.get_url_item(0):

@@ -8,6 +8,7 @@ import Package
 import threading
 import multiprocessing
 import time
+import copy
 
 import gettext
 gettext.textdomain('lliurex-store')

@@ -7,6 +7,8 @@ import pkgutil
 import lliurexstore.plugins as plugins
 import json
 import random
+import time
+from queue import Queue as pool
 ######
 #Ver. 1.0 of storeManager.py
 # This class manages the store and the related plugins
@@ -18,8 +20,12 @@ import random
 class StoreManager():
 	def __init__(self,*args,**kwargs):
 		self.dbg=False
-		if 'dbg' in kwargs.keys():
+		if 'dbg' in kwargs.keys() and self.dbg==False:
 			self.dbg=kwargs['dbg']
+		self.autostart=True
+		if 'autostart' in kwargs.keys():
+			self.autostart=kwargs['autostart']
+			self._debug("Autostart actions: %s"%self.autostart)
 		self._propagate_dbg=False
 		self.store=None
 		self.stores={}
@@ -33,6 +39,9 @@ class StoreManager():
 					'remove':['search','get_info','pkginfo','remove']
 					}
 		self.cli_mode=[]			#List that controls cli_mode for plugins
+		self.autostart_actions=[]	#List with actions marked as autostart by plugins
+		self.postaction_actions=[]	#List with actions that will be launched after other actions
+		self.required_parms={}
 		self.threads={}				#Dict with the functions that must execute each action
 		self.static={}				#Dict with the functions that must execute each action
 		self.threads_progress={}			#"" "" "" the progress for each launched thread
@@ -50,7 +59,15 @@ class StoreManager():
 		self._define_functions_for_threads()	#Function that loads the dictionary self.threads
 		self.__init_plugins__(**kwargs)			#Function that loads the plugins
 		self.execute_action('load')		#Initial load of the store
+		th=threading.Thread(target=self._autostart_actions)
+		th.start()
 	#def main
+
+	def _autostart_actions(self):
+		if self.autostart:
+			for autostart_action in self.autostart_actions:
+				self._debug("Autostart %s"%(autostart_action))
+				self.execute_action(autostart_action)
 
 	####
 	#Load and register the plugins from plugin dir
@@ -82,6 +99,7 @@ class StoreManager():
 							continue
 						if target_class.disabled==None:
 							self._debug("Plugin %s will set its status"%plugin_name)
+							pass
 						else:
 							#Time to check if plugin is disabled or enabled by parm
 							#Values for the plugins_registered dict must be the same as the parm name that enables the plugin
@@ -103,6 +121,12 @@ class StoreManager():
 						if 'cli' in kwargs.keys():
 							sw_cli_mode=True
 							self._debug("Enabling cli mode for %s"%plugin_name)
+					if 'autostart_actions' in target_class.__dict__.keys():
+						self.autostart_actions.append(target_class.__dict__['autostart_actions'])
+					if 'requires' in target_class.__dict__.keys():
+						self.required_parms.update(target_class.__dict__['requires'])
+					if 'postaction_actions' in target_class.__dict__.keys():
+						self.postaction_actions.append({target_class:target_class.__dict__['postaction_actions']})
 				except Exception as e:
 					print ("Can't initialize %s %s"%(mod,target_class))
 					print ("Reason: %s"%e)
@@ -139,15 +163,15 @@ class StoreManager():
 	####
 	def _define_functions_for_threads(self):
 		self.threads['load']="threading.Thread(target=self._load_Store)"
-		self.threads['get_info']="threading.Thread(target=self._get_App_Info,args=args,kwargs=kwargs)"
-		self.threads['pkginfo']="threading.Thread(target=self._get_Extended_App_Info,args=args,kwargs=kwargs)"
-		self.threads['search']='threading.Thread(target=self._search_Store,args=args,kwargs=kwargs)'
-		self.threads['list']='threading.Thread(target=self._search_Store,args=args,kwargs=kwargs)'
+		self.threads['get_info']="threading.Thread(target=self._get_App_Info,daemon=True,args=args,kwargs=kwargs)"
+		self.threads['pkginfo']="threading.Thread(target=self._get_Extended_App_Info,daemon=True,args=args,kwargs=kwargs)"
+		self.threads['search']='threading.Thread(target=self._search_Store,daemon=True,args=args,kwargs=kwargs)'
+		self.threads['list']='threading.Thread(target=self._search_Store,daemon=True,args=args,kwargs=kwargs)'
 #		self.threads['list']='threading.Thread(target=self._get_editors_pick,args=args,kwargs=kwargs)'
-		self.threads['info']='threading.Thread(target=self._search_Store,args=args,kwargs=kwargs)'
-		self.threads['install']='threading.Thread(target=self._install_remove_App,args=args,kwargs=kwargs)'
-		self.threads['remove']='threading.Thread(target=self._install_remove_App,args=args,kwargs=kwargs)'
-		self.threads['list_sections']='threading.Thread(target=self._list_sections,args=args,kwargs=kwargs)'
+		self.threads['info']='threading.Thread(target=self._search_Store,daemon=True,args=args,kwargs=kwargs)'
+		self.threads['install']='threading.Thread(target=self._install_remove_App,daemon=True,args=args,kwargs=kwargs)'
+		self.threads['remove']='threading.Thread(target=self._install_remove_App,daemon=True,args=args,kwargs=kwargs)'
+		self.threads['list_sections']='threading.Thread(target=self._list_sections,daemon=True,args=args,kwargs=kwargs)'
 		self.static['random']='self._get_editors_pick(kwargs=kwargs)'
 	#def _define_functions_for_threads
 
@@ -156,13 +180,27 @@ class StoreManager():
 	#Input: 
 	#  - action to be executed
 	#  - parms for the action
+	#Action must be a kwarg but for retrocompatibility reasons we keep it as an arg
 	####
 	def execute_action(self,action,*args,**kwargs):
-		#Action must be a kwarg but for retrocompatibility reasons we keep it as an arg
-		kwargs.update({"action":action})
+		autostart_action=False
+		#Check for autolaunchable actions
+		if type(action)==type({}):
+			autostart_action=True
+			aux_action=list(action.keys())[0]
+			kwargs.update({"action":aux_action})
+			(key,value)=action[aux_action].split('=')
+			kwargs.update({key:value})
+			action=aux_action
+		else:
+			kwargs.update({"action":action})
+			if action in self.required_parms.keys():
+				(key,value)=self.required_parms[action].split('=')
+				kwargs.update({key:value})
 		self._debug("Launching action: %s with args %s and kwargs %s"%(action,args,kwargs))
 		if self.is_action_running('load'):
 			self._join_action('load')
+			self._debug("Total apps: %s"%str(len(self.store.get_apps())))
 			self._debug("Resumed action %s"%action)
 		sw_track_status=False
 		if action not in self.threads.keys():
@@ -171,10 +209,19 @@ class StoreManager():
 			if action in self.plugins_registered.keys():
 				for package_type,plugin in self.plugins_registered[action].items():
 					self.action_progress[action]=0
-					self.threads[action]='threading.Thread(target=self._execute_class_method(action,package_type,action).execute_action,args=[action],kwargs={kwargs})'
+					if kwargs:
+						kargs={}
+						for arg_name in kwargs:
+							try:
+								kargs.update({arg_name:eval(kwargs[arg_name])})
+							except:
+								kargs.update({arg_name:kwargs[arg_name]})
+						kwargs=kargs.copy()
+					self.threads[action]='threading.Thread(target=self._execute_class_method(action,package_type).execute_action,daemon=True,args=[],kwargs=kwargs)'
 					break
 				self._debug('Plugin for %s found: %s'%(action,self.plugins_registered[action]))
-				self.related_actions.update({action:[action]})
+				if not autostart_action:
+					self.related_actions.update({action:[action]})
 				sw_track_status=True
 		if action in self.threads.keys():
 			if self.is_action_running(action):
@@ -182,17 +229,20 @@ class StoreManager():
 				self._debug("Waiting for current action %s to end"%s)
 				self.running_threads[action].join()
 			try:
-				if action in self.action_progress.keys():
-					self.action_progress[action]=0
 				self.action_progress[action]=0
 				self.result[action]={}
-				self.running_threads[action]=eval(self.threads[action])
+				self.running_threads.update({action:eval(self.threads[action])})
 				self.running_threads[action].start()
+				if not self.running_threads[action].is_alive():
+					self._debug("Relaunching!!!!!!")
+					self.running_threads.update({action:eval(self.threads[action])})
+					self.running_threads[action].start()
 				if sw_track_status:
 					self.result[action]['status']={'status':0,'msg':''}
 				else:
 					self.result[action]['status']={'status':-1,'msg':''}
 				self._debug("Thread %s for action %s launched"%(self.running_threads[action],action))
+				self._debug("Thread count: %s"%(threading.active_count()))
 
 			except Exception as e:
 				self._debug("Can't launch thread for action: %s"%action)
@@ -200,40 +250,38 @@ class StoreManager():
 				pass
 		elif action in self.static.keys():
 				self.action_progress[action]=0
-				self.result[action]={}
-				self.result[action]['data']=eval(self.static[action])
-				self.result[action]['status']={'status':0,'msg':''}
+				self.result[action].update({'data':eval(self.static[action])})
+				self.result[action].update({'status':{'status':0,'msg':''}})
 				self.action_progress[action]=100
 
 		else:
 			self._debug("No function associated with action %s"%action)
+			pass
 	#def execute_action
 
-	####
-	#Launch the appropiate class function
-	#Input: 
-	#  - class action to be executed
-	#  - parms for the action
-	#  - parent action that demands the execution
-	#Output
-	#  - The class method to execute
-	####
 	def _execute_class_method(self,action,package_type,*args,launchedby=None,**kwargs):
 		exe_function=None
 		if not package_type:
 			package_type="*"
-		if action in self.plugins_registered:
+		if action in self.plugins_registered.keys():
 			self._debug("Plugin for %s: %s"%(action,self.plugins_registered[action][package_type]))
-			exe_function=eval(self.plugins_registered[action][package_type]+"("+','.join(args)+")")
+			try:
+				self._debug(self.plugins_registered[action][package_type]+"("+','.join(args)+")")
+				exe_function=eval(self.plugins_registered[action][package_type]+"("+','.join(args)+")")
+			except Exception as e:
+				self._debug("Can't launch execute_method for class %s"%e)
+				pass
 			if self._propagate_dbg:
-				exe_function.set_debug()
+				exe_function.set_debug(self.dbg)
 			if self.plugins_registered[action][package_type] in self.cli_mode:
 				exe_function.cli_mode=True
 			self._register_action_progress(action,exe_function,launchedby)
 		else:
 			self._debug("No plugin for action: %s"%action)
+			pass
 		if kwargs:
 			self._debug("Parms: %s"%kwargs)
+			pass
 		return (exe_function)
 	#def _execute_class_method
 
@@ -282,6 +330,7 @@ class StoreManager():
 		except Exception as e:
 			self._debug("Unable to join thread for: %s"%action)
 			self._debug("Reason: %s"%e)
+			pass
 		finally:		
 			if action in self.running_threads.keys():
 				del(self.running_threads[action])
@@ -367,12 +416,18 @@ class StoreManager():
 			self._debug("Checking result for action %s"%action)
 			if self.is_action_running(action):
 				self._join_action(action)
-			result[action]=None
+			result[action]=[]
 			if action in self.result:
 				if 'data' in self.result[action]:
 					result[action]=self.result[action]['data']
+					if len(self.result[action]['data'])<1:
+						self._debug("ERROR NO DATA")
+						self._debug("ERROR NO DATA")
+						self._debug("ERROR NO DATA")
+						self._debug("ERROR NO DATA")
+						result[action]=[""]
 				else:
-					result[action]=[]
+					result[action]=[""]
 		self.lock.release()
 		if action in self.extra_actions.keys():
 			self._load_Store()
@@ -417,11 +472,25 @@ class StoreManager():
 		load_function=self._execute_class_method(action,package_type,launchedby=None)
 		self.store=load_function.execute_action(action=action,store=self.store)['data']
 		#Once appstream is loaded load the appstream plugins for other package types (snap, appimage...)
+		store_pool=pool()
+		threads=[]
 		for package_type in self.plugins_registered[action]:
 			if package_type!='*':
-				load_function=self._execute_class_method(action,package_type,launchedby=None)
-				self.store=load_function.execute_action(action=action,store=self.store)['data']
+				th=threading.Thread(target=self._th_load_store, args = (store_pool,action,package_type))
+				threads.append(th)
+				th.start()
+		for thread in threads:
+			try:
+				thread.join()
+			except:
+				pass
+		while store_pool.qsize():
+			self.store=store_pool.get()
 	#def _load_Store
+
+	def _th_load_store(self,store_pool,action,package_type):
+		load_function=self._execute_class_method(action,package_type,launchedby=None)
+		store_pool.put(load_function.execute_action(action=action,store=self.store)['data'])
 
 	####
 	#Return a random array of applications
@@ -522,7 +591,7 @@ class StoreManager():
 	def _get_App_Info(self,applist,launchedby=None):
 		action='get_info'
 		info_function=self._execute_class_method(action,None,launchedby=launchedby)
-		info_applist=info_function.execute_action(self.store,action,applist)
+		info_applist=info_function.execute_action(action,applist)
 		self._debug("Info collected")
 		return(info_applist)
 	#def _get_App_Info
@@ -543,21 +612,26 @@ class StoreManager():
 		result['status']={'status':0,'msg':''}
 		processed=[]
 		for app_info in info_applist:
-			if channel:
-				types_dict[channel]=[app_info]
-			else:
-				available_channels=self._check_package_type(app_info)
-				for package_type in available_channels:
-					if app_info['component']!='':
-						if app_info['id'] in processed:
-							self._debug("App %s processed"%app_info['id'])
-							continue
+			info_function=self._execute_class_method(action,'*',launchedby=launchedby)
+			info_result=info_function.execute_action(action,applist=[app_info])
+			self._debug(info_result)
+			if info_result['status']['status']==0 and info_result['data'][0]['state']:
+				result['data'].extend(info_result['data'])
+			elif info_result['status']['status']==0:
+				app_info=info_result['data'][0]
+			#Get channel
+			available_channels=self._check_package_type(app_info)
+			for package_type in available_channels:
+				if app_info['component']!='':
+					if app_info['id'] in processed:
+						self._debug("App %s processed"%app_info['id'])
+						continue
 
-					if package_type in types_dict:
-						types_dict[package_type].append(app_info)
-					else:
-						types_dict[package_type]=[app_info]
-					processed.append(app_info['id'])
+				if package_type in types_dict:
+					types_dict[package_type].append(app_info)
+				else:
+					types_dict[package_type]=[app_info]
+				processed.append(app_info['id'])
 		for package_type in types_dict:
 			self._debug("Checking plugin for %s %s"%(action,package_type))
 			if package_type in self.plugins_registered[action]:
@@ -646,7 +720,6 @@ class StoreManager():
 			self.result[subordinate_action]=result
 			if fullsearch:
 				#2.- Get rest of metadata (slower)
-				subordinate_action='pkginfo'
 				self._debug("Target channel: %s"%target_channel)
 				result=self._get_Extended_App_Info(result['data'],launchedby,fullsearch,target_channel)
 				if launchedby:
@@ -657,6 +730,7 @@ class StoreManager():
 					if fullsearch:
 						result['status']['status']=0
 				else:
+					self._debug(result)
 					return_msg=False
 		else:
 			return_msg=False
@@ -742,6 +816,8 @@ class StoreManager():
 #							else:
 #								app['appstream_id'].set_state(2)
 #								self._debug("App state changed to available")
+					for app in types_dict[package_type]:
+						self._execute_postactions(action,app['package'])
 					return_msg=True
 		self._log("Result %s: %s"%(action,self.result[action]))
 		return(return_msg)
@@ -772,3 +848,11 @@ class StoreManager():
 				return_msg.append("sh")
 		return(return_msg)
 	#def _check_package_type
+
+	def _execute_postactions(self,action,app):
+		for postaction in self.postaction_actions:
+			for plugin,actions in postaction.items():
+				for key,val in actions.items():
+					if action==key:
+						self._debug("Application: %s"%app)
+						plugin.execute_action(key,applist=app)

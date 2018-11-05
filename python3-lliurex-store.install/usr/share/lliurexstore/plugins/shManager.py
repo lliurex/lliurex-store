@@ -22,7 +22,7 @@ class shmanager:
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		self._debug ("Debug enabled")
+		#self._debug ("Debug enabled")
 	#def set_debug
 
 	def _debug(self,msg=''):
@@ -40,7 +40,7 @@ class shmanager:
 		count=len(applist)
 		if (action):
 			for app_info in applist:
-				self._debug("Executing action "+action+" for "+str(app_info))
+				#self._debug("Executing action "+action+" for "+str(app_info))
 				if action=='install':
 					self.result['data'].append(self._install_App(app_info))
 				if action=='pkginfo':
@@ -51,6 +51,7 @@ class shmanager:
 
 	def _set_status(self,status,msg=''):
 		self.result['status']={'status':status,'msg':msg}
+	#def _set_status
 
 	def _callback(self,partial_size=0,total_size=0):
 		limit=99
@@ -69,7 +70,7 @@ class shmanager:
 	def _install_App(self,app_info):
 		return_msg=False
 		app_url=app_info['installerUrl']
-		self._debug("Checking availabilty for "+app_url)
+		#self._debug("Checking availabilty for "+app_url)
 		tmp_dir=tempfile.mkdtemp(None,None,'/tmp')
 		file_name=app_url.split('/')[-1]
 		dest_path=tmp_dir+'/'+file_name
@@ -79,7 +80,7 @@ class shmanager:
 			err=0
 			try:
 				sudo_cmd=['gksudo',dest_path]
-				self._debug("executing "+str(sudo_cmd))
+				#self._debug("executing "+str(sudo_cmd))
 				launched_cmd=subprocess.Popen(sudo_cmd,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
 #				launched_cmd=subprocess.check_output(sudo_cmd)
 				cmd_launcher=os.path.basename(dest_path)
@@ -95,14 +96,14 @@ class shmanager:
 						err=3 #Force "package not installed" error
 				cmd_status=launched_cmd.stdout.read()
 				cmd_err=launched_cmd.stderr.read()
-				self._debug("Error: "+str(cmd_err))
-				self._debug("Result: "+str(cmd_status))
+				#self._debug("Error: "+str(cmd_err))
+				#self._debug("Result: "+str(cmd_status))
 			except subprocess.CalledProcessError as callError:
 #				err=callError.returncode
 				#if gksudo fails set "permission denied" error
 				err=303
 			except Exception as e:
-				self._debug(str(e))
+				#self._debug(str(e))
 				err=12
 		else:
 			err=11
@@ -115,7 +116,7 @@ class shmanager:
 		if not dest_path:
 			tmp_dir=tempfile.mkdtemp(None,None,'/tmp')
 			dest_path=tmp_dir+'/'+app_url.split('/')[-1]
-		self._debug("Downloading "+app_url+" to "+dest_path)	
+		#self._debug("Downloading "+app_url+" to "+dest_path)	
 		try:
 #			urllib.request.urlretrieve(app_url,dest_path)
 			with urllib.request.urlopen(app_url) as response, open(dest_path, 'wb') as out_file:
@@ -130,14 +131,14 @@ class shmanager:
 					self._callback(acumbf,sh_size)
 			return_msg=True
 		except Exception as e:
-			self._debug(str(e))
+			#self._debug(str(e))
 			return_msg=False
 		return return_msg
 	#def _download_App
 
 	def _get_Sh_Info(self,app_info):
 		app_url=app_info['installerUrl']
-		self._debug("Connecting to "+app_url)
+		#self._debug("Connecting to "+app_url)
 		app_url.strip()
 		try:
 			info=urllib.request.urlopen(app_url) 
@@ -147,6 +148,7 @@ class shmanager:
 			err=11
 		self._set_status(err)
 		return(app_info)
+	#def _get_Sh_Info
 
 	#def _get_info
 

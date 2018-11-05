@@ -1,7 +1,7 @@
 {
 	"Krita":
 	{
-		"url":"http://download.kde.org/stable/krita/4.1.0/krita-4.1.0-x86_64.appimage",
+		"url":"http://download.kde.org/stable/krita/4.1.3/krita-4.1.3-x86_64.appimage",
 		"version":"4.1.0",
 		"description":{"es":"Krita es un programa profesional de pintura digital, gratuito y hecho con código libre, ha sido creado por artistas mismos que desean hacer éstas herramientas accesibles para todos",
 			"C":"Krita is a professional FREE and open source painting program. It is made by artists that want to see affordable art tools for everyone",
@@ -15,7 +15,7 @@
 	},
 	"gmic-krita":
 	{
-		"url":"http://download.kde.org/stable/krita/4.1/gmic_krita_qt-x86_64.appimage",
+		"url":"http://download.kde.org/stable/krita/4.1.3/gmic_krita_qt-x86_64.appimage",
 		"name":"Gmic-Krita",
 		"version":"2.3.3",
 		"url_info":"",
@@ -23,5 +23,16 @@
 		"keywords":["krita","gimp","paint","painting","dibujo","dibuix","graphics","gmic"],
 		"homepage":"https://gmic.eu/",
 		"categories":["appimage","Graphics"]
+	},
+	"vlc-3.0":
+	{
+		"url":"https://github.com/anupam-git/vlc-appimage/releases/download/continuous/VLC_media_player-x86_64.AppImage",
+		"name":"VLC-3",
+		"version":"continous",
+		"url_info":"",
+		"description":{"C":"VLC media player (commonly known as VLC) is a free and open-source, portable, cross-platform media player and streaming media server developed by the VideoLAN project"},
+		"keywords":["vlc","mplayer","player","reproductor","dvd","streaming","server","servidor"],
+		"homepage":"https://videolan.org/",
+		"categories":["appimage","Audio","Video","Media","Player"]
 	}
 }

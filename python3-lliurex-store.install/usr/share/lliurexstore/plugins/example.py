@@ -20,6 +20,14 @@ class example:
 		#If there'll be no parameter for enable/disable then the plugin manages it's own state and self.disabled must be None
 		#This example plugin is disabled by default
 		self.disabled=True
+		#A plugin must declare autostart actions thar must be invoked when storemanager registers the plugin
+		#The dict's key is the action's name and the value is the parameter (or None) needed for launch the action
+		self.autostart_actions={'example':'store=self.store'} #The parameter list refers to 'stringfieds' storeManager members !!
+		#This dict registers actions to be launched after storemanager registered actions.
+		#In this example the action 'install' of the plugin is launched after storemanager does any 'install' action. As in autostart_actions the parameter referes to storemanager members
+		self.postaction_actions={'install':'app','remove':'app'}
+		#If an action requires some parameter to be launched you could declare here.
+		self.requires={'cache':'store=self.store'}
 	#def __init__
 	
 	#public function that sets the debug mode. If we execute storeManager in debug mode all plugins will be launched in this mode if propaate_debug==True

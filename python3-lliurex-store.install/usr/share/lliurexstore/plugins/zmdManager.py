@@ -19,7 +19,7 @@ class zmdmanager:
 		self.disabled=None
 		if hasattr(sys,'last_value') or not (os.path.exists(self.zmd_folder)):
 			#If there's an error at this point it only could be an importError caused by xmlrpc 
-			print("ERROR!!!!")
+			print("ZMD support disabled")
 			self.disabled=True
 		self.plugin_actions={'install':'zmd','pkginfo':'zmd','remove':'zmd'}
 		self.progress=0
@@ -32,7 +32,7 @@ class zmdmanager:
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		self._debug ("Debug enabled")
+		#self._debug ("Debug enabled")
 	#def set__debug
 
 	def _debug(self,msg=''):
@@ -74,6 +74,7 @@ class zmdmanager:
 	
 	def _set_status(self,status,msg=''):
 		self.result['status']={'status':status,'msg':msg}
+	#def _set_status
 	
 	def _callback(self,zmd_launcher):
 		inc=1
@@ -88,7 +89,7 @@ class zmdmanager:
 
 	def _install_Zmd(self,app_info):
 		zmd=self.zmd_folder+'/'+app_info['package']+'.zmd'
-		self._debug("Installing "+str(zmd))
+		#self._debug("Installing "+str(zmd))
 		app_info=self._get_Zmd_Info(app_info)
 		if app_info['state']=='installed':
 			err=4
@@ -97,7 +98,7 @@ class zmdmanager:
 				err=0
 				try:
 					zmd_sudo=['pe',zmd]
-					self._debug("executing "+str(zmd_sudo))
+					#self._debug("executing "+str(zmd_sudo))
 					launched_zmd=subprocess.Popen(zmd_sudo,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
 					zmd_launcher=os.path.basename(zmd)
 					zmd_launcher=os.path.splitext(zmd_launcher)[0]
@@ -106,10 +107,11 @@ class zmdmanager:
 						time.sleep(0.4)
 					zmd_status=launched_zmd.stdout.read()
 					zmd_err=launched_zmd.stderr.read()
-					self._debug("Error: "+str(zmd_err))
-					self._debug("Result: "+str(zmd_status))
+					#self._debug("Error: "+str(zmd_err))
+					#self._debug("Result: "+str(zmd_status))
 				except Exception as e:
-					self._debug(str(e))
+					#self._debug(str(e))
+					pass
 				finally:
 					app_info=self._get_Zmd_Info(app_info)
 					if app_info['state']!='installed':
@@ -122,7 +124,7 @@ class zmdmanager:
 
 	def _remove_Zmd(self,app_info):
 		zmd=app_info['package']+'.zmd'
-		self._debug("Removing "+str(zmd))
+		#self._debug("Removing "+str(zmd))
 		os.chdir(self.zmd_folder)
 		sw_continue=False
 		err=0
@@ -136,13 +138,13 @@ class zmdmanager:
 					packagelist=packagelist.replace('"','')
 					packagelist=packagelist[:-1]
 					#We've the file with the packagelist, now it's time to read the list
-					self._debug("Obtaining packages in : "+packagelist)
+					#self._debug("Obtaining packages in : "+packagelist)
 					f2=open  (packagelist,'r')
 					for line2 in f2:
 						pkg=line2.split(' ')[0]
 						pkg=pkg.split("\t")[0]
 						pkg=pkg.replace('"','')
-						self._debug("Append to remove list: "+pkg)
+						#self._debug("Append to remove list: "+pkg)
 						remove_packages.append(pkg)
 					f2.close()
 			f.close()
@@ -160,11 +162,11 @@ class zmdmanager:
 			os.chmod(zmd_script,stat.S_IEXEC|stat.S_IREAD|stat.S_IWRITE|stat.S_IROTH|stat.S_IWOTH|stat.S_IXOTH|stat.S_IRGRP|stat.S_IWGRP|stat.S_IXGRP)
 			zmd_sudo=['gksudo',zmd_script]
 			try:
-				self._debug("Executing "+str(zmd_sudo))
+				#self._debug("Executing "+str(zmd_sudo))
 				zmd_launcher=os.path.basename(zmd)
 				zmd_launcher=os.path.splitext(zmd_launcher)[0]
 				launched_zmd=subprocess.Popen(zmd_sudo,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
-				self._debug("Launched")
+				#self._debug("Launched")
 				while launched_zmd.poll() is None:
 					self._callback(zmd_launcher)
 					time.sleep(0.2)
@@ -172,9 +174,9 @@ class zmdmanager:
 				zmd_err=launched_zmd.stderr.read()
 			except Exception as e:
 				err=6
-				self._debug(str(e))
-			self._debug("Error: "+str(zmd_err))
-			self._debug("Result: "+str(zmd_status))
+				#self._debug(str(e))
+			#self._debug("Error: "+str(zmd_err))
+			#self._debug("Result: "+str(zmd_status))
 			app_info=self._get_Zmd_Info(app_info)
 			if app_info['state']=='installed':
 				err=6

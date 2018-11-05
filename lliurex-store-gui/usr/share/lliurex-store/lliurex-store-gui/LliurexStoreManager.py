@@ -67,7 +67,10 @@ class LliurexStoreManager:
 		if ret["status"]==0:
 			
 			data=self.store.get_result(action)
-			p=Package.Package(data["info"][0])
+			try:
+				p=Package.Package(data["info"][0])
+			except:
+				return(Package.Package())
 			
 			categories=copy.deepcopy(p["categories"])
 			banned=set()
@@ -80,7 +83,7 @@ class LliurexStoreManager:
 				if item in categories and len(categories) > 1:
 					categories.remove(item)			
 		
-		
+			'''
 			if len(categories)>0:
 
 				random_id=int(random.random()*len(categories))
@@ -99,9 +102,45 @@ class LliurexStoreManager:
 					
 				p.fix_info()
 			
+			'''
+			
 			return p
 		
 	#def get_info
+	
+	
+	def get_random_packages_from_categories(self,pkg_id,categories):
+		
+		for item in self.core.categories_manager.categories:
+			if item in categories and len(categories) > 1:
+				categories.remove(item)
+		
+		for item in self.core.categories_manager.banned_categories:
+			if item in categories and len(categories) > 1:
+				categories.remove(item)	
+		
+		random_id=int(random.random()*len(categories))
+				
+		random_category=categories[random_id]
+		pkgs,categories=self.get_package_list_from_category(random_category)
+		
+		p=Package.Package({})
+		p.fix_info()
+				
+		if len(pkgs) >=10:
+			samples=10
+		else:
+			samples=len(pkgs)
+				
+		for item in random.sample(pkgs,samples):
+			if item["package"]!=pkg_id:
+				p["related_packages"].append(item)
+					
+		p.fix_info()
+		
+		return p
+		
+	#def get_random_packages_from_categories
 	
 	
 	def get_package_list_from_category(self,category_tag=None,results=0):

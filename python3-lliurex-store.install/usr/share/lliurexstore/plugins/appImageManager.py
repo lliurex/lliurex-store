@@ -16,6 +16,7 @@ from gi.repository import Gio
 gi.require_version('AppStreamGlib', '1.0')
 from gi.repository import AppStreamGlib as appstream
 from bs4 import BeautifulSoup
+# -*- coding: utf-8 -*-
 #from subprocess import call
 
 class appimagemanager:
@@ -29,8 +30,7 @@ class appimagemanager:
 		self.result['status']={}
 		self.cache_dir=os.getenv("HOME")+"/.cache/lliurex-store"
 		self.icons_dir=self.cache_dir+"/icons"
-		self.bundles_dir=self.cache_dir+"/xmls/appimage"
-		self.bundle_types=['appimg']
+		self.cache_xmls=self.cache_dir+"/xmls/appimage"
 		self.appimage_dir=os.getenv("HOME")+"/.local/bin"
 		#To get the description of an app we must go to a specific url defined in url_info.
 		#$(appname) we'll be replaced with the appname so the url matches the right one.
@@ -42,12 +42,13 @@ class appimagemanager:
 		self.disabled=False
 		self.icon_cache_enabled=True
 		self.image_cache_enabled=True
+		self.cache_last_update=self.cache_xmls+'/.appimage.lu'
 		self.apps_for_store=queue.Queue()
 	#def __init__
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		self._debug ("Debug enabled")
+		#self._debug ("Debug enabled")
 	#def set_debug
 
 	def _debug(self,msg=''):
@@ -57,9 +58,11 @@ class appimagemanager:
 
 	def register(self):
 		return(self.plugin_actions)
+	#def register
 
 	def enable(self,state=False):
 		self.disable=state
+	#def enable
 
 	def execute_action(self,action,applist=None,store=None):
 		if store:
@@ -78,15 +81,8 @@ class appimagemanager:
 		else:
 			self._chk_installDir()
 			if action=='load':
-				self._load_appimage_store()
-				#wait till threads end (if any)
-				self._debug("Ending threads...")
-				for th in threading.enumerate():
-					if th.is_alive():
-						try:
-							th.join(5)
-						except:
-							pass
+				self._load_appimage_store(self.store)
+				#self._debug("Ending threads...")
 				while not self.apps_for_store.empty():
 					app=self.apps_for_store.get()
 					self.store.add_app(app)
@@ -104,6 +100,7 @@ class appimagemanager:
 				self.result['data']=list(dataList)
 		self.progress=100
 		return(self.result)
+	#def execute_action
 
 	def _set_status(self,status,msg=''):
 		self.result['status']={'status':status,'msg':msg}
@@ -121,6 +118,7 @@ class appimagemanager:
 			self.progress=(self.progress+inc)
 		if (self.progress>limit):
 			self.progress=limit
+	#def _callback
 
 	def _chk_installDir(self):
 		msg_status=True
@@ -130,16 +128,20 @@ class appimagemanager:
 			except:
 				msg_status=False
 		return msg_status				
+	#def _chk_installDir
 
 	def _install_appimage(self,app_info):
-		app_info=self._get_info(app_info)
-		self._debug("Installing %s"%app_info)
+		app_info=self._get_info(app_info,force=True)
+		#self._debug("Installing %s"%app_info)
 		if app_info['state']=='installed':
 			self._set_status(4)
 		else:
 			if 'appimage' in app_info['channel_releases'].keys():
 				appimage_url=app_info['channel_releases']['appimage'][0]
-			self._debug("Downloading "+appimage_url)
+			else:
+				#self._debug("No url in: %s"%app_info['channel_releases'])
+				pass
+			#self._debug("Downloading "+appimage_url)
 			dest_path=self.appimage_dir+'/'+app_info['package']
 			if appimage_url:
 				try:
@@ -166,7 +168,7 @@ class appimagemanager:
 	#def _install_appimage
 
 	def _remove_appimage(self,app_info):
-		self._debug("Removing "+app_info['package'])
+		#self._debug("Removing "+app_info['package'])
 		if os.path.isfile(self.appimage_dir+'/'+app_info['package']):
 			try:
 				call([self.appimage_dir+"/"+app_info['package'], "--remove-appimage-desktop-integration"])
@@ -180,13 +182,27 @@ class appimagemanager:
 		return(app_info)
 	#def _remove_appimage
 
-	def _load_appimage_store(self,store=None):
-		self._get_bundles_catalogue()
-		self._get_external_catalogue()
-		if os.path.exists(self.bundles_dir):
-			for bundle_type in self.bundle_types:
-				self._debug("Loading %s catalog"%bundle_type)
-				store=self._generic_file_load(self.bundles_dir+'/'+bundle_type,store)
+	def _load_appimage_store(self,store):
+		#Look if cache is up-to-date
+		sw_update_cache=True
+		if os.path.isfile(self.cache_last_update):
+			epoch_time=time.time()
+			fcache=open(self.cache_last_update,'r')
+			fcache_update=fcache.read()
+			if not fcache_update:
+				fcache_update=0
+			if int(epoch_time)-int(fcache_update)<86400:
+				if os.listdir(os.path.dirname(self.cache_xmls)):
+					#self._debug("Loading appimage from cache")
+					sw_update_cache=False
+		if sw_update_cache:
+			self._get_bundles_catalogue()
+			self._get_external_catalogue()
+			fcache=open(self.cache_last_update,'w')
+			fcache.write(str(int(time.time())))
+		if os.path.exists(self.cache_xmls):
+			#self._debug("Loading appimage catalog")
+			store=self._generic_file_load(self.cache_xmls,store)
 		return(store)
 	#def load_bundles_catalog(self)
 	
@@ -196,14 +212,15 @@ class appimagemanager:
 			os.makedirs(target_path)
 		files=os.listdir(target_path)
 		for target_file in os.listdir(target_path):
-			if target_file.endswith('appdata.xml'):
+			if target_file.endswith('.xml'):
 				store_path=Gio.File.new_for_path(target_path+'/'+target_file)
-				self._debug("Adding file "+target_path+'/'+target_file)
+				#self._debug("Adding file "+target_path+'/'+target_file)
 				try:
 					store.from_file(store_path,icon_path,None)
 				except Exception as e:
-					self._debug("Couldn't add file "+target_file+" to store")
-					self._debug("Reason: "+str(e))
+					#self._debug("Couldn't add file "+target_file+" to store")
+					#self._debug("Reason: "+str(e))
+					pass
 		return(store)
 	#def _generic_file_load
 
@@ -211,19 +228,20 @@ class appimagemanager:
 		applist=[]
 		appdict={}
 		all_apps=[]
-		outdir=self.bundles_dir+'/appimg/'
+		outdir=self.cache_xmls
 		#Load repos
 		for repo_name,repo_info in self.repos.items():
-			if not os.path.isdir(self.bundles_dir):
+			if not os.path.isdir(self.cache_xmls):
 				try:
-					os.makedirs(self.bundles_dir)
+					os.makedirs(self.cache_xmls)
 				except:
-					self._debug("appImage catalogue could not be fetched: Permission denied")
-			self._debug("Fetching repo %s"%repo_info['url'])
+					#self._debug("appImage catalogue could not be fetched: Permission denied")
+					pass
+			#self._debug("Fetching repo %s"%repo_info['url'])
 			if repo_info['type']=='json':
 				applist=self._process_appimage_json(self._fetch_repo(repo_info['url']),repo_name)
 
-			self._debug("Fetched repo "+repo_info['url'])
+			#self._debug("Fetched repo "+repo_info['url'])
 			self._th_generate_xml_catalog(applist,outdir,repo_info['url_info'],repo_info['url'],repo_name)
 			all_apps.extend(applist)
 		return True
@@ -231,10 +249,10 @@ class appimagemanager:
 	def _get_external_catalogue(self):
 		applist=[]
 		all_apps=[]
-		outdir=self.bundles_dir+'/appimg/'
+		outdir=self.cache_xmls
 		#Load external apps
 		for app_name,app_info in self._get_external_appimages().items():
-			if os.path.isdir(self.bundles_dir):
+			if os.path.isdir(self.cache_xmls):
 				appinfo=self._init_appinfo()
 				if 'name' in app_info.keys():
 					appinfo['name']=app_info['name']
@@ -258,21 +276,23 @@ class appimagemanager:
 					appinfo['keywords']=app_info['keywords']
 				if 'version' in app_info.keys():
 					appinfo['reywords']=app_info['keywords']
-				self._debug("Fetching external appimage %s"%app_info['url'])
+				#self._debug("Fetching external appimage %s"%app_info['url'])
 				appinfo['bundle']='appimage'
-				self._debug("External:\n%s\n-------"%appinfo)
+				#self._debug("External:\n%s\n-------"%appinfo)
 				applist.append(appinfo)
 			else:
-				self._debug("External appImage could not be fetched: Permission denied")
-			self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
-			self._debug("Fetched appimage "+app_info['url'])
+				#self._debug("External appImage could not be fetched: Permission denied")
+				pass
+		self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
+		#self._debug("Fetched appimage "+app_info['url'])
 		all_apps.extend(applist)
-		self._debug("Removing old entries...")
+		#self._debug("Removing old entries...")
 #		self._clean_bundle_catalogue(all_apps,outdir)
 		return(True)
 	#def _get_bundles_catalogue
 	
 	def _fetch_repo(self,repo):
+		content=''
 		req=Request(repo, headers={'User-Agent':'Mozilla/5.0'})
 		with urllib.request.urlopen(req) as f:
 			content=(f.read().decode('utf-8'))
@@ -287,7 +307,8 @@ class appimagemanager:
 				with open(self.external_appimages) as appimages:
 					external_appimages=json.load(appimages)
 			except:
-				self._debug("Can't load %s"%self.external_appimages)
+				#self._debug("Can't load %s"%self.external_appimages)
+				pass
 		return external_appimages
 	#def _get_external_appimages
 	
@@ -312,7 +333,7 @@ class appimagemanager:
         #def _th_process_appimage
 
 	def load_json_appinfo(self,appimage):
-		self._debug(appimage)
+		#self._debug(appimage)
 		appinfo=self._init_appinfo()
 		appinfo['name']=appimage['name']
 		appinfo['package']=appimage['name']
@@ -330,9 +351,9 @@ class appimagemanager:
 		if 'icon' in appimage.keys():
 			appinfo['icon']=appimage['icon']
 		if 'icons' in appimage.keys():
-			self._debug("Loading icon %s"%appimage['icons'])
+			#self._debug("Loading icon %s"%appimage['icons'])
 			if appimage['icons']:
-				self._debug("Loading icon %s"%appimage['icons'][0])
+				#self._debug("Loading icon %s"%appimage['icons'][0])
 				appinfo['icon']=appimage['icons'][0]
 		if 'screenshots' in appimage.keys():
 			appinfo['thumbnails']=appimage['screenshots']
@@ -345,7 +366,7 @@ class appimagemanager:
 			if appimage['authors']:
 				for author in appimage['authors']:
 					if 'url' in author.keys():
-						self._debug("Author: %s"%author['url'])
+						#self._debug("Author: %s"%author['url'])
 						appinfo['homepage']=author['url']
 		else:
 			appinfo['homepage']='/'.join(appinfo['installerUrl'].split('/')[0:-1])
@@ -363,6 +384,8 @@ class appimagemanager:
 			th=threading.Thread(target=self._th_write_xml, args = (app,outdir,info_url,repo,repo_name,semaphore))
 			threads.append(th)
 			th.start()
+		for thread in threads:
+			thread.join()
 	#def _th_generate_xml_catalog
 
 	def	_th_write_xml(self,appinfo,outdir,info_url,repo,repo_name,semaphore):
@@ -373,31 +396,34 @@ class appimagemanager:
 
 	def _add_appimage(self,appinfo):
 		#Search in local store for the app
-		sw_new=False
+		sw_new=True
 		app=appstream.App()
 		app_orig=self.store.get_app_by_pkgname(appinfo['name'].lower())
 		if not app_orig:
 			app_orig=self.store.get_app_by_id(appinfo['name'].lower()+".desktop")
 		if app_orig:
-			self._debug("Extending app %s"%appinfo['package'])
-			app=self._copy_app_from_appstream(app_orig,app)
+			#self._debug("Extending app %s"%appinfo['package'])
+			if appinfo['icon']:
+				#self._debug("Icon: %s"%appinfo['icon'])
+				app=self._copy_app_from_appstream(app_orig,app,copy_icon=False)
+			else:
+				app=self._copy_app_from_appstream(app_orig,app,copy_icon=True)
+			sw_new=False
 		else:
-			self._debug("Generating new %s"%appinfo['package'])
-		if appinfo['name'].endswith('.appimage'):
+			#self._debug("Generating new %s"%appinfo['package'])
+			pass
+		if appinfo['name'].lower().endswith('.appimage'):
 			app.set_id("appimagehub.%s"%appinfo['name'].lower())
 			app.set_name("C",appinfo['name'])
 		else:
 			app.set_id("appimagehub.%s"%appinfo['name'].lower()+'.appimage')
 			app.set_name("C",appinfo['name']+".appimage")
-		if appinfo['package'].endswith('.appimage'):
+		if appinfo['package'].lower().endswith('.appimage'):
 			app.add_pkgname(appinfo['package'].lower())
 		else:
 			app.add_pkgname(appinfo['package'].lower()+".appimage")
 		app.set_id_kind=appstream.IdKind.DESKTOP
-		sw_new=True
 
-		icon=appstream.Icon()
-		screenshot=appstream.Screenshot()
 		if appinfo['license']:
 			app.set_project_license(appinfo['license'])
 		bundle=appstream.Bundle()
@@ -420,15 +446,17 @@ class appimagemanager:
 			app.add_keyword("C",appinfo['package'])
 			if not appinfo['name'].endswith('.appimage'):
 				app.set_name("C",appinfo['name']+".appimage")
+			desc_header="This is an AppImage bundle of app %s. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."%appinfo['name']
 			if appinfo['description']:
 				for lang,desc in appinfo['description'].items():
-					description="This is an AppImage bundle of app %s. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully.\n%s"%(appinfo['name'],desc)
-					summary=' '.join(list(description.split(' ')[:8]))
+					desc=desc.replace('&','&amp;')
+					description="<p>%s</p><p>%s</p>"%(desc_header,desc)
+					summary=' '.join(list(desc.split(' ')[:10]))
 					app.set_description(lang,description)
 					app.set_comment(lang,summary)
 			else:
-				description="This is an AppImage bundle of app %s. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully"%(appinfo['name'])
-				summary=' '.join(list(description.split(' ')[:8]))
+				description="<p>%s</p>"%(desc_header)
+				summary=' '.join(list(desc_header.split(' ')[:8]))
 				app.set_description("C",description)
 				app.set_comment("C",summary)
 
@@ -440,15 +468,18 @@ class appimagemanager:
 			else:
 				app.add_category("appimage")
 		if appinfo['icon']:
+			icon=appstream.Icon()
 			if self.icon_cache_enabled:
 				icon.set_kind(appstream.IconKind.LOCAL)
-				icon.set_name(self._download_file(appinfo['icon'],appinfo['name'],self.icons_dir))
+				icon_fn=self._download_file(appinfo['icon'],appinfo['name'],self.icons_dir)
+				icon.set_filename(icon_fn)
 			else:
 				icon.set_kind(appstream.IconKind.REMOTE)
 				icon.set_name(pkg.get_icon())
 				icon.set_url(pkg.get_icon())
 			app.add_icon(icon)
 		if appinfo['thumbnails']:
+			screenshot=appstream.Screenshot()
 			img=appstream.Image()
 			if not appinfo['thumbnails'][0].startswith('http'):
 					appinfo['screenshot']=appinfo['thumbnails'][0]
@@ -459,40 +490,58 @@ class appimagemanager:
 			app.add_screenshot(screenshot)
 		#Adds the app to the store
 		self.apps_for_store.put(app)
-		if not os.path.isfile(self.bundles_dir+'/'+app.get_id_filename()):
-			gioFile=Gio.File.new_for_path('%s/%s.xml'%(self.bundles_dir,app.get_id_filename()))
+		if not os.path.isfile(self.cache_xmls+'/'+app.get_id_filename()):
+			xml_path='%s/%s.xml'%(self.cache_xmls,app.get_id_filename())
+			gioFile=Gio.File.new_for_path(xml_path)
 			app.to_file(gioFile)
+			#Fix some things in app_file...
+			xml_file=open(xml_path,'r',encoding='utf-8')
+			xml_data=xml_file.readlines()
+			xml_file.close()
+			#self._debug("fixing %s"%xml_path)
+			try:
+				xml_data[0]=xml_data[0]+"<components origin=\"%s\">\n"%app.get_origin()
+				xml_data[-1]=xml_data[-1]+"\n"+"</components>"
+			except:
+				pass
+			xml_file=open(xml_path,'w')
+			xml_file.writelines(xml_data)
+			xml_file.close()
 	#def _add_appimage
 
-	def _copy_app_from_appstream(self,app_orig,app):
+	def _copy_app_from_appstream(self,app_orig,app,copy_icon=True):
+		desc_header="This is an AppImage bundle of app %s. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."%app_orig.get_pkgnames()[0]
 		app.set_id("appimage."+app_orig.get_id())
 		for category in app_orig.get_categories():
 			app.add_category(category)
+		app.add_category("appimage")
 		for screenshot in app_orig.get_screenshots():
 			app.add_screenshot(screenshot)
-		for icon in app_orig.get_icons():
-			app.add_icon(icon)
+		if copy_icon:
+			for icon in app_orig.get_icons():
+				app.add_icon(icon)
 		for localeItem in self.locale:
 			if app_orig.get_name(localeItem):
 				app.set_name(localeItem,app_orig.get_name(localeItem)+".appimage")
 			if app_orig.get_description(localeItem):
-				app.set_description(localeItem,app_orig.get_description(localeItem))
+				app.set_description(localeItem,"<p>%s</p><p>%s</p>"%(desc_header,app_orig.get_description(localeItem)))
 			if app_orig.get_comment(localeItem):
 				app.set_comment(localeItem,app_orig.get_comment(localeItem))
 		app.set_origin(app_orig.get_origin())
 		return app
+	#def _copy_app_from_appstream
 
 	def _clean_bundle_catalogue(self,applist,outdir):
 		xml_files_list=[]
 		applist=[item.lower() for item in applist]
 		for xml_file in os.listdir(outdir):
-			if xml_file.endswith('appdata.xml'):
-				xml_files_list.append(xml_file.lower().replace('appdata.xml','appimage'))
+			if xml_file.endswith('.xml'):
+				xml_files_list.append(xml_file.lower().replace('.xml','appimage'))
 	
 		if xml_files_list:
 			xml_discard_list=list(set(xml_files_list).difference(applist))
 			for discarded_file in xml_discard_list:
-				os.remove(outdir+'/'+discarded_file.replace('appimage','appdata.xml'))
+				os.remove(outdir+'/'+discarded_file.replace('appimage','.xml'))
 	#def _clean_bunlde_catalogue
 
 	def _download_file(self,url,app_name,dest_dir):
@@ -501,7 +550,7 @@ class appimagemanager:
 			url="https://appimage.github.io/database/%s"%url
 		if not os.path.isfile(target_file):
 			if not os.path.isfile(target_file):
-				self._debug("Downloading %s to %s"%(url,target_file))
+				#self._debug("Downloading %s to %s"%(url,target_file))
 				try:
 					with urllib.request.urlopen(url) as response, open(target_file, 'wb') as out_file:
 						bf=16*1024
@@ -514,8 +563,8 @@ class appimagemanager:
 							acumbf=acumbf+bf
 					st = os.stat(target_file)
 				except Exception as e:
-					self._debug("Unable to download %s"%url)
-					self._debug("Reason: %s"%e)
+					#self._debug("Unable to download %s"%url)
+					#self._debug("Reason: %s"%e)
 					target_file=''
 		return(target_file)
 	#def _download_file
@@ -561,29 +610,32 @@ class appimagemanager:
 		return(appInfo)
 	#def _init_appinfo
 	
-	def _get_info(self,app_info):
-		if app_info['installerUrl']:
-			self._debug("installer: %s"%app_info['installerUrl'])
-			app_info['channel_releases']={'appimage':[]}
-			app_info['channel_releases']['appimage']=self._get_releases(app_info)
+	def _get_info(self,app_info,force=False):
+		#self._debug("Searching for %s in %s"%(app_info['package'],self.appimage_dir))
 		app_info['state']='available'
 		if os.path.isfile(self.appimage_dir+'/'+app_info['package']):
 			app_info['state']='installed'
-		#Get size
-		if 'appimage' in app_info['channel_releases'].keys():
-			if app_info['channel_releases']['appimage'][0]:
-				appimage_url=app_info['channel_releases']['appimage'][0]
-				dest_path=self.appimage_dir+'/'+app_info['package']
-				if appimage_url:
-					try:
-						with urllib.request.urlopen(appimage_url) as response:
-							app_info['size']=(response.info()['Content-Length'])
-					except:
-						app_info['size']=0
-			else:
-				app_info['size']=0
-			#Version (unaccurate aprox)
-			app_info['version']=app_info['channel_releases']['appimage'][0].split('/')[-2]
+		if not app_info['size'] or force:
+			if app_info['installerUrl']:
+				#self._debug("installer: %s"%app_info['installerUrl'])
+				app_info['channel_releases']={'appimage':[]}
+				app_info['channel_releases']['appimage']=self._get_releases(app_info)
+			#Get size
+			app_info['size']="0"
+			app_info['version']='unknown'
+			if 'appimage' in app_info['channel_releases'].keys():
+				if len(app_info['channel_releases']['appimage'])>0:
+					if app_info['channel_releases']['appimage'][0]:
+						appimage_url=app_info['channel_releases']['appimage'][0]
+						dest_path=self.appimage_dir+'/'+app_info['package']
+						if appimage_url:
+							try:
+								with urllib.request.urlopen(appimage_url) as response:
+									app_info['size']=str((response.info()['Content-Length']))
+							except:
+								app_info['size']="0"
+					#Version (unaccurate aprox)
+					app_info['version']=app_info['channel_releases']['appimage'][0].split('/')[-2]
 
 		self._set_status(0)
 		self.partial_progress=100
@@ -593,7 +645,7 @@ class appimagemanager:
 	def _get_releases(self,app_info):
 		releases=[]
 		releases_page=''
-		self._debug("Info url: %s"%app_info['installerUrl'])
+		#self._debug("Info url: %s"%app_info['installerUrl'])
 		url_source=""
 		try:
 			if 'github' in app_info['installerUrl']:
@@ -605,9 +657,14 @@ class appimagemanager:
 				url_source="opensuse"
 #				app_info['installerUrl']=app_info['installerUrl']+"/download"
 
-			if url_source or releases_page:
+			if (url_source or releases_page) and not app_info['installerUrl'].lower().endswith(".appimage"):
+				content=''
 				with urllib.request.urlopen(app_info['installerUrl']) as f:
-					content=(f.read().decode('utf-8'))
+					try:
+						content=f.read().decode('utf-8')
+					except:
+						#self._debug("UTF-8 failed")
+						pass
 					soup=BeautifulSoup(content,"html.parser")
 					package_a=soup.findAll('a', attrs={ "href" : re.compile(r'.*\.[aA]pp[iI]mage$')})
 
@@ -620,12 +677,13 @@ class appimagemanager:
 						if releases_page or url_source:
 							package_link=releases_page+package_link
 							releases.append(package_link)
-							self._debug("Link: %s"%package_link)
-			else:
+							#self._debug("Link: %s"%package_link)
+			if releases==[]:
 				releases=[app_info['installerUrl']]
 		except Exception as e:
-			print(e)
-		self._debug(releases)
+			#self._debug(e)
+			pass
+		#self._debug(releases)
 		return releases
 	#def _get_releases
 	

@@ -38,18 +38,18 @@ class snapmanager:
 				os.makedirs(self.icons_folder)
 			except:
 				self.icon_cache_enabled=False
-				self._debug("Icon cache disabled")
+				#self._debug("Icon cache disabled")
 		if not os.path.isdir(self.images_folder):
 			try:
 				os.makedirs(self.images_folder)
 			except:
 				self.image_cache_enabled=False
-				self._debug("Image cache disabled")
+				#self._debug("Image cache disabled")
 	#def __init__
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		self._debug ("Debug enabled")
+		#self._debug ("Debug enabled")
 	#def set_debug
 
 	def _debug(self,msg=''):
@@ -59,9 +59,11 @@ class snapmanager:
 
 	def register(self):
 		return(self.plugin_actions)
+	#def register
 
 	def enable(self,state=False):
 		self.disabled=state
+	#def enable
 
 	def execute_action(self,action,applist=None,store=None,results=0):
 		if store:
@@ -72,14 +74,18 @@ class snapmanager:
 		self.result['status']={'status':-1,'msg':''}
 		self.result['data']=''
 		
+		self.snap_client=Snapd.Client()
+		try:
+			self.snap_client.connect_sync(None)
+		except Exception as e:
+			self.disabled=True
+			#self._debug("Disabling snap %s"%e)
 
 		if self.disabled==True:
 			self._set_status(9)
 			self.result['data']=self.store
 		else:
 			self._check_dirs()
-			self.snap_client=Snapd.Client()
-			self.snap_client.connect_sync(None)
 			dataList=[]
 			if action=='load':
 				self.result['data']=self._load_snap_store(self.store)
@@ -98,6 +104,7 @@ class snapmanager:
 				self.result['data']=list(dataList)
 		self.progress=100
 		return(self.result)
+	#def execute_action
 
 	def _set_status(self,status,msg=''):
 		self.result['status']={'status':status,'msg':msg}
@@ -116,6 +123,7 @@ class snapmanager:
 	def _check_dirs(self):
 		if not os.path.isdir(self.cache_xmls):
 			os.makedirs(self.cache_xmls)
+	#def _check_dirs
 
 	def _load_snap_store(self,store):
 		pkgs=[]
@@ -127,8 +135,8 @@ class snapmanager:
 			if not fcache_update:
 				fcache_update=0
 			if int(epoch_time)-int(fcache_update)<86400:
-				if not os.listdir(os.path.dirname(self.cache_xmls)):
-					self._debug("Loading snap from cache")
+				if os.listdir(os.path.dirname(self.cache_xmls)):
+					#self._debug("Loading snap from cache")
 					store=self._load_from_cache(store)
 					return store
 
@@ -152,12 +160,13 @@ class snapmanager:
 		while store_pool.qsize():
 			store.add_app(store_pool.get())
 		return(store)
+	#def _load_snap_store
 
 	def _th_load_store(self,store,pkg,semaphore):
 		semaphore.acquire()
 		app=self.store.get_app_by_pkgname(pkg.get_name())
 		if not app:
-			self._debug("Searching for %s"%pkg.get_name())
+			#self._debug("Searching for %s"%pkg.get_name())
 			app=self.store.get_app_by_id(pkg.get_name().lower()+".desktop")
 			if app:
 				bundle=appstream.Bundle()
@@ -169,18 +178,21 @@ class snapmanager:
 			else:
 				store.put(self._generate_appstream_app_from_snap(pkg))
 		semaphore.release()
+	#def _th_load_store
 
 	def _load_from_cache(self,store):
 		for target_file in os.listdir(self.cache_xmls):
 			if target_file.endswith('.xml'):
 				store_file=Gio.File.new_for_path(self.cache_xmls+'/'+target_file)
-				self._debug("Adding file %s/%s"%(self.cache_xmls,target_file))
+				#self._debug("Adding file %s/%s"%(self.cache_xmls,target_file))
 				try:
-					store.from_file(store_file,None,None)
+					store.from_file(store_file,'',None)
 				except Exception as e:
-					self._debug("Couldn't add file %s to store"%target_file)
-					self._debug("Reason: %s"%e)
+					#self._debug("Couldn't add file %s to store"%target_file)
+					#self._debug("Reason: %s"%e)
+					pass
 		return store	
+	#def _load_from_cache
 
 	def _generate_appstream_app_from_snap(self,pkg):
 		bundle=appstream.Bundle()
@@ -215,8 +227,7 @@ class snapmanager:
 		if pkg.get_icon():
 			if self.icon_cache_enabled:
 				icon.set_kind(appstream.IconKind.LOCAL)
-					
-				icon.set_name(self._download_file(pkg.get_icon(),pkg.get_name(),self.icons_folder))
+				icon.set_filename(self._download_file(pkg.get_icon(),pkg.get_name(),self.icons_folder))
 			else:
 				icon.set_kind(appstream.IconKind.REMOTE)
 				icon.set_name(pkg.get_icon())
@@ -243,7 +254,7 @@ class snapmanager:
 			xml_file=open(xml_path,'r',encoding='utf-8')
 			xml_data=xml_file.readlines()
 			xml_file.close()
-			self._debug("fixing %s"%xml_path)
+			#self._debug("fixing %s"%xml_path)
 			try:
 				xml_data[0]=xml_data[0]+"<components>\n"
 				xml_data[-1]=xml_data[-1]+"\n"+"</components>"
@@ -253,10 +264,12 @@ class snapmanager:
 			xml_file.writelines(xml_data)
 			xml_file.close()
 		return(app)
+	#def _generate_appstream_app_from_snap
 
 	def _search_cb(self,obj,request,*args):
 		global wrap
 		wrap=request
+	#def _search_cb
 
 	def _load_sections(self):
 		sections=self.snap_client.get_sections_sync()
@@ -266,9 +279,10 @@ class snapmanager:
 			for pkg in apps:
 				stable_pkgs.append(pkg)
 		return(stable_pkgs)
+	#def _load_sections
 
 	def _search_snap_async(self,tokens,force_stable=True):
-		self._debug("Async Searching %s"%tokens)
+		#self._debug("Async Searching %s"%tokens)
 		pkgs=None
 		global wrap
 		self.snap_client.find_async(Snapd.FindFlags.MATCH_NAME,
@@ -288,13 +302,15 @@ class snapmanager:
 				if pkg.get_channel()=='stable':
 					stable_pkgs.append(pkg)
 				else:
-					self._debug(pkg.get_channel())
+					#self._debug(pkg.get_channel())
+					pass
 			else:
 				stable_pkgs.append(pkg)
 		return(stable_pkgs)
+	#def _search_snap_async
 
 	def _search_snap(self,tokens,force_stable=True):
-		self._debug("Searching %s"%tokens)
+		#self._debug("Searching %s"%tokens)
 		pkg=None
 		pkgs=None
 		try:
@@ -308,10 +324,11 @@ class snapmanager:
 				if pkg.get_channel()=='stable':
 					stable_pkgs.append(pkg)
 				else:
-					self._debug(pkg.get_channel())
+					#self._debug(pkg.get_channel())
+					pass
 			else:
 				stable_pkgs.append(pkg)
-		self._debug("Done")
+		#self._debug("Done")
 		return(stable_pkgs)
 	#def _search_snap
 
@@ -319,7 +336,7 @@ class snapmanager:
 		target_file=dest_dir+'/'+app_name+".png"
 		if not os.path.isfile(target_file):
 			if not os.path.isfile(target_file):
-				self._debug("Downloading %s to %s"%(url,target_file))
+				#self._debug("Downloading %s to %s"%(url,target_file))
 				try:
 					with urllib.request.urlopen(url) as response, open(target_file, 'wb') as out_file:
 						bf=16*1024
@@ -332,8 +349,8 @@ class snapmanager:
 							acumbf=acumbf+bf
 					st = os.stat(target_file)
 				except Exception as e:
-					self._debug("Unable to download %s"%url)
-					self._debug("Reason: %s"%e)
+					#self._debug("Unable to download %s"%url)
+					#self._debug("Reason: %s"%e)
 					target_file=''
 		return(target_file)
 	#def _download_file
@@ -341,8 +358,8 @@ class snapmanager:
 
 	def _get_info(self,app_info):
 		#switch to launch async method when running under a gui
-		#For an unknown reason request will block when sync mode under a gui and async blocks when on cli (really funny)
-		self._debug("Getting info for %s"%app_info)
+		#Request will block when in sync mode under a gui and async mode blocks when on cli (really funny)
+		#self._debug("Getting info for %s"%app_info)
 		pkg=None
 		try:
 			pkg=self.snap_client.list_one_sync(app_info['package'].replace('.snap',''))
@@ -350,45 +367,53 @@ class snapmanager:
 			pkgs=[pkg]
 		except:
 			app_info['state']='available'
+		if not app_info['size']:
 			if self.cli_mode:
 				pkgs=self._search_snap(app_info['package'].replace('.snap',''),force_stable=False)
 			else:
 				pkgs=self._search_snap_async(app_info['package'].replace('.snap',''),force_stable=False)
-			self._debug("Getting extended info for %s %s"%(app_info['package'],pkgs))
-		if type(pkgs)==type([]):
-			for pkg in pkgs:
-				self._debug("Getting extended info for %s"%app_info['name'])
-				if pkg.get_download_size():
-					app_info['size']=str(pkg.get_download_size())
-				elif pkg.get_installed_size():
-					app_info['size']=str(pkg.get_installed_size())
-				else:
-					app_info['size']="-1"
-				break
-		else:
-			app_info['size']='0'
-		self._debug("Info for %s"%app_info)
+			#self._debug("Getting extended info for %s %s"%(app_info['package'],pkgs))
+			if type(pkgs)==type([]):
+				for pkg in pkgs:
+					#self._debug("Getting extended info for %s"%app_info['name'])
+					if pkg.get_download_size():
+						app_info['size']=str(pkg.get_download_size())
+					elif pkg.get_installed_size():
+						app_info['size']=str(pkg.get_installed_size())
+					else:
+						app_info['size']="-1"
+					break
+			else:
+				app_info['size']='0'
+		#self._debug("Info for %s"%app_info)
 		self.partial_progress=100
 		return(app_info)
 	#def _get_info
 
 	def _install_snap(self,app_info):
-		self._debug("Installing %s"%app_info['name'])
+		#self._debug("Installing %s"%app_info['name'])
+		def install(app_name,flags):
+			self.snap_client.install2_sync(flags,app_name.replace('.snap',''),
+					None, # channel
+					None, #revision
+					self._callback, (None,),
+					None) # cancellable
+			app_info['state']='installed'
+			self._set_status(0)
+
 		if app_info['state']=='installed':
 			self._set_status(4)
 		else:
 			try:
-				self.snap_client.install_sync(app_info['name'].replace('.snap',''),
-                        None, # channel
-                        self._callback, (None,),
-                        None) # cancellable
-				app_info['state']='installed'
-				self._set_status(0)
+				install(app_info['name'],Snapd.InstallFlags.NONE)
 			except Exception as e:
-				print("Install error %s"%e)
-				self._set_status(5)
-
-		self._debug("Installed %s"%app_info)
+				try:
+					if e.code==19:
+						install(app_info['name'],Snapd.InstallFlags.CLASSIC)
+				except Exception as e:
+					#self._debug("Install error %s"%e)
+					self._set_status(5)
+		#self._debug("Installed %s"%app_info)
 		return app_info
 	#def _install_snap
 

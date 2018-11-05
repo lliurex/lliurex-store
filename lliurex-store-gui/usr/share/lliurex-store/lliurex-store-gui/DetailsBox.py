@@ -15,6 +15,8 @@ import threading
 from subprocess import Popen
 import os
 import html2text
+import random
+import copy
 
 import gettext
 gettext.textdomain('lliurex-store')
@@ -41,6 +43,9 @@ class DetailsBox(Gtk.VBox):
 		
 		self.full_info_box=Gtk.HBox()
 		self.pack_start(self.full_info_box,True,True,5)
+		
+		self.related_aborted=False
+		self.current_id=None
 		
 		# ####### LEFT SIDE ######
 		
@@ -262,6 +267,8 @@ class DetailsBox(Gtk.VBox):
 	
 	def set_package_info(self,pkg):
 		
+		self.current_id=random.random()
+		
 		info={}
 		
 		info["image_url"]=pkg["banner_small"]
@@ -362,7 +369,17 @@ class DetailsBox(Gtk.VBox):
 
 		for p in self.related_box.get_children():
 			self.related_box.remove(p)
-			
+		
+		categories=copy.deepcopy(pkg["categories"])
+		
+		self.related=None
+		
+		self.related_thread=threading.Thread(target=self.search_related_packages_from_categories_thread,args=(pkg["package"],categories,self.current_id))
+		self.related_thread.daemon=True
+		self.related_thread.start()
+		GLib.timeout_add(500,self.related_pkg_listener,self.current_id)
+		
+		'''
 		for p in pkg["related_packages"]:
 			
 			image=Screenshot.ScreenshotNeo()
@@ -401,12 +418,75 @@ class DetailsBox(Gtk.VBox):
 		
 		self.related_sw.get_hadjustment().set_value(0)
 		self.related_box.show_all()
+		'''
 		
 		for x in self.screenshots_box.get_children():
 			x.connect("clicked",self.core.main_window.screenshot_clicked)
 		
 		
 	#def set_values
+	
+	
+	def search_related_packages_from_categories_thread(self,pkg,categories,id):
+
+		self.related=self.core.store.get_random_packages_from_categories(pkg,categories)
+		
+	#def search_related_packages_from_categories_thread
+	
+	def related_pkg_listener(self,id):
+		
+		if id!=self.current_id:
+			return False
+			
+		if self.related_thread.is_alive():
+			return True
+			
+		if self.related!=None:
+			
+			
+			for p in self.related["related_packages"]:
+				
+				image=Screenshot.ScreenshotNeo()
+
+				i={}
+				i["image_id"]=p["package"]+"_banner_small"
+				i["x"]=self.banner_small
+				i["y"]=self.banner_small
+				i["name"]=p["package"].capitalize()
+				i["package"]=p["package"]
+				i["icon"]=p["icon"]
+				i["component"]=p["component"]
+
+				if p["banner"]!=None:
+					i["image_url"]=p["banner"]
+					i["custom_frame"]=False
+				else:
+					i["image_path"]=self.core.resources.get_icon(p)
+					i["custom_frame"]=True
+					
+				if not i["custom_frame"]:
+					image.download_image(i)
+				else:
+					i["force_text"]=True
+					image.create_banner_from_file(i)
+				
+				b=Gtk.Button()
+				b.add(image)
+				b.set_size_request(self.banner_small,self.banner_small)
+				b.set_margin_top(10)
+				b.connect("clicked",self.related_app_clicked,p)
+				b.set_name("RELATED_BUTTON")
+				b.set_valign(Gtk.Align.CENTER)
+				b.set_tooltip_text(p["name"])
+				self.related_box.pack_start(b,False,False,3)
+			
+			self.related_sw.get_hadjustment().set_value(0)
+			self.related_box.show_all()			
+			
+			
+		return False
+			
+	#def related_pkg_listener
 	
 	
 	def set_css_info(self):

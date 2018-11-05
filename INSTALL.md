@@ -5,6 +5,7 @@ There're available packages for LliureX and other Ubuntu-related distributions a
 - [ppa-bionic](https://launchpad.net/~llxdev/+archive/ubuntu/bionic)
 
 Once the repositories or ppa are added:
+
 	sudo apt-get update
 	sudo apt-get install lliurex-store
 

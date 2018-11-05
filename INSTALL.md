@@ -38,17 +38,21 @@ Simply run setup.py from root folder
 
 ### Copy the executables and needed files
 
-- lliurex-store-cli
+- lliurex-store-cli:
+
 	cp lliurex-store-cli/usr/share/lliurex-store /usr/share -r
 	ln -s /usr/share/lliurex-store/lliurex-store-cli.py /usr/bin/lliurex-store-cli
 
-- lliurex-store-gui
+- lliurex-store-gui:
+
 	cp lliurex-store-gui/usr/share/lliurex-store-gui /usr/share -r
 	ln -s /usr/share//lliurex-store/lliurex-store-gui/lliurex-store.py /usr/bin/lliurex-store
 
 - desktop file:
+
 	cp lliurex-store-gui/usr/share/applications/* /usr/share/applications/
 
 - mate users:
+
 	cp lliurex-store-gui/usr/share/mate-background-properties/* /usr/share/mate-background-properties/ 
 

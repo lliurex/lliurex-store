@@ -3,11 +3,13 @@
 <p>
 Offers support for Lliurex's zomandos, snaps, appimage and software repositories.<br>
 It can be also be installed on a non-Lliurex system and it shall enable or disable plugins if any of them isn't supported on the base system</p>
+
 ## Lliurex Store plugin system
 <p>
 Plugins must provide one register method and return a dictionary with "data" and "status" keys.<br>
 The basic structure of a plugin is provided at the "example.py" plugin.
 </p>
+
 ### Available public methods
 <ul>
 <li>

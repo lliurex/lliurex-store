@@ -1,20 +1,38 @@
+lliurex-store (0.7) bionic; urgency=medium
+
+  * Implemented cache for package info
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 02 Nov 2018 09:15:13 +0100
+
+lliurex-store (0.6.2) bionic; urgency=medium
+
+  * Improved icons cache
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 24 Oct 2018 09:49:26 +0200
+
 lliurex-store (0.6.1) bionic; urgency=medium
 
-  * Fixes for bionic
+  * DebManager: add threads
 
- -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 02 Oct 2018 16:29:04 +0200
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 23 Oct 2018 09:16:05 +0200
 
 lliurex-store (0.6) bionic; urgency=medium
 
   * SnapManager: add threads
 
- -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 02 Oct 2018 16:29:04 +0200
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 26 Sep 2018 17:00:44 +0200
 
 lliurex-store (0.5.9) bionic; urgency=medium
 
   * Add method "policy" to debManager
 
- -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 12 Sep 2018 13:23:48 +0200
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 12 Sep 2018 12:30:11 +0200
+
+lliurex-store (0.5.8) bionic; urgency=high
+
+  * Added background xml to mate settings
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 09 Aug 2018 13:51:05 +0200
 
 lliurex-store (0.5.7.1) bionic; urgency=medium
 

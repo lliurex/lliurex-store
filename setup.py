@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # $Id: setup.py,v 1.32 2010/10/17 15:47:21 ghantoos Exp $
 #

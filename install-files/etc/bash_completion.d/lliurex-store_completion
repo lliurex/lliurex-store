@@ -12,6 +12,7 @@ _store_completion() {
 				VALUES=($(compgen -W "-s --search -v --view -i --install -r --remove --appimage --snap -u --update -h --help" -- ${CUR}))
 				;;
 			''|*)
+				[ -e $INFO_FILE ] || return
 				case ${PRE} in
 					'-v'|'--view' | '-i' | '--install' | '-r' | '--remove')
 						VALUES=($(compgen -W "$(cat $INFO_FILE)" -- ${CUR}))
@@ -26,5 +27,4 @@ _store_completion() {
 	COMPREPLY=("${VALUES[@]}")
 }
 INFO_FILE=${HOME}/.cache/lliurex-store/data/bash_completion
-touch $INFO_FILE
 complete -F _store_completion lliurex-store-cli

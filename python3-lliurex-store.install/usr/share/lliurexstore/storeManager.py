@@ -28,7 +28,11 @@ class StoreManager():
 			self._debug("Autostart actions: %s"%self.autostart)
 		self._propagate_dbg=False
 		self.store=None
-		self.stores={}
+		self.cache="%s/.cache/lliurex-store"%os.environ['HOME']
+		self.cache_data="%s/data"%self.cache
+		if not os.path.isdir(self.cache_data):
+			os.makedirs(self.cache_data)
+		self.cache_completion="%s/bash_completion"%self.cache_data
 		self.related_actions={
 					'load':['load'],
 					'search':['search','get_info','pkginfo'],
@@ -486,6 +490,10 @@ class StoreManager():
 				pass
 		while store_pool.qsize():
 			self.store=store_pool.get()
+		with open(self.cache_completion,'w') as f:
+			for app in self.store.get_apps():
+				f.write("%s\n"%app.get_pkgname_default())
+
 	#def _load_Store
 
 	def _th_load_store(self,store_pool,action,package_type):

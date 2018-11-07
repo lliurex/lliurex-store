@@ -21,10 +21,13 @@
 		Removes package. Package must be a full package name.
 
 	--appimage
-		Enables appimage plugin
+		Enables appimage plugin. Appimages due to its nature are downloaded to $HOME/.local/bin and installed per-user
 
 	--snap
 		Enables snap plugin
+
+	--update
+		Updates the cache database. For including appimage and snaps the corresponding arguments must be passed too.
 
 	In order to work with appimages or snaps is mandatory to enable their respective plugins. Install, view and remove options needed the full package name as returned by the search. Search can search by name or metainformation of a package thus you can search for "photo" to retrieve all the available applications related to photography (image processing, image cataloguing...etc..)
 

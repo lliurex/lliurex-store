@@ -1,0 +1,30 @@
+#!/bin/bash
+_store_completion() {
+	CUR="${COMP_WORDS[COMP_CWORD]}"
+	PRE="${COMP_WORDS[COMP_CWORD-1]}"
+	local VALUES=()
+	if [[ "${#COMP_WORDS[@]}" == "0" ]] || [[ "${COMP_WORDS[1]}" == "" ]]
+	then
+		VALUES=($(compgen -W "-s --search -v --view -i --install -r --remove --appimage --snap -u --update -h --help" -- ${CUR}))
+	else
+		case ${CUR} in
+			-*)
+				VALUES=($(compgen -W "-s --search -v --view -i --install -r --remove --appimage --snap -u --update -h --help" -- ${CUR}))
+				;;
+			''|*)
+				case ${PRE} in
+					'-v'|'--view' | '-i' | '--install' | '-r' | '--remove')
+						VALUES=($(compgen -W "$(cat $INFO_FILE)" -- ${CUR}))
+						;;
+					*)
+						VALUES=()
+						;;
+				esac
+				;;
+		esac
+	fi
+	COMPREPLY=("${VALUES[@]}")
+}
+INFO_FILE=${HOME}/.cache/lliurex-store/data/bash_completion
+touch $INFO_FILE
+complete -F _store_completion lliurex-store-cli

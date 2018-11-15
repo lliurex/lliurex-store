@@ -1,3 +1,9 @@
+lliurex-store (0.7.1) bionic; urgency=medium
+
+  * Fix font definitions in css
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 15 Nov 2018 13:15:49 +0100
+
 lliurex-store (0.7) bionic; urgency=medium
 
   * Implemented cache for package info

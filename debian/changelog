@@ -1,6 +1,12 @@
-lliurex-store (0.7.2) bionic; urgency=medium
+lliurex-store (0.7.3) bionic; urgency=medium
 
   * Fix some css
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 14 Dec 2018 09:14:40 +0100
+
+lliurex-store (0.7.2) bionic; urgency=medium
+
+  * Fix lookup for 'package' icon
 
  -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 14 Dec 2018 09:09:51 +0100
 

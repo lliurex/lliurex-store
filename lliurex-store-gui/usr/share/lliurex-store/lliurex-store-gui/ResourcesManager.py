@@ -29,7 +29,12 @@ class ResourcesManager:
 		
 		self.icon_db=Gtk.IconTheme()
 		self.icon_db.set_custom_theme("Vibrancy-Dark-Orange")
-		self.package_icon=self.icon_db.lookup_icon("package",256,Gtk.IconLookupFlags.FORCE_SVG ).get_filename()
+		try:
+			self.package_icon=self.icon_db.lookup_icon("package",256,Gtk.IconLookupFlags.FORCE_SVG ).get_filename()
+		except:
+			self.icon_db.set_custom_theme("Humanity")
+			self.package_icon=self.icon_db.lookup_icon("package-x-generic",256,Gtk.IconLookupFlags.FORCE_SVG ).get_filename()
+
 		
 	#def init
 

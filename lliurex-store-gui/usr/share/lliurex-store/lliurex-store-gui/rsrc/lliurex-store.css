@@ -31,7 +31,7 @@
 		#POPUP_SHADOW_TOPBOTTOM
 		{
 		
-			background-color: rgba(0,0,0,0.7);
+			background: rgba(0,0,0,0.7);
 			
 		}
 		
@@ -49,15 +49,15 @@
 
 		#LIGHT_BLUE_BOX{
 			
-			/*background-color: rgba(0,95,219,1);*/
-			background-color: #000000;
+			/*background: rgba(0,95,219,1);*/
+			background: #000000;
 		}
 
 
 
 		#TRANSPARENT
 		{
-			background-color:transparent;
+			background:transparent;
 			color: transparent;
 		}
 		
@@ -67,8 +67,9 @@
 
 			border:0;
 			border-radius: 0;
-			color:white;
-			background-color: transparent;
+/*			color:white;*/
+			color:grey;
+			background: transparent;
 			transition: none;
 			animation-delay: 0ms;
 		}
@@ -84,6 +85,7 @@
 		
 		#SECTION_BOX:hover {
 			background-image: -gtk-gradient (linear,	left top, right top, from ( rgba(79,142,217,1) ), to (rgba(79,142,217,1)));
+			color:white;
 			
 		}
 		
@@ -101,8 +103,8 @@
 
 		#MENU_BUTTON{
 			
+			background:red;
 			background-image: url("icons/llx-store.svg");
-			background-color:red;
 			border-color: black;
 			border: 0px;
 			outline-color: black; 
@@ -253,13 +255,13 @@
 			border: none;
 			color: white;
 			font: 16px Roboto;
-			background-color: #F44336;
+			background: #F44336;
 			text-shadow: none;
 			
 		}
 		
 		#UNINSTALL_BUTTON:hover {
-			background-color: #f45936;
+			background: #f45936;
 		}
 		
 		#OPEN_BUTTON {
@@ -270,13 +272,13 @@
 			border: none;
 			color: white;
 			font: 16px Roboto;
-			background-color: #4CAF50;
+			background: #4CAF50;
 			text-shadow: none;
 			
 		}
 		
 		#OPEN_BUTTON:hover {
-			background-color: #81C784;
+			background: #81C784;
 		}
 		
 		
@@ -305,7 +307,7 @@
 			background-image: none;
 			box-shadow: none;
 			border-color: transparent;
-			background-color: transparent;
+			background: transparent;
 			transition-property: background-image, box-shadow;
 			transition-duration: 250ms;
 			
@@ -315,7 +317,7 @@
 		
 		#RELATED_BUTTON:backdrop {
 			
-			background-color: transparent;
+			background: transparent;
 		}
 		
 		#RELATED_BUTTON:hover {
@@ -335,7 +337,7 @@
 
 		#MEDIA_BUTTON {
 			border-radius: 0px;
-			background-color: white;
+			background: white;
 		}
 		
 		#BACK_BUTTON {
@@ -343,18 +345,18 @@
 			box-shadow: none;
 			
 			
-			background-color: transparent;
+			background: transparent;
 			
 		}
 
 		#BACK_BUTTON:hover {
 			border-radius: 0%;
-			background-color: rgba(34,69,128,1);
+			background: rgba(34,69,128,1);
 		}
 		
 		#BACK_BUTTON:active {
 			border-radius: 100%;
-			background-color: rgb(50,101,187);
+			background: rgb(50,101,187);
 			transition: 200ms ease-out;
 		}
 
@@ -374,20 +376,20 @@
 				
 		
 		.scrollbar .trough {
-			background-color: transparent;
+			background: transparent;
 			border: 0px; 
 
 		}
 		
 		.scrollbar .slider {
-			background-color: rgba(90,140,220,0.7); 
+			background: rgba(90,140,220,0.7); 
 			
 		}
 		
 		GtkScrolledWindow {
 			
 			background-image: none;
-			background-color: transparent;
+			background: transparent;
 			border: 0px;
 		}
 
@@ -400,7 +402,7 @@
 		GtkButton {
 			
 			box-shadow: none;
-			background-color: transparent;
+			background: transparent;
 			background-image: none;
 			border: 0px;
 		}
@@ -425,7 +427,7 @@
 			background-image: url("icons/letters/l.svg");
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-color: transparent;
+			background: transparent;
 			animation: bounce-image infinite ease-out 2s;
 			animation-delay: 0ms;
 
@@ -436,7 +438,7 @@
 			background-image: url("icons/letters/l.svg");
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-color: transparent;
+			background: transparent;
 			animation: bounce-image infinite ease-out 2s;
 			animation-delay: 100ms;
 
@@ -447,7 +449,7 @@
 			background-image: url("icons/letters/i.svg");
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-color: transparent;
+			background: transparent;
 			animation: bounce-image infinite ease-out 2s;
 			animation-delay: 200ms;
 
@@ -458,7 +460,7 @@
 			background-image: url("icons/letters/u.svg");
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-color: transparent;
+			background: transparent;
 			animation: bounce-image infinite ease-out 2s;
 			animation-delay: 300ms;
 
@@ -469,7 +471,7 @@
 			background-image: url("icons/letters/r.svg");
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-color: transparent;
+			background: transparent;
 			animation: bounce-image infinite ease-out 2s;
 			animation-delay: 400ms;
 
@@ -480,7 +482,7 @@
 			background-image: url("icons/letters/e.svg");
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-color: transparent;
+			background: transparent;
 			animation: bounce-image infinite ease-out 2s;
 			animation-delay: 500ms;
 
@@ -491,14 +493,14 @@
 			background-image: url("icons/letters/x.svg");
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-color: transparent;
+			background: transparent;
 			animation: bounce-image infinite ease-out 2s;
 			animation-delay: 600ms;
 
 		}
 		
 		#TEST{
-			background-color: red;
+			background: red;
 			box-shadow: none;
 			background-image: none;
 			border: 0px;

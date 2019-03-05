@@ -79,7 +79,8 @@ class shmanager:
 			os.chmod(dest_path, stat.S_IRUSR|stat.S_IWUSR|stat.S_IXUSR)
 			err=0
 			try:
-				sudo_cmd=['gksudo',dest_path]
+#				sudo_cmd=['gksudo',dest_path]
+				sudo_cmd=['pkexec',dest_path]
 				#self._debug("executing "+str(sudo_cmd))
 				launched_cmd=subprocess.Popen(sudo_cmd,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
 #				launched_cmd=subprocess.check_output(sudo_cmd)
@@ -100,7 +101,7 @@ class shmanager:
 				#self._debug("Result: "+str(cmd_status))
 			except subprocess.CalledProcessError as callError:
 #				err=callError.returncode
-				#if gksudo fails set "permission denied" error
+				#if authentication fails set "permission denied" error
 				err=303
 			except Exception as e:
 				#self._debug(str(e))

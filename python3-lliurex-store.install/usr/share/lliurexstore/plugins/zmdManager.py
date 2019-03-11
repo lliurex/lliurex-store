@@ -160,9 +160,10 @@ class zmdmanager:
 			f3.write ("zero-center set-non-configured "+app_info['package']+"\n")
 			f3.close()
 			os.chmod(zmd_script,stat.S_IEXEC|stat.S_IREAD|stat.S_IWRITE|stat.S_IROTH|stat.S_IWOTH|stat.S_IXOTH|stat.S_IRGRP|stat.S_IWGRP|stat.S_IXGRP)
-			zmd_sudo=['gksudo',zmd_script]
+#			zmd_sudo=['gksudo',zmd_script]
+			zmd_sudo=['pkexec',zmd_script]
 			try:
-				#self._debug("Executing "+str(zmd_sudo))
+				self._debug("Executing "+str(zmd_sudo))
 				zmd_launcher=os.path.basename(zmd)
 				zmd_launcher=os.path.splitext(zmd_launcher)[0]
 				launched_zmd=subprocess.Popen(zmd_sudo,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)

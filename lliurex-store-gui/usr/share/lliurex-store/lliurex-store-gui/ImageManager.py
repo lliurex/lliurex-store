@@ -11,6 +11,9 @@ def scale_image(image_file,x,y,aspect_ratio=True):
 
 	image=Gtk.Image.new_from_file(image_file)
 	pixbuf=image.get_pixbuf()
+	if not pixbuf:
+		image=Gtk.Image.new_from_file("/usr/share/icons/Vibrancy-Colors/status/96/image-missing.png")
+		pixbuf=image.get_pixbuf()
 	img_x=pixbuf.get_width()
 	img_y=pixbuf.get_height()
 	if aspect_ratio:

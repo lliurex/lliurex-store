@@ -163,7 +163,7 @@ class zmdmanager:
 #			zmd_sudo=['gksudo',zmd_script]
 			zmd_sudo=['pkexec',zmd_script]
 			try:
-				#self._debug("Executing "+str(zmd_sudo))
+				self._debug("Executing "+str(zmd_sudo))
 				zmd_launcher=os.path.basename(zmd)
 				zmd_launcher=os.path.splitext(zmd_launcher)[0]
 				launched_zmd=subprocess.Popen(zmd_sudo,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)

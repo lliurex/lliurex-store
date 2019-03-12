@@ -1,3 +1,9 @@
+lliurex-store (0.7.4) bionic; urgency=medium
+
+  * Replace gksu with pkexec
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 12 Mar 2019 15:07:08 +0100
+
 lliurex-store (0.7.3) bionic; urgency=medium
 
   * Fix some css

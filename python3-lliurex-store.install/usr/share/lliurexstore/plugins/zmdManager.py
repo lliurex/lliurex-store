@@ -66,7 +66,6 @@ class zmdmanager:
 				self.result['data']=list(dataList)
 			except:
 				self.disabled=True
-				print("ERROR2!!!!")
 				self._set_status(10)
 		self.progress=100
 		return(self.result)
@@ -97,7 +96,7 @@ class zmdmanager:
 			if os.path.exists(zmd):
 				err=0
 				try:
-					zmd_sudo=['pe',zmd]
+					zmd_sudo=['pkexec',zmd]
 					#self._debug("executing "+str(zmd_sudo))
 					launched_zmd=subprocess.Popen(zmd_sudo,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
 					zmd_launcher=os.path.basename(zmd)

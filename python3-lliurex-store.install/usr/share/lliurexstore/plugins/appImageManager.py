@@ -157,7 +157,7 @@ class appimagemanager:
 							acumbf=acumbf+bf
 							self._callback(acumbf,app_size)
 					st = os.stat(dest_path)
-					os.chmod(dest_path, st.st_mode | 0o111)
+					os.chmod(dest_path, st.st_mode | 0o755)
 					self._set_status(0)
 				except Exception as e:
 					print(e)

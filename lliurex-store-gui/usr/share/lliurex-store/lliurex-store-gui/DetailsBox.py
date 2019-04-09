@@ -604,7 +604,8 @@ class DetailsBox(Gtk.VBox):
 			appimg=self.core.main_window.current_pkg["package"].lower()
 			if os.path.exists(os.getenv("HOME")+"/.local/bin/%s"%appimg):
 				Popen([os.getenv("HOME")+"/.local/bin/%s"%appimg])
-#				os.system(os.getenv("HOME")+"/.local/bin/%s"%appimg)
+			elif os.path.exists(os.getenv("HOME")+"/AppImages/%s"%appimg):
+				Popen([os.getenv("HOME")+"/AppImages/%s"%appimg])
 		elif 'Zomando' in self.core.main_window.current_pkg["categories"]:
 			zmd=self.core.main_window.current_pkg["id"]+".zmd"
 			if os.path.exists("/usr/share/zero-center/zmds/%s"%zmd):

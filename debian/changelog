@@ -1,3 +1,9 @@
+lliurex-store (0.7.5.2) bionic; urgency=medium
+
+  * Change path to ~/AppImages for appimages
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 09 Apr 2019 09:07:44 +0200
+
 lliurex-store (0.7.5.1) bionic; urgency=medium
 
   * Replace pe in zmdmanager with pkexec

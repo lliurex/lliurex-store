@@ -32,6 +32,14 @@ class appimagemanager:
 		self.icons_dir=self.cache_dir+"/icons"
 		self.cache_xmls=self.cache_dir+"/xmls/appimage"
 		self.appimage_dir=os.getenv("HOME")+"/AppImages"
+		#Prevent appimage desktop integration
+		if not os.path.isfile("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME']):
+			try:
+				os.makedirs("%s/.local/share/appimagekit/"%os.environ['HOME'])
+			except:
+				pass
+			f.open("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'],'w')
+			f.close()
 		#To get the description of an app we must go to a specific url defined in url_info.
 		#$(appname) we'll be replaced with the appname so the url matches the right one.
 		#If other site has other url naming convention it'll be mandatory to define it with the appropiate replacements

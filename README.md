@@ -10,10 +10,14 @@ More info:
 
 [Spanish](http://wiki.lliurex.net/tiki-index.php?page=LliureX+Store)
 
+
+
 ## Lliurex Store plugin system
 <p>
 Plugins must provide one register method and return a dictionary with "data" and "status" keys.<br>
-The basic structure of a plugin is provided at the "example.py" plugin.
+The basic structure of a plugin is provided at the example.py plugin.
+
+[example.py](python3-lliurex-store.install/usr/share/lliurexstore/plugins/example.py)
 </p>
 
 ### Available public methods

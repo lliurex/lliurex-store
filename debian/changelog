@@ -1,3 +1,9 @@
+lliurex-store (0.7.5.5) bionic; urgency=medium
+
+  * Appimages now install to ~/Applications (standard appimage dir)
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 14 May 2019 08:32:17 +0200
+
 lliurex-store (0.7.5.3) bionic; urgency=medium
 
   * Fix path to missing image png

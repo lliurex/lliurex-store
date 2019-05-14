@@ -31,15 +31,19 @@ class appimagemanager:
 		self.cache_dir=os.getenv("HOME")+"/.cache/lliurex-store"
 		self.icons_dir=self.cache_dir+"/icons"
 		self.cache_xmls=self.cache_dir+"/xmls/appimage"
-		self.appimage_dir=os.getenv("HOME")+"/AppImages"
+		self.appimage_dir=os.getenv("HOME")+"/Applications"
 		#Prevent appimage desktop integration
 		if not os.path.isfile("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME']):
 			try:
 				os.makedirs("%s/.local/share/appimagekit/"%os.environ['HOME'])
 			except:
 				pass
-			f.open("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'],'w')
-			f.close()
+			try:
+				f.open("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'],'w')
+				f.close()
+			except Exception as e:
+				self._debug("Couldn't create %s"%"%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'])
+				self._debug("Reason: 5s"%e)
 		#To get the description of an app we must go to a specific url defined in url_info.
 		#$(appname) we'll be replaced with the appname so the url matches the right one.
 		#If other site has other url naming convention it'll be mandatory to define it with the appropiate replacements

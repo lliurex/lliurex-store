@@ -39,7 +39,7 @@ class appimagemanager:
 			except:
 				pass
 			try:
-				f.open("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'],'w')
+				f=open("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'],'w')
 				f.close()
 			except Exception as e:
 				self._debug("Couldn't create %s"%"%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'])

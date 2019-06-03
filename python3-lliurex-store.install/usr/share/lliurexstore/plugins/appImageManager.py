@@ -34,12 +34,10 @@ class appimagemanager:
 		self.appimage_dir=os.getenv("HOME")+"/Applications"
 		#Prevent appimage desktop integration
 		if not os.path.isfile("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME']):
-			try:
+			if not os.path.isdir("%s/.local/share/appimagekit/"%os.environ['HOME']):
 				os.makedirs("%s/.local/share/appimagekit/"%os.environ['HOME'])
-			except:
-				pass
 			try:
-				f.open("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'],'w')
+				f=open("%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'],'w')
 				f.close()
 			except Exception as e:
 				self._debug("Couldn't create %s"%"%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'])

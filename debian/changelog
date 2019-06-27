@@ -1,3 +1,9 @@
+lliurex-store (0.7.6) bionic; urgency=medium
+
+  * Fix appimage path
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Thu, 27 Jun 2019 14:20:04 +0200
+
 lliurex-store (0.7.5.6) bionic; urgency=medium
 
   * Fix typo on appimagemanager

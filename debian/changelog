@@ -1,3 +1,9 @@
+lliurex-store (0.7.6-1) bionic; urgency=medium
+
+  * Added translations
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 04 Jul 2019 16:25:46 +0200
+
 lliurex-store (0.7.6) bionic; urgency=medium
 
   * Fix appimage path

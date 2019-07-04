@@ -11,7 +11,7 @@
 export PYBUILD_NAME=lliurex-store
 
 %:
-	dh $@ --with llxsrc,python3 --buildsystem pybuild
+	dh $@ --with llxsrc,i18n,python3 --buildsystem pybuild
 
 override_dh_install:
 	marked-man docs/lliurex-store-cli.md > docs/lliurex-store-cli.1

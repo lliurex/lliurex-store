@@ -86,8 +86,8 @@ class StoreManager():
 			except Exception as e:
 				print("Import failed for %s"%mod)
 				print("Reason; %s"%e)
-
-		for mod in (sys.modules.keys()):
+		modules=sys.modules.copy()
+		for mod in (modules.keys()):
 			if 'plugins.' in mod:
 				class_actions={}
 				plugin_name_up=mod.split('.')[-1]

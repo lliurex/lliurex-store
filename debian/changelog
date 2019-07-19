@@ -1,3 +1,9 @@
+lliurex-store (0.7.7) bionic; urgency=medium
+
+  * Fix error on first launch
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 19 Jul 2019 17:50:54 +0200
+
 lliurex-store (0.7.6-1) bionic; urgency=medium
 
   * Added translations

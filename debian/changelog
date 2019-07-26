@@ -1,3 +1,9 @@
+lliurex-store (0.7.8) bionic; urgency=medium
+
+  * Non-maintainer upload.
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 26 Jul 2019 11:29:22 +0200
+
 lliurex-store (0.7.7) bionic; urgency=medium
 
   * Fix error on first launch

@@ -317,7 +317,8 @@ class MainWindow:
 		if self.current_pkg!=None:
 			self.details_box.set_package_info(self.current_pkg)
 			self.show_details_box()
-		
+		else:
+			self.show_home()
 		return False
 		
 	#def load_pkg_listener

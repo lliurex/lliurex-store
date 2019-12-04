@@ -120,8 +120,11 @@ class LliurexStoreManager:
 				categories.remove(item)	
 		
 		random_id=int(random.random()*len(categories))
-				
-		random_category=categories[random_id]
+		random_id=int(random.random()*len(categories))
+		if categories:
+			random_category=categories[random_id]
+		else:
+			random_category="lliurex"
 		pkgs,categories=self.get_package_list_from_category(random_category)
 		
 		p=Package.Package({})

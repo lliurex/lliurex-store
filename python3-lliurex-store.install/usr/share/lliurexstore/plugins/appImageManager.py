@@ -472,7 +472,8 @@ class appimagemanager:
 
 			if 'categories' in appinfo.keys():
 				for category in appinfo['categories']:
-					app.add_category(category)
+					if category:
+						app.add_category(category)
 				if 'appimage' not in appinfo['categories']:
 					app.add_category("appimage")
 			else:

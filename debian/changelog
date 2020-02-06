@@ -1,3 +1,10 @@
+lliurex-store (0.8.1) bionic; urgency=medium
+
+  * Fix lock when trying to show an unexistent app (mainly from banners)
+  * Changed translation scripts from python to python3
+
+ -- Juanma1980 <juanma1980@gmail.com>  Thu, 06 Feb 2020 12:58:15 +0100
+
 lliurex-store (0.7.9) bionic; urgency=medium
 
   * Changed scripts for generating translations to python3

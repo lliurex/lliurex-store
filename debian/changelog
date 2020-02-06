@@ -1,3 +1,9 @@
+lliurex-store (0.7.9) bionic; urgency=medium
+
+  * Changed scripts for generating translations to python3
+
+ -- Juanma1980 <juanma1980@gmail.com>  Thu, 06 Feb 2020 12:38:42 +0100
+
 lliurex-store (0.7.8) bionic; urgency=medium
 
   * Non-maintainer upload.

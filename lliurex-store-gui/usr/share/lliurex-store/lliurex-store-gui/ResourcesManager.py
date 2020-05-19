@@ -28,7 +28,7 @@ class ResourcesManager:
 		self.distro_name="ubuntu"
 		
 		self.icon_db=Gtk.IconTheme()
-		self.icon_db.set_custom_theme("Vibrancy-Dark-Orange")
+		self.icon_db.set_custom_theme("breeze")
 		try:
 			self.package_icon=self.icon_db.lookup_icon("package",256,Gtk.IconLookupFlags.FORCE_SVG ).get_filename()
 		except:
@@ -81,7 +81,7 @@ class ResourcesManager:
 		
 		if len(icon)>0:
 		
-			for dist in ["xenial-updates","xenial-security","xenial"]:
+			for dist in ["bionic-updates","bionic-security","bionic"]:
 				# "64x64/" is included in pkg_info["icon"]
 #				if "64x64/" not in icon:
 				if not re.match("[0-9]*x[0-9]*\/",icon):

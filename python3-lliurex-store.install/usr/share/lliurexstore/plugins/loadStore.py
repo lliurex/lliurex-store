@@ -62,7 +62,9 @@ class loadstore:
 
 	def _load_store(self,store,loadBundles=False):
 		icon_dir='/usr/share/icons/hicolor/128x128'
-		flags=[appstream.StoreLoadFlags.APP_INFO_SYSTEM,appstream.StoreLoadFlags.APP_INSTALL,appstream.StoreLoadFlags.APP_INFO_USER,appstream.StoreLoadFlags.DESKTOP,appstream.StoreLoadFlags.APPDATA,appstream.StoreLoadFlags.ALLOW_VETO]
+		#flags=[appstream.StoreLoadFlags.APP_INFO_SYSTEM,appstream.StoreLoadFlags.APP_INSTALL,appstream.StoreLoadFlags.APP_INFO_USER,appstream.StoreLoadFlags.DESKTOP,appstream.StoreLoadFlags.APPDATA,appstream.StoreLoadFlags.ALLOW_VETO]
+		#for some reason appdata segfaults
+		flags=[appstream.StoreLoadFlags.APP_INFO_SYSTEM,appstream.StoreLoadFlags.APP_INSTALL,appstream.StoreLoadFlags.APP_INFO_USER,appstream.StoreLoadFlags.DESKTOP,appstream.StoreLoadFlags.ALLOW_VETO]
 		for flag in flags:
 			try:
 				#self._debug("Loading "+str(flag))

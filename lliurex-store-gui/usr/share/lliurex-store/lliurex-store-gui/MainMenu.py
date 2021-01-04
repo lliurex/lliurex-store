@@ -125,14 +125,14 @@ class MainMenu(Gtk.VBox):
 			if not os.path.isfile(self.core.tmp_store_dir+"home_content.json"):
 				shutil.copyfile(HOME_CONTENT_URL,self.core.tmp_store_dir+"home_content.json")
 			
-		finally:	
-			f=open(self.core.tmp_store_dir+"home_content.json")
-			self.home_info=json.load(f)
+		finally:
+			try:
+				f=open(self.core.tmp_store_dir+"home_content.json")
+				self.home_info=json.load(f)
 			
-			f.close()
-
-		
-		
+				f.close()
+			except:
+				print("An error ocurred processing home content")
 	#def download_home_info
 	
 	def build_banners(self):

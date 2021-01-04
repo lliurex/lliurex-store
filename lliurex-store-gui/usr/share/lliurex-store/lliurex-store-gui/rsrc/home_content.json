@@ -10,6 +10,27 @@
             "name": "Krita", 
             "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/krita.png", 
             "package": "krita"
+        },
+        {
+            "banner_small": null, 
+            "name": "bell-scheduler", 
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/bell-scheduler.png", 
+            "package": "bell-scheduler"
+        }, 
+        {
+            "name": "NoteShrink GUI", 
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/noteshrink-gui.png", 
+            "package": "noteshrink-gui"
+        },
+	{
+            "name": "Lliurex GDrive",
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/lliurex-gdrive-gui.png",
+            "package": "lliurex-gdrive-core"
+        },
+        {
+            "name": "TaskScheduler",
+            "banner_large": "http://svn.lliurex.net/xenial/lliurex-store/trunk/fuentes/home_content/taskscheduler.png",
+            "package": "taskscheduler"
         }
     ], 
     "small": [

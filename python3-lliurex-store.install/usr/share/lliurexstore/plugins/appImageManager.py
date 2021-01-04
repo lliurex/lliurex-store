@@ -41,7 +41,7 @@ class appimagemanager:
 				f.close()
 			except Exception as e:
 				self._debug("Couldn't create %s"%"%s/.local/share/appimagekit/no_desktopintegration"%os.environ['HOME'])
-				self._debug("Reason: 5s"%e)
+				self._debug("Reason: %s"%e)
 		#To get the description of an app we must go to a specific url defined in url_info.
 		#$(appname) we'll be replaced with the appname so the url matches the right one.
 		#If other site has other url naming convention it'll be mandatory to define it with the appropiate replacements
@@ -142,16 +142,16 @@ class appimagemanager:
 
 	def _install_appimage(self,app_info):
 		app_info=self._get_info(app_info,force=True)
-		#self._debug("Installing %s"%app_info)
+		self._debug("Installing %s"%app_info)
 		if app_info['state']=='installed':
 			self._set_status(4)
 		else:
 			if 'appimage' in app_info['channel_releases'].keys():
 				appimage_url=app_info['channel_releases']['appimage'][0]
 			else:
-				#self._debug("No url in: %s"%app_info['channel_releases'])
+				self._debug("No url in: %s"%app_info['channel_releases'])
 				pass
-			#self._debug("Downloading "+appimage_url)
+			self._debug("Downloading "+appimage_url)
 			dest_path=self.appimage_dir+'/'+app_info['package']
 			if appimage_url:
 				try:
@@ -687,7 +687,8 @@ class appimagemanager:
 						package_link=package_data['href']
 						if releases_page or url_source:
 							package_link=releases_page+package_link
-							releases.append(package_link)
+							if app_info['installerUrl'] in package_link:
+								releases.append(package_link)
 							#self._debug("Link: %s"%package_link)
 			if releases==[]:
 				releases=[app_info['installerUrl']]

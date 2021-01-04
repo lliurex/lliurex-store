@@ -1,9 +1,11 @@
-lliurex-store (0.9.2) bionic; urgency=medium
+lliurex-store (0.9.2.1) bionic; urgency=medium
 
   * Gui waits until store is fully loaded
   * Reenable load home content from url
   * Fix bug in search manager when in debug mode
   * Fix too many files opened in snapmanager
+  * Refine url installer search for appimages
+  * Fix empty matches as positive search results under some (and unknown) circunstances
 
  -- Juanma1980 <juanma1980@gmail.com>  Mon, 04 Jan 2021 13:01:18 +0100
 

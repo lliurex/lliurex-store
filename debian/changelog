@@ -1,3 +1,12 @@
+lliurex-store (0.9.2) bionic; urgency=medium
+
+  * Gui waits until store is fully loaded
+  * Reenable load home content from url
+  * Fix bug in search manager when in debug mode
+  * Fix too many files opened in snapmanager
+
+ -- Juanma1980 <juanma1980@gmail.com>  Mon, 04 Jan 2021 13:01:18 +0100
+
 lliurex-store (0.9.1) bionic; urgency=medium
 
   * Removed loadstoreflag appdata as segfaults appstream lib

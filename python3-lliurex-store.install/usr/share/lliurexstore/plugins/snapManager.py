@@ -17,7 +17,7 @@ wrap=Gio.SimpleAsyncResult()
 class snapmanager:
 	
 	def __init__(self):
-		self.dbg=False
+		self.dbg=True
 		self.progress=0
 		self.partial_progress=0
 		self.plugin_actions={'install':'snap','remove':'snap','pkginfo':'snap','load':'snap'}
@@ -145,10 +145,10 @@ class snapmanager:
 		pkgs=self._load_sections()
 		self._set_status(1)
 		store_pool=pool()
+		maxconnections = 20
+		semaphore = threading.BoundedSemaphore(value=maxconnections)
 		for pkg in pkgs:
-			maxconnections = 10
 			threads=[]
-			semaphore = threading.BoundedSemaphore(value=maxconnections)
 			th=threading.Thread(target=self._th_load_store, args = (store_pool,pkg,semaphore))
 			threads.append(th)
 			th.start()
@@ -181,16 +181,19 @@ class snapmanager:
 	#def _th_load_store
 
 	def _load_from_cache(self,store):
+		store.set_origin('ubuntu-bionic')
 		for target_file in os.listdir(self.cache_xmls):
 			if target_file.endswith('.xml'):
-				store_file=Gio.File.new_for_path(self.cache_xmls+'/'+target_file)
+				#store_file=Gio.File.new_for_path(self.cache_xmls+'/'+target_file)
+				with open((self.cache_xmls+'/'+target_file),'r') as store_data:
 				#self._debug("Adding file %s/%s"%(self.cache_xmls,target_file))
-				try:
-					store.from_file(store_file,'',None)
-				except Exception as e:
-					#self._debug("Couldn't add file %s to store"%target_file)
-					#self._debug("Reason: %s"%e)
-					pass
+					try:
+						#store.from_file(store_file,'',None)
+						store.from_xml(store_data.read(),'')
+					except Exception as e:
+						self._debug("Couldn't add file %s to store"%target_file)
+						self._debug("Reason: %s"%e)
+						pass
 		return store	
 	#def _load_from_cache
 
@@ -251,18 +254,16 @@ class snapmanager:
 			gioFile=Gio.File.new_for_path(xml_path)
 			app.to_file(gioFile)
 			#Fix some things in app_file...
-			xml_file=open(xml_path,'r',encoding='utf-8')
-			xml_data=xml_file.readlines()
-			xml_file.close()
+			with open(xml_path,'r',encoding='utf-8') as f:
+				xml_data=f.readlines()
 			#self._debug("fixing %s"%xml_path)
 			try:
 				xml_data[0]=xml_data[0]+"<components>\n"
 				xml_data[-1]=xml_data[-1]+"\n"+"</components>"
 			except:
 				pass
-			xml_file=open(xml_path,'w')
-			xml_file.writelines(xml_data)
-			xml_file.close()
+			with open(xml_path,'w') as f:
+				f.writelines(xml_data)
 		return(app)
 	#def _generate_appstream_app_from_snap
 

@@ -43,6 +43,7 @@ class StoreManager():
 					'remove':['search','get_info','pkginfo','remove']
 					}
 		self.cli_mode=[]			#List that controls cli_mode for plugins
+		self.load=False
 		self.autostart_actions=[]	#List with actions marked as autostart by plugins
 		self.postaction_actions=[]	#List with actions that will be launched after other actions
 		self.required_parms={}
@@ -134,7 +135,6 @@ class StoreManager():
 				except Exception as e:
 					print ("Can't initialize %s %s"%(mod,target_class))
 					print ("Reason: %s"%e)
-					pass
 			
 				for action in class_actions.keys():
 					if action not in self.plugins_registered:
@@ -166,7 +166,7 @@ class StoreManager():
 	#dict of actions/related functions for threading
 	####
 	def _define_functions_for_threads(self):
-		self.threads['load']="threading.Thread(target=self._load_Store)"
+		self.threads['load']="threading.Thread(target=self._load_Store,daemon=True)"
 		self.threads['get_info']="threading.Thread(target=self._get_App_Info,daemon=True,args=args,kwargs=kwargs)"
 		self.threads['pkginfo']="threading.Thread(target=self._get_Extended_App_Info,daemon=True,args=args,kwargs=kwargs)"
 		self.threads['search']='threading.Thread(target=self._search_Store,daemon=True,args=args,kwargs=kwargs)'
@@ -312,13 +312,19 @@ class StoreManager():
 				if self.running_threads[action].is_alive():
 					status=True
 					break
-				else:
-					if action in self.related_actions.keys():
-						for related_action in self.related_actions[action]:
-							if related_action in self.running_threads.keys():
-								if self.running_threads[related_action].is_alive():
-									status=True
-									break
+				elif action in self.related_actions.keys():
+					for related_action in self.related_actions[action]:
+						if related_action in self.running_threads.keys():
+							if self.running_threads[related_action].is_alive():
+								status=True
+								break
+					
+				#When in gui Glib blocks the load thread, so relaunch it if is stopped
+				if ("stopped" in "%s"%self.running_threads[action] and action=='load'):
+					self.running_threads.update({action:eval(self.threads[action])})
+					self.running_threads[action].start()
+					status=True
+					break
 		return(status)
 	#def is_action_running
 
@@ -426,9 +432,6 @@ class StoreManager():
 					result[action]=self.result[action]['data']
 					if len(self.result[action]['data'])<1:
 						self._debug("ERROR NO DATA")
-						self._debug("ERROR NO DATA")
-						self._debug("ERROR NO DATA")
-						self._debug("ERROR NO DATA")
 						result[action]=[""]
 				else:
 					result[action]=[""]
@@ -486,14 +489,13 @@ class StoreManager():
 		for thread in threads:
 			try:
 				thread.join()
-			except:
+			except Exception as e:
 				pass
 		while store_pool.qsize():
 			self.store=store_pool.get()
 		with open(self.cache_completion,'w') as f:
 			for app in self.store.get_apps():
 				f.write("%s\n"%app.get_pkgname_default())
-
 	#def _load_Store
 
 	def _th_load_store(self,store_pool,action,package_type):

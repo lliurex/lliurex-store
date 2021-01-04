@@ -83,10 +83,10 @@ class searchmanager:
 	#def set_precision
 
 	def _search_app(self,tokens,exact_match):
-		#self._debug("Searching app "+str(tokens)+ " with exact_match="+str(exact_match))
+		self._debug("Searching app "+str(tokens)+ " with exact_match="+str(exact_match))
 		applist=[]
 		app=None
-		if exact_match:
+		if exact_match and tokens:
 			app=self._app_exists(tokens[0])
 		if app:
 			if type(app)==type([]):

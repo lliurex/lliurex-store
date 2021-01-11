@@ -155,8 +155,11 @@ class infomanager:
 				appInfo['kudos']=app.get_kudos()
 			if app.get_metadata_item('x-zomando'):
 				appInfo['installerUrl']=app.get_metadata_item('x-zomando')
-			if app.get_origin():
-				appInfo['component']=app.get_origin()
+			try:
+				if app.get_origin():
+					appInfo['component']=app.get_origin()
+			except Exception as e:
+					print ("Error getting origin: %s"%e)
 			if app.get_metadata_item('x-video'):
 				appInfo['video']=app.get_metadata_item('x-video')
 				#Modify the url and create the url embed code

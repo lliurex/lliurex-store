@@ -17,7 +17,7 @@ wrap=Gio.SimpleAsyncResult()
 class snapmanager:
 	
 	def __init__(self):
-		self.dbg=True
+		self.dbg=False
 		self.progress=0
 		self.partial_progress=0
 		self.plugin_actions={'install':'snap','remove':'snap','pkginfo':'snap','load':'snap'}

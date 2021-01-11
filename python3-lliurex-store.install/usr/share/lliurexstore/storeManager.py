@@ -20,14 +20,14 @@ from queue import Queue as pool
 
 class StoreManager():
 	def __init__(self,*args,**kwargs):
-		self.dbg=True
+		self.dbg=False
 		if 'dbg' in kwargs.keys() and self.dbg==False:
 			self.dbg=kwargs['dbg']
 		self.autostart=True
 		if 'autostart' in kwargs.keys():
 			self.autostart=kwargs['autostart']
 			self._debug("Autostart actions: %s"%self.autostart)
-		self._propagate_dbg=True
+		self._propagate_dbg=False
 		self.store=None
 		self.cache="%s/.cache/lliurex-store"%os.environ['HOME']
 		self.cache_data="%s/data"%self.cache

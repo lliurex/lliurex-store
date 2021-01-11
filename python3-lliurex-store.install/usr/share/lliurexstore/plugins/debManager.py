@@ -21,7 +21,7 @@ class debmanager:
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		#self._debug ("Debug enabled")
+		self._debug ("Debug enabled")
 	#def set_debug
 
 	def _debug(self,msg=''):
@@ -36,7 +36,7 @@ class debmanager:
 	#filter=1 -> app available
 	#filter=2 -> only installed app installed
 	def execute_action(self,action,applist,filters=1):
-		#self._debug("Executing action %s"%action)
+		self._debug("Executing action %s for %s"%(action,applist))
 		self.progress=0
 		self.installer=packagekit.Client()
 		self.count=len(applist)
@@ -83,18 +83,19 @@ class debmanager:
 
 	def _install_App(self,app):
 		self.return_msg=False
-		#self._debug("Installing %s"%app.get_id())
+		self._debug("Installing %s"%app.get_id())
 		err=0
 		try:
 			self.installer.install_packages(True,[app.get_id(),],None,self._callback,None)
 			err=0
 		except Exception as e:
 			print(str(e))
-			#self._debug("Install error: %s"%e.code)
+			self._debug("Install error: %s"%e.code)
 			err=e.code
 		finally:
 			self.partial_progress=100
 		self._set_status(err)
+		self._debug("Install result %s"%err)
 		return err
 	#def _install_App_from_Repo
 			
@@ -160,9 +161,9 @@ class debmanager:
 				app_info['updatable']=1
 			else:
 				app_info['state']=state
-			#self._debug("State: %s"%state)
+			self._debug("State: %s"%state)
 		except Exception as e:
-			#self._debug("State: not available (%s)"%e)
+			self._debug("State: not available (%s)"%e)
 			pass
 		#self._debug("INFO: %s"%app_info)
 		return(app_info)
@@ -172,7 +173,7 @@ class debmanager:
 		#self._debug("Resolving %s"%app_name)
 		def _pk_resolve(filters,app_name):
 			app=None
-			#self._debug("Filter for resolver: %s"%filters)
+			self._debug("Filter for resolver: %s"%filters)
 			result=self.installer.resolve(filters,[app_name,],None,self._fake_callback, None)
 			resolvelist=result.get_package_array()
 			#resolver bug: filters not work so if we want to remove an app first we must get the installed version...
@@ -185,10 +186,10 @@ class debmanager:
 						app_resolved=app
 						break
 			if app_resolved:
-				#self._debug("Application %s resolved succesfully"%app_resolved.get_name())
+				self._debug("Application %s resolved succesfully"%app_resolved.get_name())
 				app=app_resolved
 			else:
-				#self._debug("Application %s NOT resolved"%app_resolved.get_name())
+				self._debug("Application %s NOT resolved"%app_resolved.get_name())
 				pass
 			return app
 
@@ -198,15 +199,15 @@ class debmanager:
 		try:
 			app=_pk_resolve(filters,app_name)
 		except Exception as e:
-			#self._debug("Couldn't resolve %s"%app_name)
-			#self._debug("Reason: %s"%e)
-			#self._debug("2nd attempt")
+			self._debug("Couldn't resolve %s"%app_name)
+			self._debug("Reason: %s"%e)
+			self._debug("2nd attempt")
 			time.sleep(0.5)
 			try:
 				app=_pk_resolve(filters,app_name)
 			except Exception as e:
-				#self._debug("Couldn't resolve %s"%app_name)
-				#self._debug("Reason: %s"%e)
+				self._debug("Couldn't resolve %s"%app_name)
+				self._debug("Reason: %s"%e)
 				pass
 		finally:
 			self.partial_progress=100

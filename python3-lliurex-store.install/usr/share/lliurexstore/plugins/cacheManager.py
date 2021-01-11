@@ -1,7 +1,7 @@
 #The name of the main class must match the file name in lowercase
 #Init: Could accept parameters if we declare them in storeManager's threads dict
 import os
-#import lliurexstore.plugins.debManager 
+import lliurexstore.plugins.debManager 
 import lliurexstore.plugins.appImageManager
 import lliurexstore.plugins.snapManager 
 import lliurexstore.plugins.infoManager 
@@ -40,6 +40,7 @@ class cachemanager:
 		self.cycles_for_commit=1 #Processed cycles needed for a commit
 		self.sleep_between_cycles=10 #Time the cache plugin will sleep between a process cycle and the next
 		self.sleep_between_apps=0.1 #Time the cache plugin will sleep between process one app and the next
+		self.stop=False
 	#def __init__
 	
 	def set_debug(self,dbg=True):
@@ -74,7 +75,7 @@ class cachemanager:
 			if action=='pkginfo':
 				dataList=[]
 				for appinfo in applist:
-					#self._debug("Looking for %s"%appinfo['package'])
+					self._debug("Looking for %s"%appinfo['package'])
 					dataList.append(self._get_info(appinfo))
 				self.result['data']=list(dataList)
 			self.progress=100 #When all actions are launched we must assure that progress=100. 
@@ -144,6 +145,7 @@ class cachemanager:
 				cursor=random.randint(0,len(storeapps)-1)
 				app=storeapps[cursor]
 				pkgname=app.get_pkgname_default()
+				time.sleep(0.1)
 			processed.append(pkgname)
 			th=threading.Thread(target=self._th_get_data_for_app, args = (app,semaphore))
 			threads.append(th)
@@ -257,3 +259,15 @@ class cachemanager:
 			self.db_cursor.execute('''UPDATE data set state=? WHERE app=?''',(query_data))
 			self._commit_bd()
 	#def _update
+
+	def _stop(self,stop=True):
+		a=threading.Lock()
+		a.acquire()
+		self.stop=stop
+		a.release()
+	
+	def _start(self,store=None):
+		a=threading.Lock()
+		a.acquire()
+		self.stop=False
+		a.release()

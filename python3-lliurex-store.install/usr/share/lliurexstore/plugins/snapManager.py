@@ -290,9 +290,15 @@ class snapmanager:
 							tokens,
 							None,
 							self._search_cb,(None,),None)
-		while 'Snapd' not in str(type(wrap)):
+		attempts=100
+		while 'Snapd' not in str(type(wrap)) and attempts<100:
 			time.sleep(0.1)
-		snaps,curr=self.snap_client.find_finish(wrap)
+			attempts+=1
+		try:
+			snaps,curr=self.snap_client.find_finish(wrap)
+		except Exception as e:
+			print("Unable to process snap: %s"%e)
+			return ([])
 		if type(snaps)!=type([]):
 			pkgs=[snaps]
 		else:

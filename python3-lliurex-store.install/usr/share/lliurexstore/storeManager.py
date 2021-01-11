@@ -2,6 +2,7 @@
 import sys
 import os
 import threading
+import multiprocessing
 import syslog
 import pkgutil
 import lliurexstore.plugins as plugins
@@ -19,14 +20,14 @@ from queue import Queue as pool
 
 class StoreManager():
 	def __init__(self,*args,**kwargs):
-		self.dbg=False
+		self.dbg=True
 		if 'dbg' in kwargs.keys() and self.dbg==False:
 			self.dbg=kwargs['dbg']
 		self.autostart=True
 		if 'autostart' in kwargs.keys():
 			self.autostart=kwargs['autostart']
 			self._debug("Autostart actions: %s"%self.autostart)
-		self._propagate_dbg=False
+		self._propagate_dbg=True
 		self.store=None
 		self.cache="%s/.cache/lliurex-store"%os.environ['HOME']
 		self.cache_data="%s/data"%self.cache
@@ -74,6 +75,21 @@ class StoreManager():
 				self._debug("Autostart %s"%(autostart_action))
 				self.execute_action(autostart_action)
 
+	def _stop_autostart_actions(self):
+		if self.autostart:
+			for actions in self.autostart_actions:
+				for action in actions.keys(): 
+					if action in self.running_threads.keys():
+						function=self.register_action_progress[action][0]
+						function._stop()
+
+	def _resume_autostart_actions(self):
+		if self.autostart:
+			for actions in self.autostart_actions:
+				for action in actions.keys(): 
+					if action in self.running_threads.keys():
+						function=self.register_action_progress[action][0]
+						function._start()
 	####
 	#Load and register the plugins from plugin dir
 	####
@@ -206,6 +222,7 @@ class StoreManager():
 			self._join_action('load')
 			self._debug("Total apps: %s"%str(len(self.store.get_apps())))
 			self._debug("Resumed action %s"%action)
+		self._stop_autostart_actions()
 		sw_track_status=False
 		if action not in self.threads.keys():
 			#Attempt to add a new action managed by a plugin
@@ -230,7 +247,7 @@ class StoreManager():
 		if action in self.threads.keys():
 			if self.is_action_running(action):
 				#join thread if we're performing the same action
-				self._debug("Waiting for current action %s to end"%s)
+				self._debug("Waiting for current action %s to end"%action)
 				self.running_threads[action].join()
 			try:
 				self.action_progress[action]=0
@@ -438,6 +455,19 @@ class StoreManager():
 		self.lock.release()
 		if action in self.extra_actions.keys():
 			self._load_Store()
+		#If there's no more threads relaunch autostart_actions
+		if not self.running_threads:
+			self._resume_autostart_actions()
+		else:
+			launch=True
+			for key,item in self.running_threads.items():
+				if item.is_alive():
+					launch=False
+					break
+			if launch:
+				print("RESUME!!")
+				self._resume_autostart_actions()
+
 		return(result)
 	#def get_result
 

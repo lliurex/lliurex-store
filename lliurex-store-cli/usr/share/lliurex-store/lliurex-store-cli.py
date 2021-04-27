@@ -135,6 +135,8 @@ def main():
 #		dbg=True
 	if args.appimage:
 		appimage=True
+	if args.flatpak:
+		flatpak=True
 	if args.snap:
 		snap=True
 	if args.update:
@@ -162,7 +164,7 @@ def main():
 
 	actionList={'search':False,'info':False,'pkgInfo':False,'install':False,'remove':False,'list':False,'list-sections':False,'random':False,'cache':False}
 	start_time=time.time()
-	store=storeManager.StoreManager(appimage=appimage,snap=snap,dbg=dbg,autostart=autostart,cli=True)
+	store=storeManager.StoreManager(flatpak=flatpak,appimage=appimage,snap=snap,dbg=dbg,autostart=autostart,cli=True)
 	for action in actions:
 		th=threading.Thread(target=store.execute_action, args = (action,parms[action]))
 		th.start()
@@ -204,6 +206,7 @@ def process_Args(args):
 #	parser.add_argument('--debug',action='store_true',help=(_(u"Prints debug information")))
 	parser.add_argument('--appimage',action='store_true',help=(_(u"Load appimage catalog")))
 	parser.add_argument('--snap',action='store_true',help=(_(u"Load snap catalog")))
+	parser.add_argument('--flatpak',action='store_true',help=(_(u"Load flatpak catalog")))
 	parser.add_argument('--update',action='store_true',help=(_(u"Update cache")))
 #	parser.add_argument('--list',metavar='list',nargs='?',help=(_(u"List category")))
 

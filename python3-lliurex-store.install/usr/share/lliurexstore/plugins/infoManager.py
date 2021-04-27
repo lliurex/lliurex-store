@@ -176,7 +176,7 @@ class infomanager:
 					appInfo['bundle'].append(kind.lower())
 					if kind.lower=='sh':
 						appInfo['installerUrl']=bundle.get_id()
-			if "flathub" in appInfo['id']:
+			if "flatpak" in appInfo['name']:
 					appInfo['bundle'].append("flatpak")
 
 			applistInfo.append(appInfo)

@@ -1,6 +1,6 @@
-lliurex-store (0.9.2.3) focal; urgency=medium
+lliurex-store (0.9.2.4) focal; urgency=medium
 
-  * Focal release (package not functional)
+  * Focal release (functional, without flatpak)
 
  -- Juanma1980 <juanma1980@gmail.com>  Wed, 10 Feb 2021 14:17:47 +0100
 

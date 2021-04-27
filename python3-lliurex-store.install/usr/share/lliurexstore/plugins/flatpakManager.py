@@ -73,8 +73,8 @@ class flatpakmanager():
 					if action=='remove':
 						dataList.append(self._remove(app_info))
 					if action=='pkginfo':
-						#dataList.append(self._get_info(app_info))
-						dataList.append((app_info))
+						dataList.append(self._get_info(app_info))
+						#dataList.append((app_info))
 					self.progress+=round(self.partial_progress/len(applist),1)
 					if self.progress>98:
 						self.progress=98
@@ -87,6 +87,10 @@ class flatpakmanager():
 		if not os.path.isdir(self.cache_xmls):
 			os.makedirs(self.cache_xmls)
 	#def _check_dirs
+	
+	def _set_status(self,status,msg=''):
+		self.result['status']={'status':status,'msg':msg}
+	#def _set_status
 
 	def _searchPackage(self,package):
 		self._debug("Searching %s"%package)
@@ -99,6 +103,21 @@ class flatpakmanager():
 				apps.add_app(app)
 		searchResults=rebostHelper.appstream_to_rebost(apps)
 		return(searchResults)
+
+	def _get_info(self,app_info):
+		flInst=Flatpak.get_system_installations()
+		for installer in flInst:
+			flRemote=installer.list_remotes()
+			remoteInst=installer
+			break
+		try:
+			installer.get_installed_ref(Flatpak.RefKind.APP,app_info['id'],None,'stable',None)
+			app_info['state']='installed'
+		except Exception as e:
+			app_info['state']='available'
+		self._set_status(0)
+		return app_info
+
 
 	def execute2(self,procId,action,progress,result,store,args=''):
 		self.procId=procId
@@ -158,7 +177,7 @@ class flatpakmanager():
 				newId=".".join(idxList).lower()
 			else:
 				newId="org.flathub.{}".format(idx[-1])
-			pkg.set_id(newId)
+			#pkg.set_id(newId)
 			state="available"
 			for installer in flInst:
 				installed=False
@@ -206,36 +225,37 @@ class flatpakmanager():
 	def _install(self,app_info):
 		#self._debug("Installing %s"%app_info['name'])
 		action="install"
-		result=rebostHelper.resultSet()
-		result['id']=self.procId
-		result['name']=action
-		result['description']='%s'%app_info['pkgname']
-		def install(app_name,flags):
-			self.snap_client.install2_sync(flags,app_name.replace('.snap',''),
-					None, # channel
-					None, #revision
-					self._callback, (None,),
-					None) # cancellable
-			result['msg']='installed'
+		flInst=Flatpak.get_system_installations()
+		for installer in flInst:
+			flRemote=installer.list_remotes()
+			remoteInst=installer
+			for remote in flRemote:
+				remoteName=remote.get_name()
+				break
+			transaction=Flatpak.Transaction.new_for_installation(installer)
+			break
+#		ref=remoteInst.install(remoteName,Flatpak.RefKind.APP,app_info['id'],None,'stable',None,None,None)
+#		for relRef in remoteInst.list_remote_related_refs_sync(remoteName,ref.format_ref()):
+#			if relRef.should_download():
+#				self._debug("Installing related ref %s"%relRef.get_name())
+#				remoteInst.install(remoteName,Flatpak.RefKind.APP,relRef.format_ref(),None,'stable',None,None,None)
 
-		#if app_info['state']=='installed':
-		#	self._set_status(4)
-		#else:
-		try:
-			install(app_info['name'],Snapd.InstallFlags.NONE)
-		except Exception as e:
-				#try:
-					#	if e.code==19:
-					#install(app_info['name'],Snapd.InstallFlags.CLASSIC)
-			#except Exception as e:
-				self._debug("Install error %s"%e)
-				result['msg']='error: %s'%e
-				result['errormsg']='error: %s'%e
-				result['error']=1
-		#self._debug("Installed %s"%app_info)
-		self.resultQ[action].put(str(json.dumps([result])))
-		self.progress[action] = 100
-		self.progressQ[action].put(int(self.progress[action]))
+		if transaction:
+	   	#Get remote ref
+			print(remoteName)
+			remoteRef=remoteInst.fetch_remote_ref_sync(remoteName,Flatpak.RefKind.APP,app_info['id'],None,'stable',None)
+			print(remoteRef)
+			print(app_info['id'])
+			#transaction.add_install(remoteName,remoteRef.get_remote_name(),None)
+			transaction.add_install(remoteName,remoteRef.format_ref(),None)
+			print(transaction)
+			transaction.run()
+	   #self._debug("Installed %s"%app_info)
+#		self.resultQ[action].put(str(json.dumps([result])))
+#		self.progress[action] = 100
+#		self.progressQ[action].put(int(self.progress[action]))
+		app_info['state']='installed'
+		self._set_status(0)
 		return app_info
 	#def _install_snap
 		
@@ -262,26 +282,28 @@ class flatpakmanager():
 
 	def _remove(self,app_info):
 		action='remove'
-		result=rebostHelper.resultSet()
-		result['id']=self.procId
-		result['name']=action
-		result['description']='%s'%app_info['pkgname']
-			#		if app_info['state']=='available':
-#			self._set_status(3)
-			#pass
-		#else:
-		try:
-			self.snap_client.remove_sync(app_info['name'].replace('.snap',''),
-                   self._callback, (None,),
-					None) # cancellable
-			#	app_info['state']='available'
-#			self._set_status(0)
-		except Exception as e:
-				print("Remove error %s"%e)
-#				self._set_status(6)
-		self.resultQ[action].put(str(json.dumps([result])))
-		self.progress[action] = 100
-		self.progressQ[action].put(int(self.progress[action]))
+		flInst=Flatpak.get_system_installations()
+		for installer in flInst:
+			flRemote=installer.list_remotes()
+			remoteInst=installer
+			for remote in flRemote:
+				remoteName=remote.get_name()
+				break
+			transaction=Flatpak.Transaction.new_for_installation(installer)
+			break
+		if transaction:
+	   	#Get remote ref
+			print(remoteName)
+			remoteRef=remoteInst.fetch_remote_ref_sync(remoteName,Flatpak.RefKind.APP,app_info['id'],None,'stable',None)
+			print(remoteRef)
+			print(app_info['id'])
+			#transaction.add_install(remoteName,remoteRef.get_remote_name(),None)
+			transaction.add_uninstall(remoteRef.format_ref())
+			print(transaction)
+			transaction.run()
+		app_info['state']='available'
+		self._set_status(0)
+		return app_info
 	#def _remove_snap
 def main():
 	obj=flatpakHelper()

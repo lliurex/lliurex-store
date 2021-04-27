@@ -14,7 +14,7 @@ import psutil
 from queue import Queue as pool
 class cachemanager:
 	def __init__(self):
-		self.dbg=True
+		self.dbg=False
 		self.progress=0
 		self.plugin_actions={'cache':'*','pkginfo':'*'}
 		self.cli_mode=False

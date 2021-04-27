@@ -73,7 +73,8 @@ class flatpakmanager():
 					if action=='remove':
 						dataList.append(self._remove(app_info))
 					if action=='pkginfo':
-						dataList.append(self._get_info(app_info))
+						#dataList.append(self._get_info(app_info))
+						dataList.append((app_info))
 					self.progress+=round(self.partial_progress/len(applist),1)
 					if self.progress>98:
 						self.progress=98
@@ -186,7 +187,7 @@ class flatpakmanager():
 			if add and pkg.get_id() not in added:
 				try:
 						#	if not (app.validate()):
-					pkg.set_name("C",pkg.get_name()+'.flatpak')
+					pkg.set_name("C",pkg.get_name().lower()+'.flatpak')
 					pkg.add_pkgname(pkg.get_name())
 					store2.add_app(pkg)
 				#	else:

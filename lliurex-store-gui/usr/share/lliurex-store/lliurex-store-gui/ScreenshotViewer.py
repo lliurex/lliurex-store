@@ -1,9 +1,9 @@
 import os
 import gi
 gi.require_version('Gtk', '3.0')
-gi.require_version('WebKit', '3.0')
+gi.require_version('WebKit2', '4.0')
 
-from gi.repository import Gtk,GdkPixbuf,GLib,Gdk,WebKit
+from gi.repository import Gtk,GdkPixbuf,GLib,Gdk,WebKit2 as WebKit
 import Screenshot
 
 

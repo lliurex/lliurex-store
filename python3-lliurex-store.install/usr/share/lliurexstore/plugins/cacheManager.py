@@ -230,7 +230,7 @@ class cachemanager:
 			if 'component' in appinfo.keys():
 				if appinfo['component']!='':
 					package_type='deb'
-			if 'flathub' in appinfo['id']:
+			if 'flatpak' in appinfo['name']:
 				package_type='flatpak'
 		#Standalone installers must have an installerUrl field loaded from a bundle type=script description
 			if appinfo['installerUrl']!='':

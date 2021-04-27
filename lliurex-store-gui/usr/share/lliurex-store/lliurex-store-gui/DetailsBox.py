@@ -610,6 +610,8 @@ class DetailsBox(Gtk.VBox):
 			zmd=self.core.main_window.current_pkg["id"]+".zmd"
 			if os.path.exists("/usr/share/zero-center/zmds/%s"%zmd):
 				Popen(["pe", "/usr/share/zero-center/zmds/%s"%zmd])
+		elif "flatpak" in self.core.main_window.current_pkg["name"]:
+			Popen(["flatpak","run","%s"%self.core.main_window.current_pkg["id"]])
 		else:
 			desktop=self.core.main_window.current_pkg["id"]
 			if os.path.exists("/usr/share/applications/%s"%desktop):

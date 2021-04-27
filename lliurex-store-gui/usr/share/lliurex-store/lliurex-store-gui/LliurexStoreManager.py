@@ -10,7 +10,7 @@ class LliurexStoreManager:
 
 	def __init__(self):
 		
-		self.store=lliurexstore.storeManager.StoreManager(snap=True,appimage=True,autostart=True)
+		self.store=lliurexstore.storeManager.StoreManager(flatpak=True,snap=True,appimage=True,autostart=True)
 		# library has its own textdomain and I am forced to change it back to lliurex-store
 		gettext.textdomain('lliurex-store')		
 		self.core=Core.Core.get_core()

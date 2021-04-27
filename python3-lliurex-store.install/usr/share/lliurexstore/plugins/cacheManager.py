@@ -33,6 +33,7 @@ class cachemanager:
 		self.debmanager=lliurexstore.plugins.debManager.debmanager()
 		self.appimagemanager=lliurexstore.plugins.appImageManager.appimagemanager()
 		self.snapmanager=lliurexstore.plugins.snapManager.snapmanager()
+		self.flatpakmanager=lliurexstore.plugins.flatpakManager.flatpakmanager()
 		self.zmdmanager=lliurexstore.plugins.zmdManager.zmdmanager()
 		self.insert_count=0
 		self.data_pool=pool()
@@ -202,6 +203,8 @@ class cachemanager:
 			appinfo=self.zmdmanager.execute_action('pkginfo',app_info)['data']
 		if package_type=='snap':
 			appinfo=self.snapmanager.execute_action('pkginfo',app_info)['data']
+		if package_type=='flatpak':
+			appinfo=self.flatpakmanager.execute_action('pkginfo',app_info)['data']
 		#Disabling state
 		try:
 			appinfo[-1]['state']=''
@@ -227,6 +230,8 @@ class cachemanager:
 			if 'component' in appinfo.keys():
 				if appinfo['component']!='':
 					package_type='deb'
+			if 'flatpak' in appinfo['name']:
+				package_type='flatpak'
 		#Standalone installers must have an installerUrl field loaded from a bundle type=script description
 			if appinfo['installerUrl']!='':
 				package_type="sh"

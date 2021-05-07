@@ -1,6 +1,6 @@
-lliurex-store (0.9.3) focal; urgency=medium
+lliurex-store (0.9.4) focal; urgency=medium
 
-  * Focal release (experimental flatpak support)
+  * Focal release (preliminary flatpak support)
 
  -- Juanma1980 <juanma1980@gmail.com>  Wed, 10 Feb 2021 14:17:47 +0100
 

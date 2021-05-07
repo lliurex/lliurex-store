@@ -23,6 +23,6 @@ Replaces: lliurex-store (<< 0.5.4)
 
 Package: python3-lliurex-store
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, gir1.2-appstreamglib-1.0 (>=0.7.7-2), appstream (>=0.12.0-3), libappstream4 (>=0.12.0-3),python3-bs4,gir1.2-snapd-1(>=1.41),libsnapd-glib1(>=1.41),python3-psutil
+Depends: ${misc:Depends}, ${python3:Depends}, gir1.2-appstreamglib-1.0 (>=0.7.7-2), appstream (>=0.12.0-3), libappstream4 (>=0.12.0-3),python3-bs4,gir1.2-snapd-1(>=1.41),libsnapd-glib1(>=1.41),python3-psutil,gir1.2-flatpak-1.0
 Description: Libs for the LliureX Software Store
 

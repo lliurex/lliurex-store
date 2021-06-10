@@ -538,7 +538,8 @@ class appimagemanager:
 				app.set_description(localeItem,"<p>%s</p><p>%s</p>"%(desc_header,app_orig.get_description(localeItem)))
 			if app_orig.get_comment(localeItem):
 				app.set_comment(localeItem,app_orig.get_comment(localeItem))
-		app.set_origin(app_orig.get_origin())
+		if app_orig.get_origin():
+			app.set_origin(app_orig.get_origin())
 		return app
 	#def _copy_app_from_appstream
 

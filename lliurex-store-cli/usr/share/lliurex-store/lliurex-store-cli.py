@@ -129,6 +129,7 @@ def main():
 	dbg=False
 	appimage=False
 	snap=False
+	flatpak=False
 	autostart=True
 	args=process_Args(sys.argv)
 #	if args.debug:

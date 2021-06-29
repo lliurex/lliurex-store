@@ -57,17 +57,17 @@
         }, 
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/rawtherapee_small.png",
-            "component": "universe", 
+            "component": "universe.flatpak", 
             "name": "RawTherapee", 
-            "package": "rawtherapee",
+            "package": "rawtherapee.flatpak",
 	    "icon": ""
         }, 
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/pitivi_small.png", 
 	    	"icon": null,
             "component": "universe", 
-            "name": "Pitivi", 
-            "package": "pitivi"
+            "name": "Pitivi.flatpak", 
+            "package": "pitivi.flatpak"
         }
     ]
 }

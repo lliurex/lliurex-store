@@ -2,7 +2,7 @@
     "large": [
         {
             "banner_small": null, 
-            "name": "darktable", 
+            "name": "darktable.snap", 
             "banner_large": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/darktable.png", 
             "package": "darktable.snap"
         }, 

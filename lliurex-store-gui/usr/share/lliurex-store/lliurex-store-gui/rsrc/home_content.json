@@ -2,9 +2,9 @@
     "large": [
         {
             "banner_small": null, 
-            "name": "darktable", 
+            "name": "darktable.snap", 
             "banner_large": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/darktable.png", 
-            "package": "darktable"
+            "package": "darktable.snap"
         }, 
         {
             "name": "Krita", 
@@ -29,7 +29,7 @@
         },
         {
             "name": "TaskScheduler",
-            "banner_large": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/ltaskscheduler.png",
+            "banner_large": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/taskscheduler.png",
             "package": "taskscheduler"
         }
     ], 
@@ -44,30 +44,30 @@
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/rosegarden_small.png", 
             "component": "universe", 
-            "name": "Rosegarden", 
-            "package": "rosegarden",
+            "name": "Rosegarden.flatpak", 
+            "package": "rosegarden.flatpak",
 	    "icon": ""
         }, 
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/chromium-browser_small.png", 
-            "package": "chromium-browser", 
+            "package": "chromium.snap", 
             "component": "universe", 
-            "name": "Chromium", 
+            "name": "Chromium.snap", 
             "icon": ""
         }, 
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/rawtherapee_small.png",
             "component": "universe", 
-            "name": "RawTherapee", 
-            "package": "rawtherapee",
+            "name": "RawTherapee.flatpak", 
+            "package": "rawtherapee.flatpak",
 	    "icon": ""
         }, 
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/pitivi_small.png", 
 	    	"icon": null,
             "component": "universe", 
-            "name": "Pitivi", 
-            "package": "pitivi"
+            "name": "Pitivi.flatpak", 
+            "package": "pitivi.flatpak"
         }
     ]
 }

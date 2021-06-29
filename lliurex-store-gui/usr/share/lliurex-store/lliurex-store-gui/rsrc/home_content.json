@@ -29,7 +29,7 @@
         },
         {
             "name": "TaskScheduler",
-            "banner_large": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/ltaskscheduler.png",
+            "banner_large": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/taskscheduler.png",
             "package": "taskscheduler"
         }
     ], 

@@ -1,3 +1,9 @@
+lliurex-store (0.9.6) focal; urgency=medium
+
+  * Improve flatpak support
+
+ -- Juanma1980 <juanma1980@gmail.com>  Tue, 29 Jun 2021 11:00:59 +0200
+
 lliurex-store (0.9.5) focal; urgency=medium
 
   * Focal release (preliminary flatpak support)

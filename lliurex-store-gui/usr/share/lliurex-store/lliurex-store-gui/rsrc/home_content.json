@@ -4,7 +4,7 @@
             "banner_small": null, 
             "name": "darktable", 
             "banner_large": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/darktable.png", 
-            "package": "darktable"
+            "package": "darktable.snap"
         }, 
         {
             "name": "Krita", 

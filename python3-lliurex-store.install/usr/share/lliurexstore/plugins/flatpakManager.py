@@ -31,10 +31,10 @@ class flatpakmanager():
 		self.cache_xmls=self.cache_dir+'/xmls/flatpak'
 		self.cache_last_update=self.cache_xmls+'/.flatpak.lu'
 
-	def setDebugEnabled(self,enable=True):
-		self._debug("Debug %s"%enable)
-		self.dbg=enable
-		self._debug("Debug %s"%self.dbg)
+	def set_debug(self,dbg=True):
+		self.dbg=dbg
+		self._debug ("Debug enabled: {}".format(dbg))
+	#def set_debug
 
 	def _debug(self,msg):
 		if self.dbg:
@@ -191,6 +191,17 @@ class flatpakmanager():
 				if installed:
 					state="installed"
 					break
+			#flatpak has his own cache dir for icons so if present use it
+			icon128=''
+			icon64=''
+			icon64=os.path.join(srcDir,"icons/64x64")
+			icon128=os.path.join(srcDir,"icons/128x128")
+			if os.path.isfile(os.path.join(icon128,"{}.png".format(idx))):
+				icon=appstream.Icon()
+				icon.set_kind(appstream.IconKind.LOCAL)
+				icon.set_filename(os.path.join(icon128,"{}.png".format(idx)))
+				pkg.add_icon(icon)
+				print(icon.get_filename())
 			add=False
 			if not pkg.get_bundles():
 				bundle=appstream.Bundle()
@@ -215,7 +226,7 @@ class flatpakmanager():
 				except:
 					pass
 				added.append(pkg.get_id())
-			self._debug("Loading flatpak metadata")
+		self._debug("Loaded flatpak metadata")
 		return(store2)
 
 	def _processRemote(self,installer,remote):

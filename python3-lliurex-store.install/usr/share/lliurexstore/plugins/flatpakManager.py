@@ -192,14 +192,18 @@ class flatpakmanager():
 					state="installed"
 					break
 			#flatpak has his own cache dir for icons so if present use it
-			icon128=''
-			icon64=''
+			iconPath=''
 			icon64=os.path.join(srcDir,"icons/64x64")
 			icon128=os.path.join(srcDir,"icons/128x128")
+			idx=idx.replace(".desktop","")
 			if os.path.isfile(os.path.join(icon128,"{}.png".format(idx))):
+				iconPath=os.path.join(icon128,"{}.png".format(idx))
+			elif os.path.isfile(os.path.join(icon64,"{}.png".format(idx))):
+				iconPath=os.path.join(icon64,"{}.png".format(idx))
+			if iconPath!='':
 				icon=appstream.Icon()
 				icon.set_kind(appstream.IconKind.LOCAL)
-				icon.set_filename(os.path.join(icon128,"{}.png".format(idx)))
+				icon.set_filename(iconPath)
 				pkg.add_icon(icon)
 			add=False
 			if not pkg.get_bundles():
@@ -216,7 +220,7 @@ class flatpakmanager():
 			if add and pkg.get_id() not in added:
 				try:
 						#	if not (app.validate()):
-					pkg.set_name("C",pkg.get_name().lower()+'.flatpak')
+					pkg.set_name("C",pkg.get_name().lower().replace(" ","_")+'.flatpak')
 					pkg.add_pkgname(pkg.get_name())
 					store2.add_app(pkg)
 				#	else:

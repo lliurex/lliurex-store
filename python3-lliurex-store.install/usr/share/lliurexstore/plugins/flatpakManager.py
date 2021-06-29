@@ -201,7 +201,6 @@ class flatpakmanager():
 				icon.set_kind(appstream.IconKind.LOCAL)
 				icon.set_filename(os.path.join(icon128,"{}.png".format(idx)))
 				pkg.add_icon(icon)
-				print(icon.get_filename())
 			add=False
 			if not pkg.get_bundles():
 				bundle=appstream.Bundle()
@@ -253,13 +252,13 @@ class flatpakmanager():
 
 		if transaction:
 	   	#Get remote ref
-			print(remoteName)
+			self._debug(remoteName)
 			remoteRef=remoteInst.fetch_remote_ref_sync(remoteName,Flatpak.RefKind.APP,app_info['id'],None,'stable',None)
-			print(remoteRef)
-			print(app_info['id'])
+			self._debug(remoteRef)
+			self._debug(app_info['id'])
 			#transaction.add_install(remoteName,remoteRef.get_remote_name(),None)
 			transaction.add_install(remoteName,remoteRef.format_ref(),None)
-			print(transaction)
+			self._debug(transaction)
 			transaction.run()
 	   #self._debug("Installed %s"%app_info)
 #		self.resultQ[action].put(str(json.dumps([result])))
@@ -304,13 +303,13 @@ class flatpakmanager():
 			break
 		if transaction:
 	   	#Get remote ref
-			print(remoteName)
+			self._debug(remoteName)
 			remoteRef=remoteInst.fetch_remote_ref_sync(remoteName,Flatpak.RefKind.APP,app_info['id'],None,'stable',None)
-			print(remoteRef)
-			print(app_info['id'])
+			self._debug(remoteRef)
+			self._debug(app_info['id'])
 			#transaction.add_install(remoteName,remoteRef.get_remote_name(),None)
 			transaction.add_uninstall(remoteRef.format_ref())
-			print(transaction)
+			self._debug(transaction)
 			transaction.run()
 		app_info['state']='available'
 		self._set_status(0)

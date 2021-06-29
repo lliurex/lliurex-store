@@ -44,15 +44,15 @@
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/rosegarden_small.png", 
             "component": "universe", 
-            "name": "Rosegarden", 
-            "package": "rosegarden",
+            "name": "Rosegarden.flatpak", 
+            "package": "rosegarden.flatpak",
 	    "icon": ""
         }, 
         {
             "banner_small": "https://raw.githubusercontent.com/lliurex/lliurex-store/master/home_content/chromium-browser_small.png", 
-            "package": "chromium-browser", 
+            "package": "chromium.snap", 
             "component": "universe", 
-            "name": "Chromium", 
+            "name": "Chromium.snap", 
             "icon": ""
         }, 
         {

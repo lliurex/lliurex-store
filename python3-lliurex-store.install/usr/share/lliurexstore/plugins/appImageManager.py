@@ -58,7 +58,7 @@ class appimagemanager:
 
 	def set_debug(self,dbg=True):
 		self.dbg=dbg
-		#self._debug ("Debug enabled")
+		self._debug ("Debug enabled")
 	#def set_debug
 
 	def _debug(self,msg=''):
@@ -92,7 +92,7 @@ class appimagemanager:
 			self._chk_installDir()
 			if action=='load':
 				self._load_appimage_store(self.store)
-				#self._debug("Ending threads...")
+				self._debug("Ending threads...")
 				while not self.apps_for_store.empty():
 					app=self.apps_for_store.get()
 					self.store.add_app(app)
@@ -203,7 +203,7 @@ class appimagemanager:
 				fcache_update=0
 			if int(epoch_time)-int(fcache_update)<86400:
 				if os.listdir(os.path.dirname(self.cache_xmls)):
-					#self._debug("Loading appimage from cache")
+					self._debug("Loading appimage from cache")
 					sw_update_cache=False
 		if sw_update_cache:
 			self._get_bundles_catalogue()
@@ -211,7 +211,7 @@ class appimagemanager:
 			fcache=open(self.cache_last_update,'w')
 			fcache.write(str(int(time.time())))
 		if os.path.exists(self.cache_xmls):
-			#self._debug("Loading appimage catalog")
+			self._debug("Loading appimage catalog")
 			store=self._generic_file_load(self.cache_xmls,store)
 		return(store)
 	#def load_bundles_catalog(self)
@@ -224,12 +224,12 @@ class appimagemanager:
 		for target_file in os.listdir(target_path):
 			if target_file.endswith('.xml'):
 				store_path=Gio.File.new_for_path(target_path+'/'+target_file)
-				#self._debug("Adding file "+target_path+'/'+target_file)
+				self._debug("Adding file "+target_path+'/'+target_file)
 				try:
 					store.from_file(store_path,icon_path,None)
 				except Exception as e:
-					#self._debug("Couldn't add file "+target_file+" to store")
-					#self._debug("Reason: "+str(e))
+					self._debug("Couldn't add file "+target_file+" to store")
+					self._debug("Reason: "+str(e))
 					pass
 		return(store)
 	#def _generic_file_load
@@ -245,20 +245,20 @@ class appimagemanager:
 				try:
 					os.makedirs(self.cache_xmls)
 				except:
-					#self._debug("appImage catalogue could not be fetched: Permission denied")
+					self._debug("appImage catalogue could not be fetched: Permission denied")
 					pass
-			#self._debug("Fetching repo %s"%repo_info['url'])
+			self._debug("Fetching repo %s"%repo_info['url'])
 			if repo_info['type']=='json':
 				applist=self._process_appimage_json(self._fetch_repo(repo_info['url']),repo_name)
 
-			#self._debug("Fetched repo "+repo_info['url'])
+			self._debug("Fetched repo "+repo_info['url'])
 			self._th_generate_xml_catalog(applist,outdir,repo_info['url_info'],repo_info['url'],repo_name)
 			all_apps.extend(applist)
 		return True
 
 	def _get_external_catalogue(self):
 		applist=[]
-		all_apps=[]
+		applistName=[]
 		outdir=self.cache_xmls
 		#Load external apps
 		for app_name,app_info in self._get_external_appimages().items():
@@ -290,14 +290,13 @@ class appimagemanager:
 				appinfo['bundle']='appimage'
 				#self._debug("External:\n%s\n-------"%appinfo)
 				applist.append(appinfo)
+				applistName.append(appinfo['name'].lower())
 			else:
 				#self._debug("External appImage could not be fetched: Permission denied")
 				pass
 		self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
-		#self._debug("Fetched appimage "+app_info['url'])
-		all_apps.extend(applist)
-		#self._debug("Removing old entries...")
-#		self._clean_bundle_catalogue(all_apps,outdir)
+		self._debug("Removing old entries...")
+		self._clean_bundle_catalogue(applistName,outdir)
 		return(True)
 	#def _get_bundles_catalogue
 	
@@ -412,7 +411,7 @@ class appimagemanager:
 		if not app_orig:
 			app_orig=self.store.get_app_by_id(appinfo['name'].lower()+".desktop")
 		if app_orig:
-			#self._debug("Extending app %s"%appinfo['package'])
+			self._debug("Extending app %s"%appinfo['package'])
 			if appinfo['icon']:
 				#self._debug("Icon: %s"%appinfo['icon'])
 				app=self._copy_app_from_appstream(app_orig,app,copy_icon=False)
@@ -420,7 +419,7 @@ class appimagemanager:
 				app=self._copy_app_from_appstream(app_orig,app,copy_icon=True)
 			sw_new=False
 		else:
-			#self._debug("Generating new %s"%appinfo['package'])
+			self._debug("Generating new %s"%appinfo['package'])
 			pass
 		if appinfo['name'].lower().endswith('.appimage'):
 			app.set_id("appimagehub.%s"%appinfo['name'].lower())
@@ -509,7 +508,7 @@ class appimagemanager:
 			xml_file=open(xml_path,'r',encoding='utf-8')
 			xml_data=xml_file.readlines()
 			xml_file.close()
-			#self._debug("fixing %s"%xml_path)
+			self._debug("fixing %s"%xml_path)
 			try:
 				xml_data[0]=xml_data[0]+"<components origin=\"%s\">\n"%app.get_origin()
 				xml_data[-1]=xml_data[-1]+"\n"+"</components>"
@@ -548,12 +547,13 @@ class appimagemanager:
 		applist=[item.lower() for item in applist]
 		for xml_file in os.listdir(outdir):
 			if xml_file.endswith('.xml'):
-				xml_files_list.append(xml_file.lower().replace('.xml','appimage'))
+				xml_files_list.append(xml_file.lower().replace('.xml','.'))
 	
 		if xml_files_list:
 			xml_discard_list=list(set(xml_files_list).difference(applist))
 			for discarded_file in xml_discard_list:
-				os.remove(outdir+'/'+discarded_file.replace('appimage','.xml'))
+				if os.path.isfile(os.path.join(outdir,"{}.xml".format(discarded_file))):
+					os.remove(os.path.join(outdir,"{}.xml".format(discarded_file)))#.replace('.appimage','.xml'))
 	#def _clean_bunlde_catalogue
 
 	def _download_file(self,url,app_name,dest_dir):

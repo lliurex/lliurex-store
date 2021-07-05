@@ -102,7 +102,7 @@ class StoreManager():
 				exec (import_mod)
 			except Exception as e:
 				print("Import failed for %s"%mod)
-				print("Reason; %s"%e)
+				print("Reason: %s"%e)
 		modules=sys.modules.copy()
 		for mod in (modules.keys()):
 			if 'plugins.' in mod:

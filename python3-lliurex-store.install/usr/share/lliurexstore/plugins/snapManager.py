@@ -215,7 +215,7 @@ class snapmanager:
 		app.set_id("io.snapcraft.%s"%pkg.get_name()+'.snap')
 		app.set_id_kind=appstream.IdKind.DESKTOP
 		app.set_metadata_license("CC0-1.0")
-		description="This is an Snap bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."
+		description="" #This is an Snap bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."
 		pkg_description=pkg.get_description()
 		pkg_description=html.escape(pkg_description,quote=True)
 		pkg_description=pkg_description.replace("<","&gt;")

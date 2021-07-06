@@ -455,7 +455,7 @@ class appimagemanager:
 			app.add_keyword("C",appinfo['package'])
 			if not appinfo['name'].endswith('.appimage'):
 				app.set_name("C",appinfo['name']+".appimage")
-			desc_header="This is an AppImage bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."
+			desc_header="" #This is an AppImage bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."
 			if appinfo['description']:
 				for lang,desc in appinfo['description'].items():
 					desc=desc.replace('&','&amp;')

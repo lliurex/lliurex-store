@@ -2,7 +2,7 @@
 
 import json
 
-f=open("../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/sections.json")
+f=open("../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/sections.json.lliurex")
 a=json.load(f)
 f.close()
 

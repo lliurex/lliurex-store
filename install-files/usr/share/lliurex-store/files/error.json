@@ -16,5 +16,7 @@
 	"262":"version mismatch",
 	"264":"already installed",
 	"265":"unreachable network",
-	"303":"permission denied"
+	"303":"permission denied",
+	"1000":"This is an Appimage bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully.",
+	"1001":"This is an Snap bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."
 }

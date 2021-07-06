@@ -384,7 +384,7 @@ class appimagemanager:
 	#def load_json_appinfo
 
 	def _th_generate_xml_catalog(self,applist,outdir,info_url,repo,repo_name):
-		maxconnections = 2
+		maxconnections = 3
 		threads=[]
 		semaphore = threading.BoundedSemaphore(value=maxconnections)
 		random_applist = list(applist)

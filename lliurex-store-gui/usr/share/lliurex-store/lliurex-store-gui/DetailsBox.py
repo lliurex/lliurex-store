@@ -255,6 +255,7 @@ class DetailsBox(Gtk.VBox):
 		self.related_box.set_margin_bottom(10)
 		
 		related_vp.add(self.related_box)
+		related_vp.connect('scroll-event', self.on_hscroll)
 		
 		related_vbox.pack_start(self.related_sw,False,False,5)
 		self.pack_start(related_vbox,True,True,0)
@@ -265,6 +266,14 @@ class DetailsBox(Gtk.VBox):
 		
 	#def  init
 	
+	def on_hscroll(self, widget, event):
+		adj=widget.get_hadjustment()
+		if event.get_scroll_deltas()[2]>0:
+			adj.set_value(adj.get_value()+10)
+		else:
+			adj.set_value(adj.get_value()-10)
+	#def on_hscroll
+
 	def set_package_info(self,pkg):
 		
 		self.current_id=random.random()

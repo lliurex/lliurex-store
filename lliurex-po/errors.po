@@ -53,3 +53,9 @@ msgstr ""
 msgid "permission denied"
 msgstr ""
 
+msgid "This is an Appimage bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."
+msgstr ""
+
+msgid "This is an Snap bundle. It hasn't been tested by our developers and comes from a 3rd party dev team. Please use it carefully."
+msgstr ""
+

@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-07 09:19+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2021-07-06 09:33+0200\n"
+"PO-Revision-Date: 2021-07-06 09:34+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
 
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:63
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:78
@@ -34,8 +34,8 @@ msgid "Loading content..."
 msgstr "Cargando contenido..."
 
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:385
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:209
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:80
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:204
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:78
 msgid "Home"
 msgstr "Inicio"
 
@@ -43,67 +43,75 @@ msgstr "Inicio"
 msgid "Search..."
 msgstr "Busca..."
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:474
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:476
 msgid "Featured"
 msgstr "Destacado"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:632
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:638
 msgid "Categories"
 msgstr "Categorías"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:60
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:983
+msgid "Lliurex Store"
+msgstr "Lliurex Store"
+
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:63
 msgid "Install"
 msgstr "Instalar"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:65
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:68
 msgid "Installing..."
 msgstr "Instalando..."
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:77
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:80
 msgid "Uninstall"
 msgstr "Desinstalar"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:79
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:82
 msgid "Open"
 msgstr "Abrir"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:103
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:106
 msgid "Version"
 msgstr "Versión"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:105
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:108
 msgid "Category"
 msgstr "Categoría"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:107
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:110
 msgid "License"
 msgstr "Licencia"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:109
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:112
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:111
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:114
 msgid "Website"
 msgstr "Pagina web"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:239
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:237
 msgid "Related"
 msgstr "Relacionado"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:196
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:191
 msgid "Details"
 msgstr "Detalles"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:220
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:216
 msgid "Search"
 msgstr "Búsqueda"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:106
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:245
+msgid "LliureX Store - Wait while loading apps"
+msgstr "LliureX Store - Cargando aplicaciones..."
+
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:103
 msgid "My applications"
 msgstr "Mis aplicaciones"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/SearchBox.py:80
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/SearchBox.py:73
 msgid "All"
 msgstr "Todas"
 
@@ -371,18 +379,6 @@ msgstr "Seguridad"
 msgid "TerminalEmulator"
 msgstr "Terminal"
 
-msgid "Lliurex"
-msgstr "Lliurex"
-
-msgid "Administration"
-msgstr "Administración"
-
-msgid "Educational"
-msgstr "Educación"
-
-msgid "Miscellaneous"
-msgstr "Varios"
-
 msgid "Game"
 msgstr "Juegos"
 
@@ -479,3 +475,11 @@ msgstr "Herramientas de telefonía"
 msgid "TextEditor"
 msgstr "Editor de texto"
 
+#~ msgid "Administration"
+#~ msgstr "Administración"
+
+#~ msgid "Educational"
+#~ msgstr "Educación"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Varios"

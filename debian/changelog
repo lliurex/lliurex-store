@@ -3,6 +3,7 @@ lliurex-store (0.9.7) focal; urgency=medium
   * Improve flatpak support
   * Fix incorrect packages in banners
   * Fix appimage errortype when cleaning catalogue
+  * Add wheel mouse wheel scroll to related apps panel
 
  -- Juanma1980 <juanma1980@gmail.com>  Tue, 29 Jun 2021 11:00:59 +0200
 

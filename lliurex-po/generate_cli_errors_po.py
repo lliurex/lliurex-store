@@ -2,7 +2,7 @@
 
 import json
 
-errorFile=open('/usr/share/lliurex-store/files/error.json').read()                                                                                                                
+errorFile=open('../install-files/usr/share/lliurex-store/files/error.json').read()                                                                                                                
 errorCodes=json.loads(errorFile)
 
 f=open("errors.po","w")

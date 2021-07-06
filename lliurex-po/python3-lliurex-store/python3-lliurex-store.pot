@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-16 13:30+0200\n"
+"POT-Creation-Date: 2021-07-06 09:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,116 +17,124 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:272
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:274
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:277
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:345
-#, python-format
-msgid "Fetching %s catalogue: "
-msgstr ""
-
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:35
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:46
 msgid "Results for "
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:39
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:50
 msgid "Package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:40
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:51
 msgid "Name"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:41
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:52
 msgid "ID"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:42
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:53
 msgid "Version"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:43
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:54
 msgid "Size"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:44
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:55
 msgid "License"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:49
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:59
 msgid "Categories"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:52
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:85
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:93
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:62
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:99
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:107
 msgid "installed"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:54
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:87
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:64
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:101
 msgid "available"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:55
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:66
+msgid " (updatable)"
+msgstr ""
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:67
 msgid "Status"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:56
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:68
 msgid "Summary"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:59
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:70
 msgid "Description"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:64
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:75
 msgid "Depends"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:90
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:104
 msgid "Error listing"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:93
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:95
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:107
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:109
 msgid "succesfully"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:95
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:109
 msgid "removed"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:99
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:113
 msgid "Unable to"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:102
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:116
 msgid "Unable to show"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:107
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:120
 msgid "Error"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:188
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:202
 msgid "Search a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:189
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:203
 msgid "Show all info from a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:190
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:204
 msgid "Install a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:191
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:205
 msgid "Remove a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:193
-msgid "Load app bundles catalog"
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:208
+msgid "Load appimage catalog"
+msgstr ""
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:209
+msgid "Load snap catalog"
+msgstr ""
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:210
+msgid "Load flatpak catalog"
+msgstr ""
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:211
+msgid "Update cache"
 msgstr ""
 
 msgid "Development"
@@ -489,19 +497,46 @@ msgstr ""
 msgid "TextEditor"
 msgstr ""
 
-msgid "no space left on device"
+msgid "Unknown error. Please use the --debug option"
+msgstr ""
+
+msgid "succesful"
+msgstr ""
+
+msgid "package not found"
+msgstr ""
+
+msgid "no info available"
+msgstr ""
+
+msgid "package not installed"
+msgstr ""
+
+msgid "package already installed"
+msgstr ""
+
+msgid "install failed"
+msgstr ""
+
+msgid "remove failed"
+msgstr ""
+
+msgid "unable to open zmd package list"
+msgstr ""
+
+msgid "zomando not found"
+msgstr ""
+
+msgid "plugin disabled"
 msgstr ""
 
 msgid "unable to initialize n4d client"
 msgstr ""
 
+msgid "no space left on device"
+msgstr ""
+
 msgid "url not found"
-msgstr ""
-
-msgid "unreachable network"
-msgstr ""
-
-msgid "permission denied"
 msgstr ""
 
 msgid "version mismatch"
@@ -510,35 +545,8 @@ msgstr ""
 msgid "already installed"
 msgstr ""
 
-msgid "package not found"
+msgid "unreachable network"
 msgstr ""
 
-msgid "succesful"
-msgstr ""
-
-msgid "package not installed"
-msgstr ""
-
-msgid "no info available"
-msgstr ""
-
-msgid "Unknown error. Please use the --debug option"
-msgstr ""
-
-msgid "package already installed"
-msgstr ""
-
-msgid "unable to open zmd package list"
-msgstr ""
-
-msgid "remove failed"
-msgstr ""
-
-msgid "plugin disabled"
-msgstr ""
-
-msgid "install failed"
-msgstr ""
-
-msgid "zomando not found"
+msgid "permission denied"
 msgstr ""

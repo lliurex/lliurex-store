@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-05 14:06+0200\n"
-"PO-Revision-Date: 2017-05-08 10:41+0200\n"
+"POT-Creation-Date: 2021-07-06 09:33+0200\n"
+"PO-Revision-Date: 2021-07-06 09:36+0200\n"
 "Last-Translator: Pilar Embid Giner <embid_mar@gva.es>\n"
 "Language-Team: LliureX\n"
 "Language: ca\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 2.3\n"
 
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:63
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:78
@@ -34,8 +34,8 @@ msgid "Loading content..."
 msgstr "S'està carregant el contingut..."
 
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:385
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:209
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:81
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:204
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:78
 msgid "Home"
 msgstr "Inici"
 
@@ -55,39 +55,39 @@ msgstr "Categories"
 msgid "Lliurex Store"
 msgstr "Lliurex Store"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:58
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:63
 msgid "Install"
 msgstr "Instal·la"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:63
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:68
 msgid "Installing..."
 msgstr "S'està instal·lant..."
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:75
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:80
 msgid "Uninstall"
 msgstr "Desinstal·la"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:77
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:82
 msgid "Open"
 msgstr "Obri"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:101
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:106
 msgid "Version"
 msgstr "Versió"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:103
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:108
 msgid "Category"
 msgstr "Categoria"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:105
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:110
 msgid "License"
 msgstr "Llicència"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:107
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:112
 msgid "Size"
 msgstr "Mida"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:109
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/DetailsBox.py:114
 msgid "Website"
 msgstr "Lloc web"
 
@@ -95,19 +95,23 @@ msgstr "Lloc web"
 msgid "Related"
 msgstr "Relacionat"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:196
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:191
 msgid "Details"
 msgstr "Detalls"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:220
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:216
 msgid "Search"
 msgstr "Cerca"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:107
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:245
+msgid "LliureX Store - Wait while loading apps"
+msgstr "LliureX Store - Carregant programari disponible..."
+
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:103
 msgid "My applications"
 msgstr "Les meues aplicacions"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/SearchBox.py:80
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/SearchBox.py:73
 msgid "All"
 msgstr "Tot"
 
@@ -124,7 +128,7 @@ msgid "Debugger"
 msgstr "Depurador"
 
 msgid "GUIDesigner"
-msgstr "Dissenyador d'interfícies gràfiques  "
+msgstr "Dissenyador d'interfícies gràfiques"
 
 msgid "IDE"
 msgstr "Entorn de desenvolupament integrat"

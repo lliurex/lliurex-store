@@ -242,7 +242,7 @@ class MainWindow:
 		self.load_thread.start()
 		
 		GLib.timeout_add(500,self.build_home_listener)
-		self.window.set_title("LliureX Store - Wait while loading apps")
+		self.window.set_title(_("LliureX Store - Wait while loading apps"))
 		self.screenshot_viewer.set_sensitive(False)
 		self.screenshot_viewer.revealer.set_reveal_child(True)
 		GLib.timeout_add(1000,self.get_load_status)

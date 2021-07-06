@@ -7,128 +7,136 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-16 13:33+0200\n"
-"PO-Revision-Date: 2017-06-16 13:36+0200\n"
+"POT-Creation-Date: 2021-07-06 11:19+0200\n"
+"PO-Revision-Date: 2021-07-06 11:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:272
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:274
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:277
-#: ../python3-lliurex-store.install/usr/share/lliurexstore/plugins/loadStore.py:345
-#, python-format
-msgid "Fetching %s catalogue: "
-msgstr "Baixant catàleg %s:"
-
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:35
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:46
 msgid "Results for "
 msgstr "Resultat de "
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:39
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:50
 msgid "Package"
 msgstr "Paquet"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:40
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:51
 msgid "Name"
 msgstr "Nom"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:41
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:52
 msgid "ID"
 msgstr "ID"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:42
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:53
 msgid "Version"
 msgstr "Versió"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:43
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:54
 msgid "Size"
 msgstr "Mida"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:44
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:55
 msgid "License"
 msgstr "Llicència"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:49
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:59
 msgid "Categories"
 msgstr "Categories"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:52
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:85
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:93
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:62
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:103
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:111
 msgid "installed"
 msgstr "instal·lat"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:54
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:87
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:64
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:105
 msgid "available"
-msgstr "disponible\t"
+msgstr "disponible"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:55
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:66
+msgid " (updatable)"
+msgstr " (actualitzable)"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:67
 msgid "Status"
 msgstr "Estat"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:56
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:68
 msgid "Summary"
 msgstr "Resum"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:59
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:74
 msgid "Description"
 msgstr "Descripció"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:64
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:79
 msgid "Depends"
 msgstr "Dependencies"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:90
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:108
 msgid "Error listing"
 msgstr "Error llistant"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:93
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:95
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:111
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:113
 msgid "succesfully"
 msgstr "amb èxit"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:95
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:113
 msgid "removed"
 msgstr "desinstal·lat"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:99
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:117
 msgid "Unable to"
 msgstr "No es pot"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:102
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:120
 msgid "Unable to show"
 msgstr "no es pot mostrar"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:107
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:124
 msgid "Error"
 msgstr "Error"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:188
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:206
 msgid "Search a package"
 msgstr "Buscar un paquet"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:189
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:207
 msgid "Show all info from a package"
 msgstr "Mostra tota la informació d'un paquet"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:190
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:208
 msgid "Install a package"
 msgstr "Instal·la un paquet"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:191
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:209
 msgid "Remove a package"
 msgstr "Desinstal·la un paquet"
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:193
-msgid "Load app bundles catalog"
-msgstr "Carrega els catàlegs d'aplicacions portables"
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:212
+msgid "Load appimage catalog"
+msgstr "Carrega el catàleg appimage"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:213
+msgid "Load snap catalog"
+msgstr "Carrega el catàleg snap"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:214
+msgid "Load flatpak catalog"
+msgstr "Carrega el catàleg flatpak"
+
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:215
+msgid "Update cache"
+msgstr "Actualtza memòria cau"
 
 msgid "Development"
 msgstr "Desenvolupament"
@@ -143,7 +151,7 @@ msgid "Debugger"
 msgstr "Depurador"
 
 msgid "GUIDesigner"
-msgstr "Dissenyador d'interfícies gràfiques  "
+msgstr "Dissenyador d'interfícies gràfiques"
 
 msgid "IDE"
 msgstr "Entorn de desenvolupament integrat"
@@ -490,20 +498,47 @@ msgstr "Eines de telefonia"
 msgid "TextEditor"
 msgstr "Editors de text"
 
-msgid "no space left on device"
-msgstr "no queda espai al disc"
+msgid "Unknown error. Please use the --debug option"
+msgstr "Error desconegut."
+
+msgid "succesful"
+msgstr "satisfactoriament"
+
+msgid "package not found"
+msgstr "paquet no trobat"
+
+msgid "no info available"
+msgstr "no n'hi ha informació disponible"
+
+msgid "package not installed"
+msgstr "paquet no instal·lat"
+
+msgid "package already installed"
+msgstr "paquet ja instal·lat"
+
+msgid "install failed"
+msgstr "instal·lació fallida"
+
+msgid "remove failed"
+msgstr "deinstal·lació fallida"
+
+msgid "unable to open zmd package list"
+msgstr "no es possible llegir la llista de paquets del zmd"
+
+msgid "zomando not found"
+msgstr "no es troba el zomando"
+
+msgid "plugin disabled"
+msgstr "plugin desactivat"
 
 msgid "unable to initialize n4d client"
 msgstr "no es va poder inicialitzar el client n4d"
 
+msgid "no space left on device"
+msgstr "no queda espai al disc"
+
 msgid "url not found"
 msgstr "url no trobada"
-
-msgid "unreachable network"
-msgstr "no es pot accedir a la xarxa"
-
-msgid "permission denied"
-msgstr "permis denegat"
 
 msgid "version mismatch"
 msgstr "diferència entre les versions"
@@ -511,80 +546,72 @@ msgstr "diferència entre les versions"
 msgid "already installed"
 msgstr "ja instal·lat"
 
-msgid "package not found"
-msgstr "paquet no trobat"
+msgid "unreachable network"
+msgstr "no es pot accedir a la xarxa"
 
-msgid "succesful"
-msgstr "satisfactoriament"
+msgid "permission denied"
+msgstr "permis denegat"
 
-msgid "package not installed"
-msgstr "paquet no instal·lat"
+msgid ""
+"This is an Appimage bundle. It hasn't been tested by our developers and "
+"comes from a 3rd party dev team. Please use it carefully."
+msgstr ""
+"Això és un paquet Appimage. No ha estat provat per l'equip de "
+"desenvolupament i prové de tercers."
 
-msgid "no info available"
-msgstr "no n'hi ha informació disponible"
+msgid ""
+"This is an Snap bundle. It hasn't been tested by our developers and comes "
+"from a 3rd party dev team. Please use it carefully."
+msgstr ""
+"Això és un paquet Snap. No ha estat provat per l'equip de desenvolupament i "
+"prové de tercers."
 
-msgid "Unknown error. Please use the --debug option"
-msgstr "Error desconegut. "
+#~ msgid "Fetching %s catalogue: "
+#~ msgstr "Baixant catàleg %s:"
 
-msgid "package already installed"
-msgstr "paquet ja instal·lat"
+#~ msgid "Unknown error."
+#~ msgstr "Error desconegut."
 
-msgid "unable to open zmd package list"
-msgstr "no es possible llegir la llista de paquets del zmd"
+#~ msgid "show this help message and exit"
+#~ msgstr "Mostra el missatge d'ajuda"
 
-msgid "remove failed"
-msgstr "deinstal·lació fallida"
+#~ msgid "install"
+#~ msgstr "instal·lar"
 
-msgid "plugin disabled"
-msgstr "plugin desactivat"
+#~ msgid "remove"
+#~ msgstr "desinstal·lar"
 
-msgid "install failed"
-msgstr "instal·lació fallida"
+#~ msgid "search"
+#~ msgstr "buscar"
 
-msgid "zomando not found"
-msgstr "no es troba el zomando"
+#~ msgid "info"
+#~ msgstr "info"
 
-msgid "Unknown error."
-msgstr "Error desconegut."
+#~ msgid "usage"
+#~ msgstr "Ús"
 
-msgid "show this help message and exit"
-msgstr "Mostra el missatge d'ajuda"
+#~ msgid "optional arguments"
+#~ msgstr "Paràmetres"
 
-msgid "install"
-msgstr "instal·lar"
+#~ msgid "usage:"
+#~ msgstr "Ús:"
 
-msgid "remove"
-msgstr "desinstal·lar"
+#~ msgid "optional arguments:"
+#~ msgstr "Paràmetres:"
 
-msgid "search"
-msgstr "buscar"
+#~ msgid "Category"
+#~ msgstr "Categoría"
 
-msgid "info"
-msgstr "info"
+#~ msgid "List all packages, optionally list packages from a given category"
+#~ msgstr ""
+#~ "Mostra tots els paquets, opcionalment mostra els paquets d'una categoría "
+#~ "donada"
 
-msgid "usage"
-msgstr "Ús"
+#~ msgid "List all sections from the store"
+#~ msgstr "LLista totes les categoríes de la botiga"
 
-msgid "optional arguments"
-msgstr "Paràmetres"
+#~ msgid "Prints debug information"
+#~ msgstr "Imprimeix la informació de debug\t"
 
-msgid "usage:"
-msgstr "Ús:"
-
-msgid "optional arguments:"
-msgstr "Paràmetres:"
-
-msgid "Category"
-msgstr "Categoría"
-
-msgid "List all packages, optionally list packages from a given category"
-msgstr "Mostra tots els paquets, opcionalment mostra els paquets d'una categoría donada"
-
-msgid "List all sections from the store"
-msgstr "LLista totes les categoríes de la botiga"
-
-msgid "Prints debug information"
-msgstr "Imprimeix la informació de debug\t"
-
-msgid "All"
-msgstr "Tot"
+#~ msgid "All"
+#~ msgstr "Tot"

@@ -1,4 +1,4 @@
-lliurex-store (0.9.7) focal; urgency=medium
+lliurex-store (0.9.7.1) focal; urgency=medium
 
   * Improve flatpak support
   * Fix incorrect packages in banners

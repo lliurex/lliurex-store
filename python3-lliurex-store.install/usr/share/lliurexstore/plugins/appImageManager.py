@@ -7,6 +7,8 @@ import shutil
 import json
 import os
 import sys
+import filecmp
+import tempfile
 import threading
 import queue
 import time
@@ -30,6 +32,8 @@ class appimagemanager:
 		self.result['status']={}
 		self.cache_dir=os.getenv("HOME")+"/.cache/lliurex-store"
 		self.icons_dir=self.cache_dir+"/icons"
+		self.catalogue=os.path.join(self.cache_dir,"appimage.xml")
+		self.origCatalogue="/usr/share/lliurex-store/files/appimage.xml"
 		self.cache_xmls=self.cache_dir+"/xmls/appimage"
 		self.appimage_dir=os.getenv("HOME")+"/Applications"
 		#Prevent appimage desktop integration
@@ -294,7 +298,7 @@ class appimagemanager:
 			else:
 				#self._debug("External appImage could not be fetched: Permission denied")
 				pass
-		self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name)
+			self._th_generate_xml_catalog(applist,outdir,app_info['url_info'],app_info['url'],app_name,force=True)
 		self._debug("Removing old entries...")
 		self._clean_bundle_catalogue(applistName,outdir)
 		return(True)
@@ -305,9 +309,26 @@ class appimagemanager:
 		req=Request(repo, headers={'User-Agent':'Mozilla/5.0'})
 		with urllib.request.urlopen(req) as f:
 			content=(f.read().decode('utf-8'))
-		
+		content=self._get_upgradable_content(content)
 		return(content)
 	#def _fetch_repo
+
+	def _get_upgradable_content(self,content):
+		ftmp=tempfile.mkstemp()[1]
+		with open (ftmp,'w') as f:
+			f.writelines(content)
+		if not os.path.isfile(self.catalogue):
+			if os.path.isfile(self.origCatalogue):
+				try:
+					shutil.copy(self.origCatalogue,self.catalogue)
+				except:
+					pass
+		if os.path.isfile(self.catalogue):
+			if filecmp.cmp(ftmp,self.catalogue) == True  and len(os.listdir(self.cache_xmls))>5:
+				content="{}"
+		shutil.move(ftmp,self.catalogue)
+		return(content)
+	#def _get_upgradable_content
 	
 	def _get_external_appimages(self):
 		external_appimages={}
@@ -383,13 +404,21 @@ class appimagemanager:
 		return appinfo
 	#def load_json_appinfo
 
-	def _th_generate_xml_catalog(self,applist,outdir,info_url,repo,repo_name):
+	def _th_generate_xml_catalog(self,applist,outdir,info_url,repo,repo_name,force=False):
 		maxconnections = 3
 		threads=[]
 		semaphore = threading.BoundedSemaphore(value=maxconnections)
 		random_applist = list(applist)
 		random.shuffle(random_applist)
 		for app in applist:
+			if force==False:
+				if app['name'].lower().endswith('.appimage'):
+					fname="appimagehub.{}.xml".format(app['name'].lower())
+				else:
+					fname="appimagehub.{}.appimage.xml".format(app['name'].lower())
+				if os.path.isfile(os.path.join(self.cache_xmls,fname)):
+					continue
+
 			th=threading.Thread(target=self._th_write_xml, args = (app,outdir,info_url,repo,repo_name,semaphore))
 			threads.append(th)
 			th.start()
@@ -500,23 +529,22 @@ class appimagemanager:
 			app.add_screenshot(screenshot)
 		#Adds the app to the store
 		self.apps_for_store.put(app)
-		if not os.path.isfile(self.cache_xmls+'/'+app.get_id_filename()):
-			xml_path='%s/%s.xml'%(self.cache_xmls,app.get_id_filename())
-			gioFile=Gio.File.new_for_path(xml_path)
-			app.to_file(gioFile)
-			#Fix some things in app_file...
-			xml_file=open(xml_path,'r',encoding='utf-8')
-			xml_data=xml_file.readlines()
-			xml_file.close()
-			self._debug("fixing %s"%xml_path)
-			try:
-				xml_data[0]=xml_data[0]+"<components origin=\"%s\">\n"%app.get_origin()
-				xml_data[-1]=xml_data[-1]+"\n"+"</components>"
-			except:
-				pass
-			xml_file=open(xml_path,'w')
-			xml_file.writelines(xml_data)
-			xml_file.close()
+		xml_path='%s/%s.xml'%(self.cache_xmls,app.get_id_filename())
+		gioFile=Gio.File.new_for_path(xml_path)
+		app.to_file(gioFile)
+		#Fix some things in app_file...
+		xml_file=open(xml_path,'r',encoding='utf-8')
+		xml_data=xml_file.readlines()
+		xml_file.close()
+		self._debug("fixing %s"%xml_path)
+		try:
+			xml_data[0]=xml_data[0]+"<components origin=\"%s\">\n"%app.get_origin()
+			xml_data[-1]=xml_data[-1]+"\n"+"</components>"
+		except:
+			pass
+		xml_file=open(xml_path,'w')
+		xml_file.writelines(xml_data)
+		xml_file.close()
 	#def _add_appimage
 
 	def _copy_app_from_appstream(self,app_orig,app,copy_icon=True):

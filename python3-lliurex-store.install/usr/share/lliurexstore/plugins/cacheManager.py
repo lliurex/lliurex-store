@@ -146,7 +146,7 @@ class cachemanager:
 				cursor=random.randint(0,len(storeapps)-1)
 				app=storeapps[cursor]
 				pkgname=app.get_pkgname_default()
-				time.sleep(0.1)
+				time.sleep(self.sleep_between_apps)
 			processed.append(pkgname)
 			th=threading.Thread(target=self._th_get_data_for_app, args = (app,semaphore))
 			threads.append(th)

@@ -33,6 +33,7 @@ class appimagemanager:
 		self.cache_dir=os.getenv("HOME")+"/.cache/lliurex-store"
 		self.icons_dir=self.cache_dir+"/icons"
 		self.catalogue=os.path.join(self.cache_dir,"appimage.xml")
+		self.origCatalogue="/usr/share/lliurex-store/files/appimage.xml"
 		self.cache_xmls=self.cache_dir+"/xmls/appimage"
 		self.appimage_dir=os.getenv("HOME")+"/Applications"
 		#Prevent appimage desktop integration
@@ -316,8 +317,14 @@ class appimagemanager:
 		ftmp=tempfile.mkstemp()[1]
 		with open (ftmp,'w') as f:
 			f.writelines(content)
+		if not os.path.isfile(self.catalogue):
+			if os.path.isfile(self.origCatalogue):
+				try:
+					shutil.copy(self.origCatalogue,self.catalogue)
+				except:
+					pass
 		if os.path.isfile(self.catalogue):
-			if filecmp.cmp(ftmp,self.catalogue) == True:
+			if filecmp.cmp(ftmp,self.catalogue) == True  and len(os.listdir(self.cache_xmls))>5:
 				content="{}"
 		shutil.move(ftmp,self.catalogue)
 		return(content)

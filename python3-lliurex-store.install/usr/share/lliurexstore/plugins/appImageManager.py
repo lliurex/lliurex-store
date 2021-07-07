@@ -409,7 +409,6 @@ class appimagemanager:
 					fname="appimagehub.{}.xml".format(app['name'].lower())
 				else:
 					fname="appimagehub.{}.appimage.xml".format(app['name'].lower())
-				print(os.path.join(self.cache_xmls,fname))
 				if os.path.isfile(os.path.join(self.cache_xmls,fname)):
 					continue
 

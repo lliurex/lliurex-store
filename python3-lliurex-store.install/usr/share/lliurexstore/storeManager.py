@@ -9,6 +9,7 @@ import lliurexstore.plugins as plugins
 import json
 import random
 import time
+import tempfile
 from queue import Queue as pool
 ######
 #Ver. 1.0 of storeManager.py
@@ -29,8 +30,14 @@ class StoreManager():
 			self._debug("Autostart actions: %s"%self.autostart)
 		self._propagate_dbg=False
 		self.store=None
-		self.cache="%s/.cache/lliurex-store"%os.environ['HOME']
-		self.cache_data="%s/data"%self.cache
+		home=os.getenv('HOME','')
+		if home=='':
+		#If not home in environment export "fake home dir"
+			home=tempfile.mkdtemp()
+			os.environ['HOME']=home
+
+		self.cache=os.path.join("{}".format(home,tempfile.mkdtemp),".cache/lliurex-store")
+		self.cache_data=os.path.join(self.cache,"data")
 		if not os.path.isdir(self.cache_data):
 			os.makedirs(self.cache_data)
 		self.cache_completion="%s/bash_completion"%self.cache_data

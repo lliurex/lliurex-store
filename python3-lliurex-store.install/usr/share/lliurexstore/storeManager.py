@@ -10,6 +10,7 @@ import json
 import random
 import time
 import tempfile
+import dbus
 from queue import Queue as pool
 ######
 #Ver. 1.0 of storeManager.py
@@ -21,10 +22,11 @@ from queue import Queue as pool
 
 class StoreManager():
 	def __init__(self,*args,**kwargs):
-		self.dbg=False
+		self.dbg=True
 		if 'dbg' in kwargs.keys() and self.dbg==False:
 			self.dbg=kwargs['dbg']
-		self.autostart=True
+		#Disable autostart (as rebost replaces all functionality)
+		self.autostart=False
 		if 'autostart' in kwargs.keys():
 			self.autostart=kwargs['autostart']
 			self._debug("Autostart actions: %s"%self.autostart)
@@ -56,7 +58,7 @@ class StoreManager():
 		self.postaction_actions=[]	#List with actions that will be launched after other actions
 		self.required_parms={}
 		self.threads={}				#Dict with the functions that must execute each action
-		self.static={}				#Dict with the functions that must execute each action
+		self.static={'info':'','search':''}				#Dict with the functions that must execute each action
 		self.threads_progress={}			#"" "" "" the progress for each launched thread
 		self.running_threads={}			#"" "" "" the running threads
 		self.plugins_registered={}		#Dict with the relation between plugins and actions 
@@ -65,7 +67,8 @@ class StoreManager():
 		self.extra_actions={}		#Dict with the actions managed by plugins and no defined on the main class as related_actions
 		self.result={}				#Result of the actions
 		self.lock=threading.Lock()		#locker for functions related to threads (get_progress, is_action_running...)
-		self.main(**kwargs)
+		#Disable main method as rebost replaces all functionality
+		#self.main(**kwargs)
 	#def __init__
 
 	def main(self,**kwargs):
@@ -200,6 +203,7 @@ class StoreManager():
 		self.threads['remove']='threading.Thread(target=self._install_remove_App,daemon=True,args=args,kwargs=kwargs)'
 		self.threads['list_sections']='threading.Thread(target=self._list_sections,daemon=True,args=args,kwargs=kwargs)'
 		self.static['random']='self._get_editors_pick(kwargs=kwargs)'
+		self.static['info']='self._get_editors_pick(kwargs=kwargs)'
 	#def _define_functions_for_threads
 
 	####
@@ -276,14 +280,74 @@ class StoreManager():
 				self._debug("Can't launch thread for action: %s"%action)
 				self._debug("Reason: %s"%e)
 				pass
-		elif action in self.static.keys():
-				self.action_progress[action]=0
-				self.result[action].update({'data':eval(self.static[action])})
-				self.result[action].update({'status':{'status':0,'msg':''}})
-				self.action_progress[action]=100
+#Disabled per rebost
+####	elif action in self.static.keys():
+####			self.action_progress[action]=0
+####			self.result[action].update({'data':eval(self.static[action])})
+####			self.result[action].update({'status':{'status':0,'msg':''}})
+####			self.action_progress[action]=100
 
+		#As rebost manages all actions and store has all actions disabled we call rebost at this point
 		else:
-			self._debug("No function associated with action %s"%action)
+			bus=dbus.SystemBus()
+			rebost=bus.get_object("net.lliurex.rebost","/net/lliurex/rebost")
+			if action=='info':
+				self.action_progress[action]=0
+				self.action_progress['search']=0
+				self.result[action]={}
+				pkg=args[0]
+				if "." in pkg:
+					pkg=pkg.split(".")[0]
+
+				self._debug("Calling rebost for action {0} package {1}".format(action,pkg))
+				try:
+					data=json.loads(rebost.show(pkg))
+					data=[json.loads(data[0])]
+					data[0].update({'package':data[0].get('pkgname','').strip()})
+					data[0].update({'name':data[0].get('pkgname','').strip()})
+					data[0].update({'component':data[0].get('pkgname','').strip()})
+					data[0].update({'updatable':0})
+					data[0].update({'depends':''})
+					self.result[action].update({'data':data})
+					self.action_progress[action]=100
+					self.action_progress['search']=100
+				except Exception as e:
+					print(e)
+			if action=='search':
+				self.action_progress[action]=0
+				self.action_progress['info']=0
+				self.result[action]={}
+				self._debug("Calling rebost for action {0} package {1}".format(action,args[0]))
+				try:
+					dataRebost=json.loads(rebost.search(args[0]))
+					data=[]
+					for rebostPkg in dataRebost:
+						item=json.loads(rebostPkg)
+						item.update({'package':item.get('pkgname','').strip().rstrip()})
+						item.update({'pkgname':item.get('pkgname','').strip()})
+						item.update({'name':item.get('pkgname','').strip()})
+						item.update({'component':item.get('pkgname')})
+						item.update({'summary':item.get('summary','').strip().rstrip()})
+						item.update({'updatable':0})
+						item.update({'depends':''})
+						data.append(item)
+
+					#data[0].update({'package':data[0].get('pkgname')})
+					#data[0].update({'component':data[0].get('pkgname')})
+					#data[0].update({'updatable':0})
+					#data[0].update({'depends':''})
+					self.result[action].update({'data':data})
+					self.action_progress[action]=100
+					self.action_progress['info']=100
+				except Exception as e:
+					print(e)
+
+			self.result[action].update({'status':{'status':0,'msg':''}})
+			self.action_progress[action]=100
+			#self._debug("No function associated with action %s"%action)
+			#self._debug("Rebost result for action {0}:\n{1}".format(action,data))
+			#self._debug(self.result)
+			self._debug(self.action_progress)
 			pass
 	#def execute_action
 
@@ -400,9 +464,11 @@ class StoreManager():
 	#  - Dict of results indexed by actions
 	####
 	def get_progress(self,action=None):
+		#self._debug("Get progress for {0}".format(action))
 		progress={'search':0,'list':0,'install':0,'remove':0,'load':0,'list_sections':0}
 		action_list=[]
 		if action in self.static.keys():
+			self._debug("Rebost skips action {}".format(action))
 			pass
 		else:
 			if action in self.register_action_progress.keys():
@@ -422,6 +488,9 @@ class StoreManager():
 							self.action_progress[parent_action]=round(acum_progress/count,0)
 							progress[parent_action]=self.action_progress[parent_action]
 				else:
+					if action in self.static.keys():
+						self._debug("Rebost skips action {}".format(action))
+						pass
 					#put a 100% just in case
 					if parent_action in self.action_progress.keys():
 						self.action_progress[parent_action]=100

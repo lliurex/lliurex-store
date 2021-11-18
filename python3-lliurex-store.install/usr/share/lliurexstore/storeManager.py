@@ -59,7 +59,7 @@ class StoreManager():
 		self.postaction_actions=[]	#List with actions that will be launched after other actions
 		self.required_parms={}
 		self.threads={}				#Dict with the functions that must execute each action
-		self.static={'info':'','search':'','install':''}				#Dict with the functions that must execute each action
+		self.static={'info':'','search':'','install':'','remove':''}				#Dict with the functions that must execute each action
 		self.threads_progress={}			#"" "" "" the progress for each launched thread
 		self.running_threads={}			#"" "" "" the running threads
 		self.plugins_registered={}		#Dict with the relation between plugins and actions 
@@ -349,7 +349,7 @@ class StoreManager():
 					self.action_progress['info']=100
 				except Exception as e:
 					print(e)
-			if action=='install':
+			if action=='install' or action=='remove':
 				self.action_progress['info']=0
 				try:
 					dataRebost=json.loads(rebost.test(pkg,bundle,""))

@@ -59,7 +59,7 @@ class StoreManager():
 		self.postaction_actions=[]	#List with actions that will be launched after other actions
 		self.required_parms={}
 		self.threads={}				#Dict with the functions that must execute each action
-		self.static={'info':'','search':'','install':'','remove':''}				#Dict with the functions that must execute each action
+		self.static={'info':'','search':'','install':'','remove':'','list':''} #Static methods (rebost compatibility)
 		self.threads_progress={}			#"" "" "" the progress for each launched thread
 		self.running_threads={}			#"" "" "" the running threads
 		self.plugins_registered={}		#Dict with the relation between plugins and actions 
@@ -296,59 +296,19 @@ class StoreManager():
 			pkg=args[0]
 			status=0
 			bundle=''
-			data=[]
+			data=[{}]
 			if "." in pkg:
 				(pkg,bundle)=pkg.split(".")
 			self._debug("Calling rebost for action {0} package {1}".format(action,pkg))
 			if action=='info':
 				self.action_progress['search']=0
-				try:
-					data=json.loads(rebost.show(pkg))
-					if len(data):
-						data=[json.loads(data[0])]
-						data[0]=self._rebostPkg_to_storePkg(data[0])
-						if bundle and bundle not in data[0].get('bundle',{}.keys()):
-							for key in data[0].keys():
-								data[0].update({key:''})
-								status=1
-						elif data[0].get('bundle'):
-							bundles=data[0].get('bundle')
-							if bundle=='':
-								if 'package' in bundles: 
-									bundle='package'
-								elif 'appimage' in bundles: 
-									bundle='appimage'
-								elif 'snap' in bundles: 
-									bundle='snap'
-								elif 'flatpak' in bundles: 
-									bundle='flatpak'
-							data[0].update({'version':data[0]['versions'].get(bundle,'')})
-							data[0].update({'id':data[0]['bundle'].get(bundle,'')})
-							if bundle:
-								state="available"
-								bundle_state=data[0].get('state',{}).get(bundle)
-								if bundle_state=='0':
-									state="installed"
-								data[0].update({'state':"{0}".format(state)})
-								if bundle!='package':
-									data[0].update({'name':"{0}.{1}".format(data[0].get('name'),bundle)})
-									data[0].update({'package':"{0}.{1}".format(data[0].get('package'),bundle)})
-					else:
-						status=1
-					self.action_progress['search']=100
-				except Exception as e:
-					print(e)
+				(data,status)=self._rebost_info(rebost,pkg,bundle)
 			if action=='search':
 				self.action_progress['info']=0
-				try:
-					dataRebost=json.loads(rebost.search(pkg))
-					for rebostPkg in dataRebost:
-						item=json.loads(rebostPkg)
-						item=self._rebostPkg_to_storePkg(item)
-						data.append(item)
-					self.action_progress['info']=100
-				except Exception as e:
-					print(e)
+				(data,status)=self._rebost_search(rebost,pkg,bundle)
+			if action=='list':
+				self.action_progress['info']=0
+				(data,status)=self._rebost_search_category(rebost,pkg,bundle)
 			if action=='install' or action=='remove':
 				self.action_progress['info']=0
 				try:
@@ -379,6 +339,93 @@ class StoreManager():
 			#self._debug(self.result)
 			self._debug(self.action_progress)
 	#def execute_action
+
+	def _rebost_info(self,rebost,pkg,bundle):
+		status=0
+		data=[]
+		try:
+			data=json.loads(rebost.show(pkg))
+		except Exception as e:
+			print("Error getting data: {}".format(e))
+			data=[{}]
+		if len(data):
+			try:
+				data=[json.loads(data[0])]
+			except Exception as e:
+				print("Error inspecting data: {}".format(e))
+				if isinstance(data[0],dict):
+					data=data[0]
+				else:
+					print(data)
+					data=[{}]
+			try:
+				data[0]=self._rebostPkg_to_storePkg(data[0])
+			except Exception as e:
+				if isinstance(data,dict):
+					data=[data]
+			if bundle and bundle not in data[0].get('bundle',{}.keys()):
+				self._debug("Bundle not found: {}".format(bundle))
+				self._debug("Bundles found: {}".format(data[0].get('bundle')))
+				for key in data[0].keys():
+					data[0].update({key:''})
+					status=1
+			elif data[0].get('bundle'):
+				bundles=data[0].get('bundle')
+				if bundle=='':
+					if 'package' in bundles: 
+						bundle='package'
+					elif 'appimage' in bundles: 
+						bundle='appimage'
+					elif 'snap' in bundles: 
+						bundle='snap'
+					elif 'flatpak' in bundles: 
+						bundle='flatpak'
+				data[0].update({'version':data[0]['versions'].get(bundle,'')})
+				data[0].update({'id':data[0]['bundle'].get(bundle,'')})
+				if bundle:
+					state="available"
+					bundle_state=data[0].get('state',{}).get(bundle)
+					if bundle_state=='0':
+						state="installed"
+					data[0].update({'state':"{0}".format(state)})
+					if bundle!='package':
+						data[0].update({'name':"{0}.{1}".format(data[0].get('name'),bundle)})
+						data[0].update({'package':"{0}.{1}".format(data[0].get('package'),bundle)})
+		else:
+			status=1
+			self.action_progress['search']=100
+		return(data,status)
+	#def _rebost_info
+	
+	def _rebost_search_category(self,rebost,category,bundle):
+		data=[]
+		status=0
+		try:
+			dataRebost=json.loads(rebost.search_by_category(category))
+		except Exception as e:
+			print(e)
+		for rebostPkg in dataRebost:
+			item=json.loads(rebostPkg)
+			item=self._rebostPkg_to_storePkg(item)
+			data.append(item)
+		self.action_progress['info']=100
+		return(data,status)
+	#def _rebost_search
+
+	def _rebost_search(self,rebost,pkg,bundle):
+		data=[]
+		status=0
+		try:
+			dataRebost=json.loads(rebost.search(pkg))
+		except Exception as e:
+			print(e)
+		for rebostPkg in dataRebost:
+			item=json.loads(rebostPkg)
+			item=self._rebostPkg_to_storePkg(item)
+			data.append(item)
+		self.action_progress['info']=100
+		return(data,status)
+	#def _rebost_search
 
 	def _rebostPkg_to_storePkg(self,rebostPkg):
 		rebostPkg.update({'package':rebostPkg.get('pkgname','').strip().rstrip()})

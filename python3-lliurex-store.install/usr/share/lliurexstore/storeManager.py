@@ -299,7 +299,7 @@ class StoreManager():
 			data=[{}]
 			if "." in pkg:
 				(pkg,bundle)=pkg.split(".")
-			self._debug("Calling rebost for action {0} package {1}".format(action,pkg))
+			self._debug("Calling rebost for action {0} package {1} {2}".format(action,pkg,bundle))
 			if action=='info':
 				self.action_progress['search']=0
 				(data,status)=self._rebost_info(rebost,pkg,bundle)
@@ -375,10 +375,13 @@ class StoreManager():
 			if bundle and bundle not in data[0].get('bundle',{}.keys()):
 				self._debug("Bundle not found: {}".format(bundle))
 				self._debug("Bundles found: {}".format(data[0].get('bundle')))
-				for key in data[0].keys():
-					data[0].update({key:''})
-					status=1
-			elif data[0].get('bundle'):
+				if len(data[0].get('bundle',{}))>0:
+					bundle=list(data[0].get('bundle').keys())[0]
+				else:
+					for key in data[0].keys():
+						data[0].update({key:''})
+						status=1
+			if data[0].get('bundle'):
 				bundles=data[0].get('bundle')
 				if bundle=='':
 					if 'package' in bundles: 
@@ -442,8 +445,10 @@ class StoreManager():
 		rebostPkg.update({'name':rebostPkg.get('package')})
 		rebostPkg.update({'component':rebostPkg.get('package')})
 		rebostPkg.update({'summary':rebostPkg.get('summary','').strip().rstrip()})
+		rebostPkg.update({'screenshots':rebostPkg.get('thumbnails',[])})
 		rebostPkg.update({'updatable':0})
 		rebostPkg.update({'depends':''})
+		rebostPkg.update({'banner':None})
 		rebostPkg.update({'license':''})
 		return(rebostPkg)
 	#def _rebostPkg_to_storePkg

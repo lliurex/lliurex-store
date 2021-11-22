@@ -295,7 +295,7 @@ class StoreManager():
 			self.result[action]={}
 			pkg=args[0]
 			status=0
-			bundle=''
+			bundle='package'
 			data=[{}]
 			if "." in pkg:
 				(pkg,bundle)=pkg.split(".")
@@ -310,22 +310,30 @@ class StoreManager():
 				self.action_progress['info']=0
 				(data,status)=self._rebost_search_category(rebost,pkg,bundle)
 			if action=='install' or action=='remove':
+				print("BUNDLE: {}".format(bundle))
 				self.action_progress['info']=0
+				tmpData=rebost.test(pkg,bundle,"")
 				try:
-					dataRebost=json.loads(rebost.test(pkg,bundle,""))
+					dataRebost=json.loads(tmpData)
 				except Exception as e:
 					print("{}".format(e))
-				if os.path.isfile(dataRebost[0].get('epi')):
-					cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
-					pid=9999
-					try:
-						proc=subprocess.Popen(cmd)
-						proc.communicate()[0]
-						pid=proc.pid
-					except Exception as e:
-						print("{}".format(e))
-					installResult=rebost.getEpiPkgStatus(dataRebost[0].get('script'))
-					rebost.commitInstall(pkg,bundle,installResult)
+					dataRebost=[]
+				try:
+					if os.path.isfile(dataRebost[0].get('epi')):
+						cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
+						pid=9999
+						try:
+							proc=subprocess.Popen(cmd)
+							proc.communicate()[0]
+							pid=proc.pid
+						except Exception as e:
+							print("{}".format(e))
+						installResult=rebost.getEpiPkgStatus(dataRebost[0].get('script'))
+						rebost.commitInstall(pkg,bundle,installResult)
+				except Exception as e:
+					print(e)
+					print("Error on {0} -> {1}".format(pkg,bundle))
+					print(tmpData)
 				for item in dataRebost:
 					item=self._rebostPkg_to_storePkg(item)
 					data.append(item)
@@ -363,6 +371,7 @@ class StoreManager():
 			except Exception as e:
 				if isinstance(data,dict):
 					data=[data]
+					data[0]=self._rebostPkg_to_storePkg(data[0])
 			if bundle and bundle not in data[0].get('bundle',{}.keys()):
 				self._debug("Bundle not found: {}".format(bundle))
 				self._debug("Bundles found: {}".format(data[0].get('bundle')))
@@ -389,8 +398,8 @@ class StoreManager():
 						state="installed"
 					data[0].update({'state':"{0}".format(state)})
 					if bundle!='package':
-						data[0].update({'name':"{0}.{1}".format(data[0].get('name'),bundle)})
-						data[0].update({'package':"{0}.{1}".format(data[0].get('package'),bundle)})
+						data[0].update({'name':"{0}.{1}".format(data[0].get('name','').rstrip(),bundle)})
+						data[0].update({'package':"{0}.{1}".format(data[0].get('package','').rstrip(),bundle)})
 		else:
 			status=1
 			self.action_progress['search']=100

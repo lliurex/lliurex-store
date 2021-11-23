@@ -1,3 +1,10 @@
+lliurex-store (1.0) focal; urgency=medium
+
+  * Disable all own functionality
+  * Integrated with rebost
+
+ -- Juanma1980 <juanma1980@gmail.com>  Tue, 23 Nov 2021 13:05:15 +0100
+
 lliurex-store (0.9.7.4) focal; urgency=medium
 
   * Improve flatpak support

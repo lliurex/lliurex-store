@@ -10,6 +10,8 @@ import json
 import random
 import time
 import tempfile
+import dbus
+import subprocess
 from queue import Queue as pool
 ######
 #Ver. 1.0 of storeManager.py
@@ -21,10 +23,11 @@ from queue import Queue as pool
 
 class StoreManager():
 	def __init__(self,*args,**kwargs):
-		self.dbg=False
+		self.dbg=True
 		if 'dbg' in kwargs.keys() and self.dbg==False:
 			self.dbg=kwargs['dbg']
-		self.autostart=True
+		#Disable autostart (as rebost replaces all functionality)
+		self.autostart=False
 		if 'autostart' in kwargs.keys():
 			self.autostart=kwargs['autostart']
 			self._debug("Autostart actions: %s"%self.autostart)
@@ -56,7 +59,7 @@ class StoreManager():
 		self.postaction_actions=[]	#List with actions that will be launched after other actions
 		self.required_parms={}
 		self.threads={}				#Dict with the functions that must execute each action
-		self.static={}				#Dict with the functions that must execute each action
+		self.static={'info':'','search':'','install':'','remove':'','list':''} #Static methods (rebost compatibility)
 		self.threads_progress={}			#"" "" "" the progress for each launched thread
 		self.running_threads={}			#"" "" "" the running threads
 		self.plugins_registered={}		#Dict with the relation between plugins and actions 
@@ -65,7 +68,8 @@ class StoreManager():
 		self.extra_actions={}		#Dict with the actions managed by plugins and no defined on the main class as related_actions
 		self.result={}				#Result of the actions
 		self.lock=threading.Lock()		#locker for functions related to threads (get_progress, is_action_running...)
-		self.main(**kwargs)
+		#Disable main method as rebost replaces all functionality
+		#self.main(**kwargs)
 	#def __init__
 
 	def main(self,**kwargs):
@@ -276,16 +280,186 @@ class StoreManager():
 				self._debug("Can't launch thread for action: %s"%action)
 				self._debug("Reason: %s"%e)
 				pass
-		elif action in self.static.keys():
-				self.action_progress[action]=0
-				self.result[action].update({'data':eval(self.static[action])})
-				self.result[action].update({'status':{'status':0,'msg':''}})
-				self.action_progress[action]=100
+#Disabled per rebost
+####	elif action in self.static.keys():
+####			self.action_progress[action]=0
+####			self.result[action].update({'data':eval(self.static[action])})
+####			self.result[action].update({'status':{'status':0,'msg':''}})
+####			self.action_progress[action]=100
 
+		#As rebost manages all actions and store has all actions disabled we call rebost at this point
 		else:
-			self._debug("No function associated with action %s"%action)
-			pass
+			bus=dbus.SystemBus()
+			rebost=bus.get_object("net.lliurex.rebost","/net/lliurex/rebost")
+			self.action_progress[action]=0
+			self.result[action]={}
+			pkg=args[0]
+			status=0
+			bundle='package'
+			data=[{}]
+			if "." in pkg:
+				(pkg,bundle)=pkg.split(".")
+			self._debug("Calling rebost for action {0} package {1} {2}".format(action,pkg,bundle))
+			if action=='info':
+				self.action_progress['search']=0
+				(data,status)=self._rebost_info(rebost,pkg,bundle)
+			if action=='search':
+				self.action_progress['info']=0
+				(data,status)=self._rebost_search(rebost,pkg,bundle)
+			if action=='list':
+				self.action_progress['info']=0
+				(data,status)=self._rebost_search_category(rebost,pkg,bundle)
+			if action=='install' or action=='remove':
+				self.action_progress['info']=0
+				user=''
+				if bundle=='appimage':
+					user=os.environ.get('USER','')
+					if user=='root':
+						user=''
+				tmpData=rebost.test(pkg,bundle,user)
+				try:
+					dataRebost=json.loads(tmpData)
+				except Exception as e:
+					print("{}".format(e))
+					dataRebost=[]
+				try:
+					if os.path.isfile(dataRebost[0].get('epi')):
+						cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
+						pid=9999
+						try:
+							proc=subprocess.Popen(cmd)
+							proc.communicate()[0]
+							pid=proc.pid
+						except Exception as e:
+							print("{}".format(e))
+						installResult=rebost.getEpiPkgStatus(dataRebost[0].get('script'))
+						rebost.commitInstall(pkg,bundle,installResult)
+				except Exception as e:
+					print(e)
+					print("Error on {0} -> {1}".format(pkg,bundle))
+					print(tmpData)
+				for item in dataRebost:
+					item=self._rebostPkg_to_storePkg(item)
+					data.append(item)
+				self.action_progress['info']=100
+
+			self.result[action].update({'data':data})
+			self.result[action].update({'status':{'status':status,'msg':''}})
+			self.action_progress[action]=100
+			#self._debug("No function associated with action %s"%action)
+			#self._debug("Rebost result for action {0}:\n{1}".format(action,data))
+			#self._debug(self.result)
+			self._debug(self.action_progress)
 	#def execute_action
+
+	def _rebost_info(self,rebost,pkg,bundle):
+		status=0
+		data=[]
+		try:
+			user=''
+			user=os.environ.get('USER','')
+			if user=='root':
+				user=''
+			data=json.loads(rebost.show(pkg,user))
+		except Exception as e:
+			print("Error getting data: {}".format(e))
+			data=[{}]
+		if len(data):
+			try:
+				data=[json.loads(data[0])]
+			except Exception as e:
+				print("Error inspecting data: {}".format(e))
+				if isinstance(data[0],dict):
+					data=data[0]
+				else:
+					print(data)
+					data=[{}]
+			try:
+				data[0]=self._rebostPkg_to_storePkg(data[0])
+			except Exception as e:
+				if isinstance(data,dict):
+					data=[data]
+					data[0]=self._rebostPkg_to_storePkg(data[0])
+			if bundle and bundle not in data[0].get('bundle',{}.keys()):
+				self._debug("Bundle not found: {}".format(bundle))
+				self._debug("Bundles found: {}".format(data[0].get('bundle')))
+				if len(data[0].get('bundle',{}))>0:
+					bundle=list(data[0].get('bundle').keys())[0]
+				else:
+					for key in data[0].keys():
+						data[0].update({key:''})
+						status=1
+			if data[0].get('bundle'):
+				bundles=data[0].get('bundle')
+				if bundle=='':
+					if 'package' in bundles: 
+						bundle='package'
+					elif 'appimage' in bundles: 
+						bundle='appimage'
+					elif 'snap' in bundles: 
+						bundle='snap'
+					elif 'flatpak' in bundles: 
+						bundle='flatpak'
+				data[0].update({'version':data[0]['versions'].get(bundle,'')})
+				data[0].update({'id':data[0]['bundle'].get(bundle,'')})
+				if bundle:
+					state="available"
+					bundle_state=data[0].get('state',{}).get(bundle)
+					if bundle_state=='0':
+						state="installed"
+					data[0].update({'state':"{0}".format(state)})
+					if bundle!='package':
+						data[0].update({'name':"{0}.{1}".format(data[0].get('name','').rstrip(),bundle)})
+						data[0].update({'package':"{0}.{1}".format(data[0].get('package','').rstrip(),bundle)})
+		else:
+			status=1
+			self.action_progress['search']=100
+		return(data,status)
+	#def _rebost_info
+	
+	def _rebost_search_category(self,rebost,category,bundle):
+		data=[]
+		status=0
+		try:
+			dataRebost=json.loads(rebost.search_by_category(category))
+		except Exception as e:
+			print(e)
+		for rebostPkg in dataRebost:
+			item=json.loads(rebostPkg)
+			item=self._rebostPkg_to_storePkg(item)
+			data.append(item)
+		self.action_progress['info']=100
+		return(data,status)
+	#def _rebost_search
+
+	def _rebost_search(self,rebost,pkg,bundle):
+		data=[]
+		status=0
+		try:
+			dataRebost=json.loads(rebost.search(pkg))
+		except Exception as e:
+			print(e)
+		for rebostPkg in dataRebost:
+			item=json.loads(rebostPkg)
+			item=self._rebostPkg_to_storePkg(item)
+			data.append(item)
+		self.action_progress['info']=100
+		return(data,status)
+	#def _rebost_search
+
+	def _rebostPkg_to_storePkg(self,rebostPkg):
+		rebostPkg.update({'package':rebostPkg.get('pkgname','').strip().rstrip()})
+		rebostPkg.update({'pkgname':rebostPkg.get('package')})
+		rebostPkg.update({'name':rebostPkg.get('package')})
+		rebostPkg.update({'component':rebostPkg.get('package')})
+		rebostPkg.update({'summary':rebostPkg.get('summary','').strip().rstrip()})
+		rebostPkg.update({'screenshots':rebostPkg.get('thumbnails',[])})
+		rebostPkg.update({'updatable':0})
+		rebostPkg.update({'depends':''})
+		rebostPkg.update({'banner':None})
+		rebostPkg.update({'license':''})
+		return(rebostPkg)
+	#def _rebostPkg_to_storePkg
 
 	def _execute_class_method(self,action,package_type,*args,launchedby=None,**kwargs):
 		exe_function=None
@@ -330,7 +504,7 @@ class StoreManager():
 
 		for action in action_list:
 			if action in self.static.keys():
-				if self.action_progress[action]!=100:
+				if self.action_progress.get(action,0)!=100:
 					status=True
 			if action in self.running_threads.keys():
 				if self.running_threads[action].is_alive():
@@ -400,9 +574,11 @@ class StoreManager():
 	#  - Dict of results indexed by actions
 	####
 	def get_progress(self,action=None):
+		#self._debug("Get progress for {0}".format(action))
 		progress={'search':0,'list':0,'install':0,'remove':0,'load':0,'list_sections':0}
 		action_list=[]
 		if action in self.static.keys():
+			self._debug("Rebost skips action {}".format(action))
 			pass
 		else:
 			if action in self.register_action_progress.keys():
@@ -422,6 +598,9 @@ class StoreManager():
 							self.action_progress[parent_action]=round(acum_progress/count,0)
 							progress[parent_action]=self.action_progress[parent_action]
 				else:
+					if action in self.static.keys():
+						self._debug("Rebost skips action {}".format(action))
+						pass
 					#put a 100% just in case
 					if parent_action in self.action_progress.keys():
 						self.action_progress[parent_action]=100
@@ -472,7 +651,6 @@ class StoreManager():
 					launch=False
 					break
 			if launch:
-				print("RESUME!!")
 				self._resume_autostart_actions()
 
 		return(result)

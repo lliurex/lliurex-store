@@ -310,7 +310,6 @@ class StoreManager():
 				self.action_progress['info']=0
 				(data,status)=self._rebost_search_category(rebost,pkg,bundle)
 			if action=='install' or action=='remove':
-				print("BUNDLE: {}".format(bundle))
 				self.action_progress['info']=0
 				tmpData=rebost.test(pkg,bundle,"")
 				try:

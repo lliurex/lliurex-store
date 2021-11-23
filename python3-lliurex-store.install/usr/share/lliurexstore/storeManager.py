@@ -311,7 +311,12 @@ class StoreManager():
 				(data,status)=self._rebost_search_category(rebost,pkg,bundle)
 			if action=='install' or action=='remove':
 				self.action_progress['info']=0
-				tmpData=rebost.test(pkg,bundle,"")
+				user=''
+				if bundle=='appimage':
+					user=os.environ.get('USER','')
+					if user=='root':
+						user=''
+				tmpData=rebost.test(pkg,bundle,user)
 				try:
 					dataRebost=json.loads(tmpData)
 				except Exception as e:
@@ -351,7 +356,11 @@ class StoreManager():
 		status=0
 		data=[]
 		try:
-			data=json.loads(rebost.show(pkg))
+			user=''
+			user=os.environ.get('USER','')
+			if user=='root':
+				user=''
+			data=json.loads(rebost.show(pkg,user))
 		except Exception as e:
 			print("Error getting data: {}".format(e))
 			data=[{}]

@@ -651,7 +651,6 @@ class StoreManager():
 					launch=False
 					break
 			if launch:
-				print("RESUME!!")
 				self._resume_autostart_actions()
 
 		return(result)

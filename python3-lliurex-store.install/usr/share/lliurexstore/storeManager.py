@@ -402,6 +402,7 @@ class StoreManager():
 						bundle='flatpak'
 				data[0].update({'version':data[0]['versions'].get(bundle,'')})
 				data[0].update({'id':data[0]['bundle'].get(bundle,'')})
+				data[0].update({'size':data[0]['size'].get(bundle,'')})
 				if bundle:
 					state="available"
 					bundle_state=data[0].get('state',{}).get(bundle)

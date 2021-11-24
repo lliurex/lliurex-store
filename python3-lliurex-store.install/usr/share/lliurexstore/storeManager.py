@@ -454,7 +454,13 @@ class StoreManager():
 		rebostPkg.update({'name':rebostPkg.get('package')})
 		rebostPkg.update({'component':rebostPkg.get('package')})
 		rebostPkg.update({'summary':rebostPkg.get('summary','').strip().rstrip()})
-		rebostPkg.update({'screenshots':rebostPkg.get('thumbnails',[])})
+		thumbnails=rebostPkg.get('thumbnails',[])
+		if thumbnails==None:
+			thumbnails=[]
+		screenshots=rebostPkg.get('screenshots',[])
+		if screenshots==None:
+			screenshots=[]
+		rebostPkg.update({'screenshots':screenshots+thumbnails})
 		rebostPkg.update({'updatable':0})
 		rebostPkg.update({'depends':''})
 		rebostPkg.update({'banner':None})

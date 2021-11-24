@@ -1,4 +1,4 @@
-lliurex-store (1.0) focal; urgency=medium
+lliurex-store (1.0.1) focal; urgency=medium
 
   * Disable all own functionality
   * Integrated with rebost

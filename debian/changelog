@@ -1,7 +1,9 @@
-lliurex-store (1.0.2) focal; urgency=medium
+lliurex-store (1.0.3) focal; urgency=medium
 
   * Disable all own functionality
   * Integrated with rebost
+  * Set limit for related apps
+  * Fix error when showing screenshots with no pixbuf
 
  -- Juanma1980 <juanma1980@gmail.com>  Tue, 23 Nov 2021 13:05:15 +0100
 

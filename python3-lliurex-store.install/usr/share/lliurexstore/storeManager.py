@@ -308,7 +308,10 @@ class StoreManager():
 				(data,status)=self._rebost_search(rebost,pkg,bundle)
 			if action=='list':
 				self.action_progress['info']=0
-				(data,status)=self._rebost_search_category(rebost,pkg,bundle)
+				if 'max_results' in kwargs:
+					(data,status)=self._rebost_search_category(rebost,pkg,bundle,kwargs['max_results'])
+				else:
+					(data,status)=self._rebost_search_category(rebost,pkg,bundle)
 			if action=='install' or action=='remove':
 				self.action_progress['info']=0
 				user=''
@@ -418,11 +421,14 @@ class StoreManager():
 		return(data,status)
 	#def _rebost_info
 	
-	def _rebost_search_category(self,rebost,category,bundle):
+	def _rebost_search_category(self,rebost,category,bundle,limit=0):
 		data=[]
 		status=0
 		try:
-			dataRebost=json.loads(rebost.search_by_category(category))
+			if limit:
+				dataRebost=json.loads(rebost.search_by_category_limit(category,limit))
+			else:
+				dataRebost=json.loads(rebost.search_by_category(category))
 		except Exception as e:
 			print(e)
 		for rebostPkg in dataRebost:

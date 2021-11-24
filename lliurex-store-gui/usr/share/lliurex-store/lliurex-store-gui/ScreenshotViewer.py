@@ -132,18 +132,22 @@ class ScreenshotViewer(Gtk.EventBox):
 			image=Gtk.Image.new_from_file(self.image_dir+current_id)
 			
 			pixbuf=image.get_pixbuf()
-			x=pixbuf.get_width()
-			y=pixbuf.get_height()
-			
-			w_x,w_y=self.content_box.get_size_request()
-			w_x-=self.border*2 
-			w_y-=self.border*2 + 240
-			
-			ratio=min(w_x*1.0/x,w_y*1.0/y)
-			pixbuf=pixbuf.scale_simple(x*ratio,y*ratio,GdkPixbuf.InterpType.BILINEAR)
-			
-			new_x=x*ratio
-			new_y=y*ratio
+			if pixbuf:
+				x=pixbuf.get_width()
+				y=pixbuf.get_height()
+				
+				w_x,w_y=self.content_box.get_size_request()
+				w_x-=self.border*2 
+				w_y-=self.border*2 + 240
+				
+				ratio=min(w_x*1.0/x,w_y*1.0/y)
+				pixbuf=pixbuf.scale_simple(x*ratio,y*ratio,GdkPixbuf.InterpType.BILINEAR)
+				
+				new_x=x*ratio
+				new_y=y*ratio
+			else:
+				new_x=0
+				new_y=0
 			
 			GLib.timeout_add(30,self.wait_to_reveal,new_x,new_y,pixbuf,False)
 			

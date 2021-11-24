@@ -109,7 +109,7 @@ class LliurexStoreManager:
 	#def get_info
 	
 	
-	def get_random_packages_from_categories(self,pkg_id,categories):
+	def get_random_packages_from_categories(self,pkg_id,categories,limit=10):
 		
 		for item in self.core.categories_manager.categories:
 			if item in categories and len(categories) > 1:
@@ -125,7 +125,7 @@ class LliurexStoreManager:
 			random_category=categories[random_id]
 		else:
 			random_category="lliurex"
-		pkgs,categories=self.get_package_list_from_category(random_category)
+		pkgs,categories=self.get_package_list_from_category(random_category,results=limit)
 		
 		p=Package.Package({})
 		p.fix_info()

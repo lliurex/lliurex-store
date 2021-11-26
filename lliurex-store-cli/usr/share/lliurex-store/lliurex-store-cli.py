@@ -164,6 +164,13 @@ def main():
 #		parms['list']=args.list
 
 	actionList={'search':False,'info':False,'pkgInfo':False,'install':False,'remove':False,'list':False,'list-sections':False,'random':False,'cache':False}
+	#Replace with rebost
+	for action in actions:
+		parms=str(parms[action])
+		print(parms)
+		if action in ["view","v","info"]:
+			action="show"
+		os.execv("/usr/bin/rebost",["/usr/bin/rebost",action,parms])
 	start_time=time.time()
 	store=storeManager.StoreManager(flatpak=flatpak,appimage=appimage,snap=snap,dbg=dbg,autostart=autostart,cli=True)
 	for action in actions:
@@ -205,9 +212,9 @@ def process_Args(args):
 	parser.add_argument('-r','--remove',metavar='Package',help=(_(u"Remove a package")))
 #	parser.add_argument('--random',metavar='Results',help=(_(u"List random packages")))
 #	parser.add_argument('--debug',action='store_true',help=(_(u"Prints debug information")))
-	parser.add_argument('--appimage',action='store_true',help=(_(u"Load appimage catalog")))
-	parser.add_argument('--snap',action='store_true',help=(_(u"Load snap catalog")))
-	parser.add_argument('--flatpak',action='store_true',help=(_(u"Load flatpak catalog")))
+#	parser.add_argument('--appimage',action='store_true',help=(_(u"Load appimage catalog")))
+#	parser.add_argument('--snap',action='store_true',help=(_(u"Load snap catalog")))
+#	parser.add_argument('--flatpak',action='store_true',help=(_(u"Load flatpak catalog")))
 	parser.add_argument('--update',action='store_true',help=(_(u"Update cache")))
 #	parser.add_argument('--list',metavar='list',nargs='?',help=(_(u"List category")))
 

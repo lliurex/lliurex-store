@@ -23,7 +23,7 @@ from queue import Queue as pool
 
 class StoreManager():
 	def __init__(self,*args,**kwargs):
-		self.dbg=True
+		self.dbg=False
 		if 'dbg' in kwargs.keys() and self.dbg==False:
 			self.dbg=kwargs['dbg']
 		#Disable autostart (as rebost replaces all functionality)

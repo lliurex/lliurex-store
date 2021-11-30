@@ -23,7 +23,7 @@ from queue import Queue as pool
 
 class StoreManager():
 	def __init__(self,*args,**kwargs):
-		self.dbg=True
+		self.dbg=False
 		if 'dbg' in kwargs.keys() and self.dbg==False:
 			self.dbg=kwargs['dbg']
 		#Disable autostart (as rebost replaces all functionality)
@@ -315,11 +315,14 @@ class StoreManager():
 			if action=='install' or action=='remove':
 				self.action_progress['info']=0
 				user=''
-				if bundle=='appimage':
-					user=os.environ.get('USER','')
-					if user=='root':
-						user=''
-				tmpData=rebost.test(pkg,bundle,user)
+	#			if bundle=='appimage':
+				user=os.environ.get('USER','')
+				if user=='root':
+					user=''
+				try:
+					tmpData=rebost.test(pkg,bundle,user)
+				except Exception as e:
+					tmpData="[]"
 				try:
 					dataRebost=json.loads(tmpData)
 				except Exception as e:

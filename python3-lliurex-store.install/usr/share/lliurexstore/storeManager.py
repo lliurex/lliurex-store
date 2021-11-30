@@ -315,11 +315,14 @@ class StoreManager():
 			if action=='install' or action=='remove':
 				self.action_progress['info']=0
 				user=''
-				if bundle=='appimage':
-					user=os.environ.get('USER','')
-					if user=='root':
-						user=''
-				tmpData=rebost.test(pkg,bundle,user)
+	#			if bundle=='appimage':
+				user=os.environ.get('USER','')
+				if user=='root':
+					user=''
+				try:
+					tmpData=rebost.test(pkg,bundle,user)
+				except Exception as e:
+					tmpData="[]"
 				try:
 					dataRebost=json.loads(tmpData)
 				except Exception as e:

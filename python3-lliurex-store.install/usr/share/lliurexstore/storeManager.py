@@ -397,6 +397,8 @@ class StoreManager():
 						status=1
 			if data[0].get('bundle'):
 				bundles=data[0].get('bundle')
+				if 'zomando' in bundles: 
+					bundle='zomando'
 				if bundle=='':
 					if 'package' in bundles: 
 						bundle='package'

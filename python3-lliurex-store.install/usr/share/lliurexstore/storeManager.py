@@ -317,36 +317,41 @@ class StoreManager():
 				user=''
 	#			if bundle=='appimage':
 				user=os.environ.get('USER','')
-				if user=='root':
-					user=''
-				try:
-					tmpData=rebost.test(pkg,bundle,user)
-				except Exception as e:
-					tmpData="[]"
-				try:
-					dataRebost=json.loads(tmpData)
-				except Exception as e:
-					print("{}".format(e))
-					dataRebost=[]
-				try:
-					if os.path.isfile(dataRebost[0].get('epi')):
-						cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
-						pid=9999
-						try:
-							proc=subprocess.Popen(cmd)
-							proc.communicate()[0]
-							pid=proc.pid
-						except Exception as e:
-							print("{}".format(e))
-						installResult=rebost.getEpiPkgStatus(dataRebost[0].get('script'))
-						rebost.commitInstall(pkg,bundle,installResult)
-				except Exception as e:
-					print(e)
-					print("Error on {0} -> {1}".format(pkg,bundle))
-					print(tmpData)
-				for item in dataRebost:
-					item=self._rebostPkg_to_storePkg(item)
-					data.append(item)
+				if bundle=='zomando':
+					appPath=os.path.join("/usr/share/zero-center/zmds","{}.zmd".format(pkg))
+					if os.path.isfile(appPath):
+						subprocess.run(["pkexec",appPath])
+				else:
+					if user=='root':
+						user=''
+					try:
+						tmpData=rebost.test(pkg,bundle,user)
+					except Exception as e:
+						tmpData="[]"
+					try:
+						dataRebost=json.loads(tmpData)
+					except Exception as e:
+						print("{}".format(e))
+						dataRebost=[]
+					try:
+						if os.path.isfile(dataRebost[0].get('epi')):
+							cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
+							pid=9999
+							try:
+								proc=subprocess.Popen(cmd)
+								proc.communicate()[0]
+								pid=proc.pid
+							except Exception as e:
+								print("{}".format(e))
+							installResult=rebost.getEpiPkgStatus(dataRebost[0].get('script'))
+							rebost.commitInstall(pkg,bundle,installResult)
+					except Exception as e:
+						print(e)
+						print("Error on {0} -> {1}".format(pkg,bundle))
+						print(tmpData)
+					for item in dataRebost:
+						item=self._rebostPkg_to_storePkg(item)
+						data.append(item)
 				self.action_progress['info']=100
 
 			self.result[action].update({'data':data})

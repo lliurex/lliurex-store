@@ -10,7 +10,7 @@ Homepage: http://lliurex.net
 
 Package: lliurex-store
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, python3-lliurex-store (= ${binary:Version}), python3-html2text,lliurex-store-blacklist,lliurex-store-common (= ${binary:Version}),gir1.2-webkit2-4.0,python3-gi-cairo, rebost (>=0.3.4)
+Depends: ${misc:Depends}, ${python3:Depends}, python3-lliurex-store (= ${binary:Version}), python3-html2text,lliurex-store-blacklist,lliurex-store-common (= ${binary:Version}),gir1.2-webkit2-4.0,python3-gi-cairo, rebost (>=0.4)
 Description: LliureX Software Store
 
 Package: lliurex-store-common

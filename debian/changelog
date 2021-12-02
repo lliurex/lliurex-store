@@ -1,11 +1,12 @@
-lliurex-store (1.3.3) focal; urgency=medium
+lliurex-store (1.4) focal; urgency=medium
 
   * Disable all own functionality
   * Integrated with rebost
   * Set limit for related apps
   * Fix error when showing screenshots with no pixbuf
   * Cli now launches rebost with proper parms
-  * Experimental zomando support
+  * zomando support
+  * Category Lliurex enabled
 
  -- Juanma1980 <juanma1980@gmail.com>  Tue, 23 Nov 2021 13:05:15 +0100
 

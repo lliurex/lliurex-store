@@ -480,7 +480,10 @@ class StoreManager():
 		rebostPkg.update({'updatable':0})
 		rebostPkg.update({'depends':''})
 		rebostPkg.update({'banner':None})
-		rebostPkg.update({'license':''})
+		license=rebostPkg.get('license','')
+		if isinstance(license,str)==False:
+			license=''
+		rebostPkg.update({'license':license.strip().rstrip()})
 		return(rebostPkg)
 	#def _rebostPkg_to_storePkg
 

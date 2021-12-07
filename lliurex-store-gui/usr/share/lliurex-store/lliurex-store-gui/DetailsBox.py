@@ -606,9 +606,8 @@ class DetailsBox(Gtk.VBox):
 	
 	def open_clicked(self,widget):
 		if self.core.main_window.current_pkg["name"].endswith('.snap'):
-			snap=self.core.main_window.current_pkg["name"].replace('.snap','')
-			if os.path.exists("/snap/bin/%s"%snap):
-				Popen(["/snap/bin/%s"%snap])
+			snap=self.core.main_window.current_pkg["bundle"]["snap"].replace('.snap','')
+			Popen(["snap","run","{}".format(snap)])
 		elif self.core.main_window.current_pkg["package"].endswith('.appimage'):
 			appimg=self.core.main_window.current_pkg["package"].lower()
 			if os.path.exists(os.getenv("HOME")+"/.local/bin/%s"%appimg):

@@ -1,4 +1,4 @@
-lliurex-store (1.4.3) focal; urgency=medium
+lliurex-store (1.4.4) focal; urgency=medium
 
   * Disable all own functionality
   * Integrated with rebost
@@ -7,6 +7,7 @@ lliurex-store (1.4.3) focal; urgency=medium
   * Cli now launches rebost with proper parms
   * zomando support
   * Category Lliurex enabled
+  * Improve desktop app launch
 
  -- Juanma1980 <juanma1980@gmail.com>  Tue, 23 Nov 2021 13:05:15 +0100
 

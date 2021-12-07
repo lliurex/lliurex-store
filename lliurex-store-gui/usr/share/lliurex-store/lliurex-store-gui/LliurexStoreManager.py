@@ -113,20 +113,30 @@ class LliurexStoreManager:
 	
 	def get_random_packages_from_categories(self,pkg_id,categories,limit=10):
 		
-		for item in self.core.categories_manager.categories:
-			if item in categories and len(categories) > 1:
-				categories.remove(item)
+	#	for item in self.core.categories_manager.categories:
+	#		if item in categories and len(categories) > 1:
+	#			categories.remove(item)
 		
 		for item in self.core.categories_manager.banned_categories:
 			if item in categories and len(categories) > 1:
 				categories.remove(item)	
+
+		only_capital_cats=[]
+		all_cats=[]
+		for item in categories:
+			if item.capitalize()==item:
+				only_capital_cats.append(item)
+
+		if len(only_capital_cats)>0:
+			categories=only_capital_cats
 		
 		random_id=int(random.random()*len(categories))
 		random_id=int(random.random()*len(categories))
 		if categories:
 			random_category=categories[random_id]
 		else:
-			random_category="lliurex"
+			random_category="Lliurex"
+		print(random_category)
 		pkgs,categories=self.get_package_list_from_category(random_category,results=limit)
 		
 		p=Package.Package({})

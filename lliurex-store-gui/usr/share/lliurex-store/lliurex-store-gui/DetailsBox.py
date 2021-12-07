@@ -615,10 +615,22 @@ class DetailsBox(Gtk.VBox):
 				Popen([os.getenv("HOME")+"/.local/bin/%s"%appimg])
 			elif os.path.exists(os.getenv("HOME")+"/Applications/%s"%appimg):
 				Popen([os.getenv("HOME")+"/Applications/%s"%appimg])
-		elif 'Zomando' in self.core.main_window.current_pkg["categories"]:
-			zmd=self.core.main_window.current_pkg["id"]+".zmd"
-			if os.path.exists("/usr/share/zero-center/zmds/%s"%zmd):
-				Popen(["pe", "/usr/share/zero-center/zmds/%s"%zmd])
+		elif "zomando" in self.core.main_window.current_pkg["name"]:
+			zmd=self.core.main_window.current_pkg["name"].replace('.zomando','.zmd')
+			zmd=os.path.join("/usr/share/zero-center/zmds",zmd)
+			cmd=[zmd]
+			if os.path.exists(zmd):
+				pkexec=False
+				app=zmd.replace(".zmd",".app")
+				app=app.replace("zmds","applications")
+				if os.path.exists(app):
+					with open(app,'r') as f:
+						for l in f.readlines():
+							if "pkexec" in l:
+								pkexec=True
+				if pkexec:
+					cmd.insert(0,"pkexec")
+				Popen(cmd)
 		elif "flatpak" in self.core.main_window.current_pkg["name"]:
 			Popen(["flatpak","run","%s"%self.core.main_window.current_pkg["id"]])
 		else:

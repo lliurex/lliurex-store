@@ -438,6 +438,7 @@ class StoreManager():
 	def _rebost_search_category(self,rebost,category,bundle,limit=0):
 		data=[]
 		status=0
+		dataRebost=["{}"]
 		try:
 			if limit:
 				dataRebost=json.loads(rebost.search_by_category_limit(category,limit))

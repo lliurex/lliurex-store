@@ -107,8 +107,8 @@ class PopupMenu(Gtk.EventBox):
 		b.label=Gtk.Label(txt)
 		b.label.set_halign(Gtk.Align.START)
 			
-		hbox.pack_start(b.img,False,False,0)
-		hbox.pack_start(b.label,False,False,20)
+		#hbox.pack_start(b.img,False,False,0)
+		#hbox.pack_start(b.label,False,False,20)
 		b.add(hbox)
 			
 		b.add_events( Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK )

@@ -628,6 +628,7 @@ class DetailsBox(Gtk.VBox):
 						for l in f.readlines():
 							if "pkexec" in l:
 								pkexec=True
+								break
 				if pkexec:
 					cmd.insert(0,"pkexec")
 				Popen(cmd)

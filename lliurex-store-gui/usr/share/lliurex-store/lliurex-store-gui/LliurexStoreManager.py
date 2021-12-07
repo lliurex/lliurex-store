@@ -136,7 +136,6 @@ class LliurexStoreManager:
 			random_category=categories[random_id]
 		else:
 			random_category="Lliurex"
-		print(random_category)
 		pkgs,categories=self.get_package_list_from_category(random_category,results=limit)
 		
 		p=Package.Package({})

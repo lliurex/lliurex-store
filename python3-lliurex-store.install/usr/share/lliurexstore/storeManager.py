@@ -348,7 +348,6 @@ class StoreManager():
 					except Exception as e:
 						print(e)
 						print("Error on {0} -> {1}".format(pkg,bundle))
-						print(tmpData)
 					for item in dataRebost:
 						item=self._rebostPkg_to_storePkg(item)
 						data.append(item)

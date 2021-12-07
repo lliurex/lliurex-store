@@ -5,6 +5,8 @@ import Core
 import random
 import copy
 import gettext
+import threading
+import queue
 
 class LliurexStoreManager:
 
@@ -166,10 +168,24 @@ class LliurexStoreManager:
 			banned.add(item)
 			
 		
+		pkgQueue=queue.Queue()
+		procs=[]
+		packageQueue=[]
 		ret=self.store.get_status(action)
 		if ret["status"]==0:
-			for item in self.store.get_result(action)["list"]:
-				p=Package.Package(item)
+			pkglist=self.store.get_result(action)["list"]
+			semaphore = threading.BoundedSemaphore(value=20)
+			for item in pkglist:
+				proc=threading.Thread(target=self._th_create_package,args=(item,pkgQueue,semaphore,))
+		#		p=Package.Package(item)
+				proc.start()
+				procs.append(proc)
+				while not pkgQueue.empty():
+					packageQueue.append(pkgQueue.get())
+				for proc in procs:
+					proc.join()
+
+			for p in packageQueue:
 				
 				for category in p["categories"]:
 					if type(category)!=str:
@@ -183,6 +199,9 @@ class LliurexStoreManager:
 		
 	#def get_package_list
 	
+	def _th_create_package(self,item,queue,semaphore):
+		p=Package.Package(item)
+		queue.put(p)
 
 	def get_installed_list(self):
 		

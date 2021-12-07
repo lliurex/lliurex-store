@@ -635,7 +635,7 @@ class DetailsBox(Gtk.VBox):
 		elif "flatpak" in self.core.main_window.current_pkg["name"]:
 			Popen(["flatpak","run","%s"%self.core.main_window.current_pkg["id"]])
 		else:
-			desktop=self.core.main_window.current_pkg["id"]
+			desktop="{}.desktop".format(self.core.main_window.current_pkg["pkgname"])
 			if os.path.exists("/usr/share/applications/%s"%desktop):
 				os.system("gtk-launch %s"%desktop)
 		

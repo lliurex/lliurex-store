@@ -635,8 +635,12 @@ class DetailsBox(Gtk.VBox):
 			Popen(["flatpak","run","%s"%self.core.main_window.current_pkg["id"]])
 		else:
 			desktop="{}.desktop".format(self.core.main_window.current_pkg["pkgname"])
-			if os.path.exists("/usr/share/applications/%s"%desktop):
+			deskPath=os.path.join("/usr/share/applications/",desktop)
+			idPath=os.path.join("/usr/share/applications/",self.core.main_window.current_pkg["id"])
+			if os.path.isfile(deskPath):
 				os.system("gtk-launch %s"%desktop)
+			elif os.path.exists(idPath):
+				os.system("gtk-launch %s"%self.core.main_window.current_pkg["id"])
 		
 	#def open_clicked
 	

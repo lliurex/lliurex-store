@@ -348,7 +348,6 @@ class StoreManager():
 					except Exception as e:
 						print(e)
 						print("Error on {0} -> {1}".format(pkg,bundle))
-						print(tmpData)
 					for item in dataRebost:
 						item=self._rebostPkg_to_storePkg(item)
 						data.append(item)
@@ -414,6 +413,10 @@ class StoreManager():
 					elif 'flatpak' in bundles: 
 						bundle='flatpak'
 				data[0].update({'version':data[0]['versions'].get(bundle,'')})
+				if bundle=='package':
+					if data[0].get('id','').endswith(".desktop"):
+						data[0]['bundle']['package']=data[0].get('id')
+
 				data[0].update({'id':data[0]['bundle'].get(bundle,'')})
 				data[0].update({'size':data[0]['size'].get(bundle,'')})
 				if bundle:
@@ -434,6 +437,7 @@ class StoreManager():
 	def _rebost_search_category(self,rebost,category,bundle,limit=0):
 		data=[]
 		status=0
+		dataRebost=["{}"]
 		try:
 			if limit:
 				dataRebost=json.loads(rebost.search_by_category_limit(category,limit))

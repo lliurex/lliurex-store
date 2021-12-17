@@ -550,6 +550,7 @@ class DetailsBox(Gtk.VBox):
 		self.install_label.set_text("Installing...")
 		self.install_stack.set_visible_child_name("progress")
 		
+		self.core.main_window.current_pkg["state"]="installed"
 		t=threading.Thread(target=self.install_pkg)
 		t.daemon=True
 		t.start()
@@ -564,6 +565,7 @@ class DetailsBox(Gtk.VBox):
 		self.install_stack.set_visible_child_name("progress")
 		
 		t=threading.Thread(target=self.uninstall_pkg)
+		self.core.main_window.current_pkg["state"]="available"
 		t.daemon=True
 		t.start()
 		GLib.timeout_add(100,self.pulse_pbar,t,"install","installed")
@@ -614,8 +616,10 @@ class DetailsBox(Gtk.VBox):
 				Popen([os.getenv("HOME")+"/.local/bin/%s"%appimg])
 			elif os.path.exists(os.getenv("HOME")+"/Applications/%s"%appimg):
 				Popen([os.getenv("HOME")+"/Applications/%s"%appimg])
-		elif "zomando" in self.core.main_window.current_pkg["name"]:
+		elif "zomando" in self.core.main_window.current_pkg["name"] or (self.core.main_window.current_pkg["name"].startswith("zero-lliurex") and self.core.main_window.current_pkg["state"]=="installed"):
 			zmd=self.core.main_window.current_pkg["name"].replace('.zomando','.zmd')
+			if zmd.endswith(".zmd")==False:
+				zmd="{}.zmd".format(zmd)
 			zmd=os.path.join("/usr/share/zero-center/zmds",zmd)
 			cmd=[zmd]
 			if os.path.exists(zmd):

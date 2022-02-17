@@ -77,7 +77,7 @@
 		#SECTION_BOX .label
 		{
 			color:rgba(0,0,0,0.8);
-			font: 11px Roboto;
+			font: 13px Roboto;
 			text-shadow: 0px 0px 1px white;
 			
 			
@@ -182,32 +182,32 @@
 		#FULL_DESCRIPTION {
 		
 			color: #A0A0A0;
-			font: 10px Roboto;
+			font: 13px Roboto;
 		}
 		
 		#ROBOTO_MEDIUM_GRAY{
 			color: #A0A0A0;
-			font: 12px Roboto;
+			font: 13px Roboto;
 		}
 		
 		#SHORT_DESCRIPTION{
 			color: white;
-			font: 12px Roboto Light;
+			font: 13px Roboto Light;
 		}
 		
 		#DETAILS_LABEL{
 			color:white;
-			font: 13px Roboto;
+			font: 14px Roboto;
 		}
 		
 		#DETAILS_OPTIONS{
 			color: #A0A0A0;
-			font: 10px Roboto;
+			font: 13px Roboto;
 		}
 		
 		#DETAILS_VALUES{
 			color: white;
-			font: 10px Roboto;
+			font: 13px Roboto;
 		}
 
 		#SECTION_BUTTON {
@@ -310,8 +310,6 @@
 			background: transparent;
 			transition-property: background-image, box-shadow;
 			transition-duration: 250ms;
-			
-			
 		}
 		
 		

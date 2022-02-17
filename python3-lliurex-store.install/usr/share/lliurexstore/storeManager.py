@@ -298,7 +298,10 @@ class StoreManager():
 			bundle='package'
 			data=[{}]
 			if "." in pkg:
-				(pkg,bundle)=pkg.split(".")
+				try:
+					(pkg,bundle)=pkg.split(".")
+				except:
+					print("Unable to process {}".format(pkg))
 			self._debug("Calling rebost for action {0} package {1} {2}".format(action,pkg,bundle))
 			if action=='info':
 				self.action_progress['search']=0
@@ -456,6 +459,7 @@ class StoreManager():
 	def _rebost_search(self,rebost,pkg,bundle):
 		data=[]
 		status=0
+		dataRebost=[]
 		try:
 			dataRebost=json.loads(rebost.search(pkg))
 		except Exception as e:

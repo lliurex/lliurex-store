@@ -1,4 +1,4 @@
-lliurex-store (1.5.3) focal; urgency=medium
+lliurex-store (1.5.3.1) focal; urgency=medium
 
   * Disable all store functionality
   * Integrated with rebost
@@ -9,6 +9,7 @@ lliurex-store (1.5.3) focal; urgency=medium
   * Category Lliurex enabled
   * Improve desktop app launch
   * Minor bugfixes
+  * Enlarge fonts
 
  -- Juanma1980 <juanma1980@gmail.com>  Tue, 23 Nov 2021 13:05:15 +0100
 

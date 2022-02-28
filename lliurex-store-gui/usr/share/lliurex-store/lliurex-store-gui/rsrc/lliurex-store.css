@@ -281,6 +281,9 @@
 			background: #81C784;
 		}
 		
+		#OPEN_BUTTON:active {
+			border:1px solid black;
+		}
 		
 		#PKG_BOX {
 

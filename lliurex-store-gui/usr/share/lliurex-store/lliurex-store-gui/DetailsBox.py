@@ -533,7 +533,7 @@ class DetailsBox(Gtk.VBox):
 		self.install_button.set_name("INSTALL_BUTTON")
 		self.install_label.set_name("DETAILS_LABEL")
 		self.uninstall_button.set_name("UNINSTALL_BUTTON")
-		self.open_button.set_name("INSTALL_BUTTON")
+		self.open_button.set_name("OPEN_BUTTON")
 		
 	#def set-css_info
 	
@@ -607,15 +607,20 @@ class DetailsBox(Gtk.VBox):
 	
 	
 	def open_clicked(self,widget):
+		self.open_button.set_sensitive(False)
+		watch=Gdk.Cursor(Gdk.CursorType.WATCH)
+		gdk_window=self.get_window()
+		gdk_window.set_cursor(watch)
+		cmd=""
 		if self.core.main_window.current_pkg["name"].endswith('.snap'):
 			snap=self.core.main_window.current_pkg["bundle"]["snap"].replace('.snap','')
-			Popen(["snap","run","{}".format(snap)])
+			cmd=["snap","run","{}".format(snap)]
 		elif self.core.main_window.current_pkg["package"].endswith('.appimage'):
 			appimg=self.core.main_window.current_pkg["package"].lower()
 			if os.path.exists(os.getenv("HOME")+"/.local/bin/%s"%appimg):
-				Popen([os.getenv("HOME")+"/.local/bin/%s"%appimg])
+				cmd=[os.getenv("HOME")+"/.local/bin/%s"%appimg]
 			elif os.path.exists(os.getenv("HOME")+"/Applications/%s"%appimg):
-				Popen([os.getenv("HOME")+"/Applications/%s"%appimg])
+				cmd=[os.getenv("HOME")+"/Applications/%s"%appimg]
 		elif "zomando" in self.core.main_window.current_pkg["name"] or (self.core.main_window.current_pkg["name"].startswith("zero-lliurex") and self.core.main_window.current_pkg["state"]=="installed"):
 			zmd=self.core.main_window.current_pkg["name"].replace('.zomando','.zmd')
 			if zmd.endswith(".zmd")==False:
@@ -634,17 +639,28 @@ class DetailsBox(Gtk.VBox):
 								break
 				if pkexec:
 					cmd.insert(0,"pkexec")
-				Popen(cmd)
 		elif "flatpak" in self.core.main_window.current_pkg["name"]:
-			Popen(["flatpak","run","%s"%self.core.main_window.current_pkg["id"]])
+			cmd=["flatpak","run","%s"%self.core.main_window.current_pkg["id"]]
 		else:
 			desktop="{}.desktop".format(self.core.main_window.current_pkg["pkgname"])
 			deskPath=os.path.join("/usr/share/applications/",desktop)
+			deskIdPath=os.path.join("/usr/share/applications/","org.kde.{}".format(desktop))
 			idPath=os.path.join("/usr/share/applications/",self.core.main_window.current_pkg["id"])
 			if os.path.isfile(deskPath):
-				os.system("gtk-launch %s"%desktop)
+				cmd=["kioclient5","exec",deskPath]
+			if os.path.isfile(deskIdPath):
+				cmd=["kioclient5","exec",deskIdPath]
 			elif os.path.exists(idPath):
-				os.system("gtk-launch %s"%self.core.main_window.current_pkg["id"])
+				cmd=["gtk-launch",self.core.main_window.current_pkg["id"]]
+		try:
+			Popen(cmd)
+		except Exception as e:
+			print(e)
+		finally:
+			self.open_button.set_sensitive(True)
+			arrow=Gdk.Cursor(Gdk.CursorType.ARROW)
+			gdk_window=self.get_window()
+			gdk_window.set_cursor(arrow)
 		
 	#def open_clicked
 	

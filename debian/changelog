@@ -1,3 +1,10 @@
+lliurex-store (1.5.3.2) UNRELEASED; urgency=medium
+
+  * Add some visual feedback when launching apps
+  * Restore OPEN_BUTTON as css class for open button (detailsbox)
+
+ -- Juanma1980 <juanma1980@gmail.com>  Mon, 28 Feb 2022 19:18:15 +0100
+
 lliurex-store (1.5.3.1) focal; urgency=medium
 
   * Disable all store functionality

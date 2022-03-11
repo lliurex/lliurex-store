@@ -323,7 +323,8 @@ class StoreManager():
 				if bundle=='zomando':
 					appPath=os.path.join("/usr/share/zero-center/zmds","{}.zmd".format(pkg))
 					if os.path.isfile(appPath):
-						subprocess.run(["pkexec",appPath])
+						proc=subprocess.run(["pkexec",appPath])
+						status=proc.returncode
 				else:
 					if user=='root':
 						user=''
@@ -340,14 +341,22 @@ class StoreManager():
 						if os.path.isfile(dataRebost[0].get('epi')):
 							cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
 							pid=9999
+							status=0
+							realstatus=status
 							try:
 								proc=subprocess.Popen(cmd)
 								proc.communicate()[0]
 								pid=proc.pid
+								status=proc.returncode
+								realstatus=status
 							except Exception as e:
 								print("{}".format(e))
-							installResult=rebost.getEpiPkgStatus(dataRebost[0].get('script'))
-							rebost.commitInstall(pkg,bundle,installResult)
+							if status==0:
+								status=int(rebost.getEpiPkgStatus(dataRebost[0].get('script')))
+								realstatus=status
+								if action=="remove":
+									status=-1*(status-1)
+							rebost.commitInstall(pkg,bundle,realstatus)
 					except Exception as e:
 						print(e)
 						print("Error on {0} -> {1}".format(pkg,bundle))

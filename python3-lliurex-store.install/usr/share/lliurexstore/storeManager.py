@@ -13,6 +13,7 @@ import tempfile
 import dbus
 import subprocess
 from queue import Queue as pool
+import n4d.client as n4d
 ######
 #Ver. 1.0 of storeManager.py
 # This class manages the store and the related plugins
@@ -68,6 +69,7 @@ class StoreManager():
 		self.extra_actions={}		#Dict with the actions managed by plugins and no defined on the main class as related_actions
 		self.result={}				#Result of the actions
 		self.lock=threading.Lock()		#locker for functions related to threads (get_progress, is_action_running...)
+		self.n4d=n4d.Client()
 		#Disable main method as rebost replaces all functionality
 		#self.main(**kwargs)
 	#def __init__
@@ -321,10 +323,32 @@ class StoreManager():
 	#			if bundle=='appimage':
 				user=os.environ.get('USER','')
 				if bundle=='zomando':
-					appPath=os.path.join("/usr/share/zero-center/zmds","{}.zmd".format(pkg))
-					if os.path.isfile(appPath):
-						proc=subprocess.run(["pkexec",appPath])
-						status=proc.returncode
+					zmdPath=os.path.join("/usr/share/zero-center/zmds","{}.zmd".format(pkg))
+					appPath=os.path.join("/usr/share/zero-center/applications","{}.app".format(pkg))
+					sw=False
+					if os.path.isfile(zmdPath):
+						if os.path.isfile(appPath):
+							with open(appPath,'r') as f:
+								for line in f.readlines():
+									if "pkexec" in line:
+										sw=True
+										break
+						if sw:
+							proc=subprocess.run(["pkexec",zmdPath])
+						else:
+							proc=subprocess.run([zmdPath])
+						#ZERO CENTER knows the result
+						#But if a epi has check_zomando_state=False?
+						#check if exists a getStatus function in script?
+						#Perhaps...
+						zmdVars=self.n4d.get_variable("ZEROCENTER")
+						var={}
+						if isinstance(zmdVars,dict):
+							var=zmdVars.get(pkg,{})
+						status=1
+						if var.get('state',0)==1:
+							status=0
+						print("ZOMANDO: {}".format(status))
 				else:
 					if user=='root':
 						user=''

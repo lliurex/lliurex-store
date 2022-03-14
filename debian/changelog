@@ -1,9 +1,10 @@
-lliurex-store (1.5.4) focal; urgency=medium
+lliurex-store (1.5.4.1) focal; urgency=medium
 
   * GUI: Add some visual feedback when launching apps
   * GUI: Restore OPEN_BUTTON as css class for open button (detailsbox)
   * GUI: Correctly detect install or remove result when refreshing details
   * LIB: Fix issues with rebost compat
+  * LIB: Improve zomandos integration
 
  -- Juanma1980 <juanma1980@gmail.com>  Mon, 28 Feb 2022 19:18:15 +0100
 

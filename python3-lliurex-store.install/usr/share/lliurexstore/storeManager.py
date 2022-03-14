@@ -345,10 +345,12 @@ class StoreManager():
 						var={}
 						if isinstance(zmdVars,dict):
 							var=zmdVars.get(pkg,{})
-						status=1
-						if var.get('state',0)==1:
+						if action=='remove':
 							status=0
-						print("ZOMANDO: {}".format(status))
+						else:
+							status=1
+						if var.get('state',0)==1:
+							status=-1*(status-1)
 				else:
 					if user=='root':
 						user=''

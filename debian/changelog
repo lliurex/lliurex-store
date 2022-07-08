@@ -1,3 +1,9 @@
+lliurex-store (1.5.5) lliurex22; urgency=medium
+
+  * Use python3-rebost
+
+ -- Juanma1980 <juanma1980@gmail.com>  Fri, 08 Jul 2022 10:06:11 +0200
+
 lliurex-store (1.5.4.1) focal; urgency=medium
 
   * GUI: Add some visual feedback when launching apps

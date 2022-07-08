@@ -14,6 +14,7 @@ import dbus
 import subprocess
 from queue import Queue as pool
 import n4d.client as n4d
+from rebost import store
 ######
 #Ver. 1.0 of storeManager.py
 # This class manages the store and the related plugins
@@ -291,8 +292,9 @@ class StoreManager():
 
 		#As rebost manages all actions and store has all actions disabled we call rebost at this point
 		else:
-			bus=dbus.SystemBus()
-			rebost=bus.get_object("net.lliurex.rebost","/net/lliurex/rebost")
+			#bus=dbus.SystemBus()
+			#rebost=bus.get_object("net.lliurex.rebost","/net/lliurex/rebost")
+			rebost=store.client()
 			self.action_progress[action]=0
 			self.result[action]={}
 			pkg=args[0]
@@ -354,16 +356,13 @@ class StoreManager():
 				else:
 					if user=='root':
 						user=''
-					try:
-						tmpData=rebost.test(pkg,bundle,user)
-					except Exception as e:
-						tmpData="[]"
+					tmpData=rebost.testInstall(pkg,bundle,user)
 					try:
 						dataRebost=json.loads(tmpData)
 					except Exception as e:
 						print("{}".format(e))
 						dataRebost=[]
-					try:
+					if isinstance(dataRebost,list) and len(dataRebost)>0:
 						if os.path.isfile(dataRebost[0].get('epi')):
 							cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
 							pid=9999
@@ -383,9 +382,6 @@ class StoreManager():
 								if action=="remove":
 									status=-1*(status-1)
 							rebost.commitInstall(pkg,bundle,realstatus)
-					except Exception as e:
-						print(e)
-						print("Error on {0} -> {1}".format(pkg,bundle))
 					for item in dataRebost:
 						item=self._rebostPkg_to_storePkg(item)
 						data.append(item)
@@ -404,11 +400,7 @@ class StoreManager():
 		status=0
 		data=[]
 		try:
-			user=''
-			user=os.environ.get('USER','')
-			if user=='root':
-				user=''
-			data=json.loads(rebost.show(pkg,user))
+			data=json.loads(rebost.showApp(pkg))
 		except Exception as e:
 			print("Error getting data: {}".format(e))
 			data=[{}]
@@ -477,10 +469,7 @@ class StoreManager():
 		status=0
 		dataRebost=["{}"]
 		try:
-			if limit:
-				dataRebost=json.loads(rebost.search_by_category_limit(category,limit))
-			else:
-				dataRebost=json.loads(rebost.search_by_category(category))
+			dataRebost=json.loads(rebost.getAppsInCategory(category,limit))
 		except Exception as e:
 			print(e)
 		for rebostPkg in dataRebost:
@@ -496,7 +485,7 @@ class StoreManager():
 		status=0
 		dataRebost=[]
 		try:
-			dataRebost=json.loads(rebost.search(pkg))
+			dataRebost=json.loads(rebost.searchApp(pkg))
 		except Exception as e:
 			print(e)
 		for rebostPkg in dataRebost:

@@ -382,6 +382,8 @@ class StoreManager():
 								if action=="remove":
 									status=-1*(status-1)
 							rebost.commitInstall(pkg,bundle,realstatus)
+					else:
+						status=-1
 					for item in dataRebost:
 						item=self._rebostPkg_to_storePkg(item)
 						data.append(item)

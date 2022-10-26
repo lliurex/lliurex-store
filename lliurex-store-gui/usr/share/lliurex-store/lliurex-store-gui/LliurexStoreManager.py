@@ -160,7 +160,8 @@ class LliurexStoreManager:
 	def get_package_list_from_category(self,category_tag=None,results=0):
 		
 		action="list"
-		self.store.execute_action(action,[category_tag],max_results=results)
+		#self.store.execute_action(action,[category_tag],max_results=results)
+		self.store.execute_action(action,category_tag,max_results=results)
 		
 		while self.store.is_action_running(action):
 			time.sleep(0.2)

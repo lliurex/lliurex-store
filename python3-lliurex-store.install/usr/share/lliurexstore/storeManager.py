@@ -381,7 +381,7 @@ class StoreManager():
 								realstatus=status
 								if action=="remove":
 									status=-1*(status-1)
-							rebost.commitInstall(pkg,bundle,realstatus)
+							rebost.commitInstall(pkg,bundle,"{}".format(realstatus))
 					else:
 						status=-1
 					for item in dataRebost:

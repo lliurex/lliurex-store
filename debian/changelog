@@ -1,7 +1,8 @@
-lliurex-store (1.5.7) lliurex22; urgency=medium
+lliurex-store (1.5.8) lliurex22; urgency=medium
 
   * Catch dbus exception on connect
   * Fix get apps from category call
+  * Fix return status if epi thread exits anormally
 
  -- Juanma1980 <juanma1980@gmail.com>  Fri, 23 Sep 2022 10:01:05 +0200
 

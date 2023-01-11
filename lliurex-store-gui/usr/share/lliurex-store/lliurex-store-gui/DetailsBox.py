@@ -580,9 +580,12 @@ class DetailsBox(Gtk.VBox):
 			return True
 		
 		
-		if self.thread_ret:
-			self.install_stack.set_visible_child_name(target)
-		else:
+		try:
+			if self.thread_ret:
+				self.install_stack.set_visible_child_name(target)
+			else:
+				self.install_stack.set_visible_child_name(fallback)
+		except:
 			self.install_stack.set_visible_child_name(fallback)
 		
 		return False

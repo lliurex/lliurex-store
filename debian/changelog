@@ -1,3 +1,9 @@
+lliurex-store (1.5.9) focal; urgency=medium
+
+  * Block non privileged users accessing gui 
+
+ -- Juanma1980 <juanma1980@gmail.com>  Thu, 12 Jan 2023 12:28:06 +0100
+
 lliurex-store (1.5.8) lliurex22; urgency=medium
 
   * Catch dbus exception on connect

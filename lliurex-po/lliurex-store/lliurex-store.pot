@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-06 11:19+0200\n"
+"POT-Creation-Date: 2023-01-12 12:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgid "Loading content..."
 msgstr ""
 
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:385
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:204
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:217
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:78
 msgid "Home"
 msgstr ""
@@ -95,15 +95,19 @@ msgstr ""
 msgid "Related"
 msgstr ""
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:191
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:34
+msgid "User not allowed"
+msgstr ""
+
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:204
 msgid "Details"
 msgstr ""
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:216
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:229
 msgid "Search"
 msgstr ""
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:245
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:258
 msgid "LliureX Store - Wait while loading apps"
 msgstr ""
 
@@ -148,37 +152,97 @@ msgstr ""
 msgid "WebDevelopment"
 msgstr ""
 
-msgid "Audio"
+msgid "Education"
 msgstr ""
 
-msgid "AudioVideoEditing"
+msgid "Art"
 msgstr ""
 
-msgid "DiscBurning"
+msgid "ArtificialIntelligence"
 msgstr ""
 
-msgid "HamRadio"
+msgid "Astronomy"
 msgstr ""
 
-msgid "Midi"
+msgid "Biology"
 msgstr ""
 
-msgid "Mixer"
+msgid "Chemistry"
+msgstr ""
+
+msgid "ComputerScience"
+msgstr ""
+
+msgid "Construction"
+msgstr ""
+
+msgid "DataVisualization"
+msgstr ""
+
+msgid "Economy"
+msgstr ""
+
+msgid "Electricity"
+msgstr ""
+
+msgid "Electronics"
+msgstr ""
+
+msgid "Engineering"
+msgstr ""
+
+msgid "Geography"
+msgstr ""
+
+msgid "Geology"
+msgstr ""
+
+msgid "Geoscience"
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "Humanities"
+msgstr ""
+
+msgid "ImageProcessing"
+msgstr ""
+
+msgid "Languages"
+msgstr ""
+
+msgid "Literature"
+msgstr ""
+
+msgid "Maps"
+msgstr ""
+
+msgid "Math"
+msgstr ""
+
+msgid "MedicalSoftware"
 msgstr ""
 
 msgid "Music"
 msgstr ""
 
-msgid "Player"
+msgid "NumericalAnalysis"
 msgstr ""
 
-msgid "Recorder"
+msgid "ParallelComputing"
 msgstr ""
 
-msgid "Sequencer"
+msgid "Physics"
 msgstr ""
 
-msgid "Tuner"
+msgid "Robotics"
+msgstr ""
+
+msgid "Spirituality"
+msgstr ""
+
+msgid "Sports"
 msgstr ""
 
 msgid "Network"
@@ -197,6 +261,9 @@ msgid "Feed"
 msgstr ""
 
 msgid "FileTransfer"
+msgstr ""
+
+msgid "HamRadio"
 msgstr ""
 
 msgid "InstantMessaging"
@@ -271,93 +338,6 @@ msgstr ""
 msgid "Science"
 msgstr ""
 
-msgid "Art"
-msgstr ""
-
-msgid "ArtificialIntelligence"
-msgstr ""
-
-msgid "Astronomy"
-msgstr ""
-
-msgid "Biology"
-msgstr ""
-
-msgid "Chemistry"
-msgstr ""
-
-msgid "ComputerScience"
-msgstr ""
-
-msgid "Construction"
-msgstr ""
-
-msgid "DataVisualization"
-msgstr ""
-
-msgid "Economy"
-msgstr ""
-
-msgid "Electricity"
-msgstr ""
-
-msgid "Electronics"
-msgstr ""
-
-msgid "Engineering"
-msgstr ""
-
-msgid "Geography"
-msgstr ""
-
-msgid "Geology"
-msgstr ""
-
-msgid "Geoscience"
-msgstr ""
-
-msgid "History"
-msgstr ""
-
-msgid "Humanities"
-msgstr ""
-
-msgid "ImageProcessing"
-msgstr ""
-
-msgid "Languages"
-msgstr ""
-
-msgid "Literature"
-msgstr ""
-
-msgid "Maps"
-msgstr ""
-
-msgid "Math"
-msgstr ""
-
-msgid "MedicalSoftware"
-msgstr ""
-
-msgid "NumericalAnalysis"
-msgstr ""
-
-msgid "ParallelComputing"
-msgstr ""
-
-msgid "Physics"
-msgstr ""
-
-msgid "Robotics"
-msgstr ""
-
-msgid "Spirituality"
-msgstr ""
-
-msgid "Sports"
-msgstr ""
-
 msgid "System"
 msgstr ""
 
@@ -377,6 +357,18 @@ msgid "Security"
 msgstr ""
 
 msgid "TerminalEmulator"
+msgstr ""
+
+msgid "Lliurex"
+msgstr ""
+
+msgid "Administration"
+msgstr ""
+
+msgid "Educational"
+msgstr ""
+
+msgid "Miscellaneous"
 msgstr ""
 
 msgid "Game"
@@ -424,6 +416,18 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
+msgid "AudioVideoEditing"
+msgstr ""
+
+msgid "DiscBurning"
+msgstr ""
+
+msgid "Player"
+msgstr ""
+
+msgid "Recorder"
+msgstr ""
+
 msgid "TV"
 msgstr ""
 
@@ -448,7 +452,19 @@ msgstr ""
 msgid "VectorGraphics"
 msgstr ""
 
-msgid "Education"
+msgid "Audio"
+msgstr ""
+
+msgid "Midi"
+msgstr ""
+
+msgid "Mixer"
+msgstr ""
+
+msgid "Sequencer"
+msgstr ""
+
+msgid "Tuner"
 msgstr ""
 
 msgid "Utility"

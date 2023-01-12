@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-06 10:25+0200\n"
-"PO-Revision-Date: 2021-07-06 17:09+0200\n"
+"POT-Creation-Date: 2023-01-12 12:25+0100\n"
+"PO-Revision-Date: 2023-01-12 12:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -34,7 +34,7 @@ msgid "Loading content..."
 msgstr "Cargando contenido..."
 
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/rsrc/lliurex-store.ui:385
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:204
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:217
 #: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/PopupMenu.py:78
 msgid "Home"
 msgstr "Inicio"
@@ -95,15 +95,19 @@ msgstr "Pagina web"
 msgid "Related"
 msgstr "Relacionado"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:191
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:34
+msgid "User not allowed"
+msgstr "Usuario no permitido"
+
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:204
 msgid "Details"
 msgstr "Detalles"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:216
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:229
 msgid "Search"
 msgstr "Búsqueda"
 
-#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:245
+#: ../lliurex-store-gui/usr/share/lliurex-store/lliurex-store-gui/MainWindow.py:258
 msgid "LliureX Store - Wait while loading apps"
 msgstr "LliureX Store - Cargando aplicaciones..."
 
@@ -148,38 +152,98 @@ msgstr "Traducciones"
 msgid "WebDevelopment"
 msgstr "Desarrollo web"
 
-msgid "Audio"
-msgstr "Audio"
+msgid "Education"
+msgstr "Educación"
 
-msgid "AudioVideoEditing"
-msgstr "Edición de audio y video"
+msgid "Art"
+msgstr "Arte"
 
-msgid "DiscBurning"
-msgstr "Grabación de discos"
+msgid "ArtificialIntelligence"
+msgstr "Inteligencia artificial"
 
-msgid "HamRadio"
-msgstr "Radioaficionado"
+msgid "Astronomy"
+msgstr "Astronomía"
 
-msgid "Midi"
-msgstr "Midi"
+msgid "Biology"
+msgstr "Biología"
 
-msgid "Mixer"
-msgstr "Mezcladores"
+msgid "Chemistry"
+msgstr "Química"
+
+msgid "ComputerScience"
+msgstr "Informática"
+
+msgid "Construction"
+msgstr "Construcción"
+
+msgid "DataVisualization"
+msgstr "Visualización de datos"
+
+msgid "Economy"
+msgstr "Economía"
+
+msgid "Electricity"
+msgstr "Electricidad"
+
+msgid "Electronics"
+msgstr "Electrónica"
+
+msgid "Engineering"
+msgstr "Ingeniería"
+
+msgid "Geography"
+msgstr "Geografía"
+
+msgid "Geology"
+msgstr "Geología"
+
+msgid "Geoscience"
+msgstr "Ciencias de la tierra"
+
+msgid "History"
+msgstr "Historia"
+
+msgid "Humanities"
+msgstr "Humanidades"
+
+msgid "ImageProcessing"
+msgstr "Procesamiento de imagen"
+
+msgid "Languages"
+msgstr "Idiomas"
+
+msgid "Literature"
+msgstr "Literatura"
+
+msgid "Maps"
+msgstr "Mapas"
+
+msgid "Math"
+msgstr "Matemáticas"
+
+msgid "MedicalSoftware"
+msgstr "Medicina"
 
 msgid "Music"
 msgstr "Música"
 
-msgid "Player"
-msgstr "Reproductores"
+msgid "NumericalAnalysis"
+msgstr "Análisis numérico"
 
-msgid "Recorder"
-msgstr "Grabadores"
+msgid "ParallelComputing"
+msgstr "Computación paralela"
 
-msgid "Sequencer"
-msgstr "Secuenciadores"
+msgid "Physics"
+msgstr "Física"
 
-msgid "Tuner"
-msgstr "Sintonizadores"
+msgid "Robotics"
+msgstr "Robótica"
+
+msgid "Spirituality"
+msgstr "Espiritualidad"
+
+msgid "Sports"
+msgstr "Deportes"
 
 msgid "Network"
 msgstr "Internet"
@@ -198,6 +262,9 @@ msgstr "Proveedor"
 
 msgid "FileTransfer"
 msgstr "Transferencia de archivos"
+
+msgid "HamRadio"
+msgstr "Radioaficionado"
 
 msgid "InstantMessaging"
 msgstr "Mensajería instantánea"
@@ -271,93 +338,6 @@ msgstr "Procesador de texto"
 msgid "Science"
 msgstr "Ciencia"
 
-msgid "Art"
-msgstr "Arte"
-
-msgid "ArtificialIntelligence"
-msgstr "Inteligencia artificial"
-
-msgid "Astronomy"
-msgstr "Astronomía"
-
-msgid "Biology"
-msgstr "Biología"
-
-msgid "Chemistry"
-msgstr "Química"
-
-msgid "ComputerScience"
-msgstr "Informática"
-
-msgid "Construction"
-msgstr "Construcción"
-
-msgid "DataVisualization"
-msgstr "Visualización de datos"
-
-msgid "Economy"
-msgstr "Economía"
-
-msgid "Electricity"
-msgstr "Electricidad"
-
-msgid "Electronics"
-msgstr "Electrónica"
-
-msgid "Engineering"
-msgstr "Ingeniería"
-
-msgid "Geography"
-msgstr "Geografía"
-
-msgid "Geology"
-msgstr "Geología"
-
-msgid "Geoscience"
-msgstr "Ciencias de la tierra"
-
-msgid "History"
-msgstr "Historia"
-
-msgid "Humanities"
-msgstr "Humanidades"
-
-msgid "ImageProcessing"
-msgstr "Procesamiento de imagen"
-
-msgid "Languages"
-msgstr "Idiomas"
-
-msgid "Literature"
-msgstr "Literatura"
-
-msgid "Maps"
-msgstr "Mapas"
-
-msgid "Math"
-msgstr "Matemáticas"
-
-msgid "MedicalSoftware"
-msgstr "Medicina"
-
-msgid "NumericalAnalysis"
-msgstr "Análisis numérico"
-
-msgid "ParallelComputing"
-msgstr "Computación paralela"
-
-msgid "Physics"
-msgstr "Física"
-
-msgid "Robotics"
-msgstr "Robótica"
-
-msgid "Spirituality"
-msgstr "Espiritualidad"
-
-msgid "Sports"
-msgstr "Deportes"
-
 msgid "System"
 msgstr "Sistema"
 
@@ -378,6 +358,18 @@ msgstr "Seguridad"
 
 msgid "TerminalEmulator"
 msgstr "Terminal"
+
+msgid "Lliurex"
+msgstr "Lliurex"
+
+msgid "Administration"
+msgstr "Administración"
+
+msgid "Educational"
+msgstr "Educación"
+
+msgid "Miscellaneous"
+msgstr "Varios"
 
 msgid "Game"
 msgstr "Juegos"
@@ -424,6 +416,18 @@ msgstr "Estrategia"
 msgid "Video"
 msgstr "Video"
 
+msgid "AudioVideoEditing"
+msgstr "Edición de audio y video"
+
+msgid "DiscBurning"
+msgstr "Grabación de discos"
+
+msgid "Player"
+msgstr "Reproductores"
+
+msgid "Recorder"
+msgstr "Grabadores"
+
 msgid "TV"
 msgstr "Televisión"
 
@@ -448,8 +452,20 @@ msgstr "Escaneado"
 msgid "VectorGraphics"
 msgstr "Gráficos vectorizados"
 
-msgid "Education"
-msgstr "Educación"
+msgid "Audio"
+msgstr "Audio"
+
+msgid "Midi"
+msgstr "Midi"
+
+msgid "Mixer"
+msgstr "Mezcladores"
+
+msgid "Sequencer"
+msgstr "Secuenciadores"
+
+msgid "Tuner"
+msgstr "Sintonizadores"
 
 msgid "Utility"
 msgstr "Utilidades"
@@ -474,12 +490,3 @@ msgstr "Herramientas de telefonía"
 
 msgid "TextEditor"
 msgstr "Editor de texto"
-
-#~ msgid "Administration"
-#~ msgstr "Administración"
-
-#~ msgid "Educational"
-#~ msgstr "Educación"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Varios"

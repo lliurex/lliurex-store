@@ -10,6 +10,9 @@ import multiprocessing
 import time
 import copy
 
+import os,grp,sys
+import notify2
+
 import gettext
 gettext.textdomain('lliurex-store')
 _ = gettext.gettext
@@ -21,6 +24,16 @@ signal.signal(signal.SIGINT, signal.SIG_DFL)
 class MainWindow:
 	
 	def __init__(self):
+		user=os.getlogin()
+		groups = set([g.gr_name for g in grp.getgrall() if user in g.gr_mem])
+		allowedGroups=set(["sudo","teachers","adm"])
+		g=allowedGroups.intersection(groups)
+
+		if len(g)==0:
+			notify2.init("Error")
+			msg=notify2.Notification(_("User not allowed"),'')
+			msg.show()
+			sys.exit(1)
 		
 		self.core=Core.Core.get_core()
 		self.load_thread=threading.Thread()

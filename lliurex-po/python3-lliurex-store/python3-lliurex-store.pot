@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-06 11:19+0200\n"
+"POT-Creation-Date: 2023-01-12 12:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,13 +50,13 @@ msgid "Categories"
 msgstr ""
 
 #: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:62
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:103
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:111
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:99
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:107
 msgid "installed"
 msgstr ""
 
 #: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:64
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:105
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:101
 msgid "available"
 msgstr ""
 
@@ -72,68 +72,68 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:74
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:70
 msgid "Description"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:79
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:75
 msgid "Depends"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:108
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:104
 msgid "Error listing"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:111
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:113
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:107
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:109
 msgid "succesfully"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:113
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:109
 msgid "removed"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:117
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:113
 msgid "Unable to"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:120
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:116
 msgid "Unable to show"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:124
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:120
 msgid "Error"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:206
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:208
 msgid "Search a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:207
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:209
 msgid "Show all info from a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:208
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:210
 msgid "Install a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:209
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:211
 msgid "Remove a package"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:212
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:214
 msgid "Load appimage catalog"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:213
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:215
 msgid "Load snap catalog"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:214
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:216
 msgid "Load flatpak catalog"
 msgstr ""
 
-#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:215
+#: ../lliurex-store-cli/usr/share/lliurex-store/lliurex-store-cli.py:217
 msgid "Update cache"
 msgstr ""
 
@@ -170,37 +170,97 @@ msgstr ""
 msgid "WebDevelopment"
 msgstr ""
 
-msgid "Audio"
+msgid "Education"
 msgstr ""
 
-msgid "AudioVideoEditing"
+msgid "Art"
 msgstr ""
 
-msgid "DiscBurning"
+msgid "ArtificialIntelligence"
 msgstr ""
 
-msgid "HamRadio"
+msgid "Astronomy"
 msgstr ""
 
-msgid "Midi"
+msgid "Biology"
 msgstr ""
 
-msgid "Mixer"
+msgid "Chemistry"
+msgstr ""
+
+msgid "ComputerScience"
+msgstr ""
+
+msgid "Construction"
+msgstr ""
+
+msgid "DataVisualization"
+msgstr ""
+
+msgid "Economy"
+msgstr ""
+
+msgid "Electricity"
+msgstr ""
+
+msgid "Electronics"
+msgstr ""
+
+msgid "Engineering"
+msgstr ""
+
+msgid "Geography"
+msgstr ""
+
+msgid "Geology"
+msgstr ""
+
+msgid "Geoscience"
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "Humanities"
+msgstr ""
+
+msgid "ImageProcessing"
+msgstr ""
+
+msgid "Languages"
+msgstr ""
+
+msgid "Literature"
+msgstr ""
+
+msgid "Maps"
+msgstr ""
+
+msgid "Math"
+msgstr ""
+
+msgid "MedicalSoftware"
 msgstr ""
 
 msgid "Music"
 msgstr ""
 
-msgid "Player"
+msgid "NumericalAnalysis"
 msgstr ""
 
-msgid "Recorder"
+msgid "ParallelComputing"
 msgstr ""
 
-msgid "Sequencer"
+msgid "Physics"
 msgstr ""
 
-msgid "Tuner"
+msgid "Robotics"
+msgstr ""
+
+msgid "Spirituality"
+msgstr ""
+
+msgid "Sports"
 msgstr ""
 
 msgid "Network"
@@ -219,6 +279,9 @@ msgid "Feed"
 msgstr ""
 
 msgid "FileTransfer"
+msgstr ""
+
+msgid "HamRadio"
 msgstr ""
 
 msgid "InstantMessaging"
@@ -293,93 +356,6 @@ msgstr ""
 msgid "Science"
 msgstr ""
 
-msgid "Art"
-msgstr ""
-
-msgid "ArtificialIntelligence"
-msgstr ""
-
-msgid "Astronomy"
-msgstr ""
-
-msgid "Biology"
-msgstr ""
-
-msgid "Chemistry"
-msgstr ""
-
-msgid "ComputerScience"
-msgstr ""
-
-msgid "Construction"
-msgstr ""
-
-msgid "DataVisualization"
-msgstr ""
-
-msgid "Economy"
-msgstr ""
-
-msgid "Electricity"
-msgstr ""
-
-msgid "Electronics"
-msgstr ""
-
-msgid "Engineering"
-msgstr ""
-
-msgid "Geography"
-msgstr ""
-
-msgid "Geology"
-msgstr ""
-
-msgid "Geoscience"
-msgstr ""
-
-msgid "History"
-msgstr ""
-
-msgid "Humanities"
-msgstr ""
-
-msgid "ImageProcessing"
-msgstr ""
-
-msgid "Languages"
-msgstr ""
-
-msgid "Literature"
-msgstr ""
-
-msgid "Maps"
-msgstr ""
-
-msgid "Math"
-msgstr ""
-
-msgid "MedicalSoftware"
-msgstr ""
-
-msgid "NumericalAnalysis"
-msgstr ""
-
-msgid "ParallelComputing"
-msgstr ""
-
-msgid "Physics"
-msgstr ""
-
-msgid "Robotics"
-msgstr ""
-
-msgid "Spirituality"
-msgstr ""
-
-msgid "Sports"
-msgstr ""
-
 msgid "System"
 msgstr ""
 
@@ -399,6 +375,18 @@ msgid "Security"
 msgstr ""
 
 msgid "TerminalEmulator"
+msgstr ""
+
+msgid "Lliurex"
+msgstr ""
+
+msgid "Administration"
+msgstr ""
+
+msgid "Educational"
+msgstr ""
+
+msgid "Miscellaneous"
 msgstr ""
 
 msgid "Game"
@@ -446,6 +434,18 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
+msgid "AudioVideoEditing"
+msgstr ""
+
+msgid "DiscBurning"
+msgstr ""
+
+msgid "Player"
+msgstr ""
+
+msgid "Recorder"
+msgstr ""
+
 msgid "TV"
 msgstr ""
 
@@ -470,7 +470,19 @@ msgstr ""
 msgid "VectorGraphics"
 msgstr ""
 
-msgid "Education"
+msgid "Audio"
+msgstr ""
+
+msgid "Midi"
+msgstr ""
+
+msgid "Mixer"
+msgstr ""
+
+msgid "Sequencer"
+msgstr ""
+
+msgid "Tuner"
 msgstr ""
 
 msgid "Utility"

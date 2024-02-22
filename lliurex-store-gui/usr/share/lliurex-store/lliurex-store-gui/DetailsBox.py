@@ -628,7 +628,8 @@ class DetailsBox(Gtk.VBox):
 			zmd=self.core.main_window.current_pkg["name"].replace('.zomando','.zmd')
 			if zmd.endswith(".zmd")==False:
 				zmd="{}.zmd".format(zmd)
-			zmd=os.path.join("/usr/share/zero-center/zmds",zmd)
+			#zmd=os.path.join("/usr/share/zero-center/zmds",zmd)
+			zmd=self.core.main_window.current_pkg["bundle"]["zomando"]
 			cmd=[zmd]
 			if os.path.exists(zmd):
 				pkexec=False

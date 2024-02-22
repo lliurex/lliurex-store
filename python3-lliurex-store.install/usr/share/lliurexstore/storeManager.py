@@ -363,7 +363,7 @@ class StoreManager():
 						print("{}".format(e))
 						dataRebost=[]
 					if isinstance(dataRebost,list) and len(dataRebost)>0:
-						if os.path.isfile(dataRebost[0].get('epi')):
+						if os.path.isfile(dataRebost[0].get('epi','')):
 							cmd=["pkexec","/usr/share/rebost/helper/rebost-software-manager.sh",dataRebost[0].get('epi')]
 							pid=9999
 							status=0
@@ -382,6 +382,8 @@ class StoreManager():
 								if action=="remove":
 									status=-1*(status-1)
 							rebost.commitInstall(pkg,bundle,"{}".format(realstatus))
+						else:
+							status=-1
 					else:
 						status=-1
 					for item in dataRebost:
